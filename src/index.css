@@ -1,0 +1,30 @@
+@import "tailwindcss";
+
+:root {
+  color-scheme: dark;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  width: 100%;
+  min-height: 100%;
+  background: #0b0f14;
+  color: #ededed;
+}
+
+body {
+  font-family: "Alegreya Sans", sans-serif;
+  overflow-x: hidden;
+}
+
+::selection {
+  background: #186275;
+  color: white;
+}
