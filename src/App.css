@@ -1,152 +1,153 @@
 @import url("https://fonts.googleapis.com/css2?family=Alegreya+Sans:wght@300;400;500;600&family=Playfair+Display:wght@500;600;700&display=swap");
 
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
 }
 
 html,
 body,
-#root {
-    width: 100%;
-    height: 100%;
+#root{
+    width:100%;
+    height:100%;
 }
 
-body {
-    overflow: hidden;
-    background: #121820;
-    font-family: "Alegreya Sans", sans-serif;
+body{
+    overflow:hidden;
+    background:#121820;
+    font-family:"Alegreya Sans",sans-serif;
 }
 
-.app {
-    width: 100vw;
-    height: 100vh;
-    position: relative;
-    overflow: hidden;
-    background: #121820;
+.app{
+    width:100vw;
+    height:100vh;
+    position:relative;
+    overflow:hidden;
+    background:#121820;
 }
 
 /* Slight dark overlay */
 
-.app::after {
-    content: "";
-    position: absolute;
-    inset: 0;
+.app::after{
+    content:"";
+    position:absolute;
+    inset:0;
 
     background:
-        linear-gradient(180deg,
-            rgba(18, 24, 32, .15),
-            rgba(11, 15, 20, .55));
+    linear-gradient(
+        180deg,
+        rgba(18,24,32,.15),
+        rgba(11,15,20,.55)
+    );
 
-    pointer-events: none;
-    z-index: 1;
+    pointer-events:none;
+    z-index:1;
 }
 
 /* Light Rays */
 
-.light-rays-container {
-    position: absolute;
-    inset: 0;
-    z-index: 0;
+.light-rays-container{
+    position:absolute;
+    inset:0;
+    z-index:0;
 }
 
 /* Logo */
 
-.logo-link {
-    position: absolute;
-    top: 34px;
-    left: 42px;
-    z-index: 5;
+.logo-link{
+    position:absolute;
+    top:34px;
+    left:42px;
+    z-index:5;
 }
 
-.logo {
-    width: 64px;
-    height: 64px;
-    object-fit: contain;
-    opacity: .95;
+.logo{
+    width:64px;
+    height:64px;
+    object-fit:contain;
+    opacity:.95;
 }
 
 /* Domain */
 
-.domain {
+.domain{
 
-    position: absolute;
+    position:absolute;
 
-    top: 42px;
-    left: 50%;
+    top:42px;
+    left:50%;
 
-    transform: translateX(-50%);
+    transform:translateX(-50%);
 
-    z-index: 5;
+    z-index:5;
 
-    font-family: "Alegreya Sans", sans-serif;
-    font-weight: 500;
-    font-size: 24px;
+    font-family:"Alegreya Sans",sans-serif;
+    font-weight:500;
+    font-size:24px;
 
-    text-transform: uppercase;
+    text-transform:uppercase;
 
-    letter-spacing: .35em;
+    letter-spacing:.35em;
 
-    color: rgba(91, 119, 151, .75);
+    color:rgba(91,119,151,.75);
 
-    user-select: none;
+    user-select:none;
 
 }
 
 /* Hero */
 
-.hero {
+.hero{
 
-    position: absolute;
+    position:absolute;
 
-    top: 47%;
-    left: 50%;
+    top:47%;
+    left:50%;
 
-    transform: translate(-50%, -50%);
+    transform:translate(-50%,-50%);
 
-    z-index: 5;
+    z-index:5;
 
-    text-align: center;
+    text-align:center;
 
 }
 
-.hero h1 {
+.hero h1{
 
-    font-family: "Playfair Display", serif;
+    font-family:"Playfair Display",serif;
 
     font-size: clamp(3.5rem, 6vw, 5.5rem);
 
-    font-weight: 700;
+    font-weight:700;
 
-    color: #EDEDED;
+    color:#EDEDED;
 
-    letter-spacing: -0.03em;
+    letter-spacing:-0.03em;
 
-    line-height: .95;
+    line-height:.95;
 
-    user-select: none;
+    user-select:none;
 
 }
 
-.subtitle {
-    margin-top: 24px;
+.subtitle{
+    margin-top:24px;
 
-    max-width: 720px;
+    max-width:720px;
 
-    font-family: "Alegreya Sans", sans-serif;
+    font-family:"Alegreya Sans",sans-serif;
 
-    font-size: 17px;
+    font-size:22px;
 
-    font-weight: 400;
+    font-weight:400;
 
-    line-height: 1.8;
+    line-height:1.8;
 
-    color: #5B7797;
+    color:#5B7797;
 
-    text-align: center;
+    text-align:center;
 }
-
 /* Footer */
 
 .footer {
@@ -182,7 +183,7 @@ body {
 .crafted {
     position: absolute;
     left: 50%;
-
+    
 
     transform: translateX(-50%);
 
@@ -197,172 +198,52 @@ body {
 
 /* Responsive */
 
-@media(max-width:768px) {
+@media(max-width:768px){
 
-    .logo-link {
+.logo-link{
 
-        left: 22px;
-        top: 22px;
-
-    }
-
-    .logo {
-
-        width: 46px;
-        height: 46px;
-
-    }
-
-    .domain {
-
-        top: 26px;
-
-        font-size: 16px;
-
-        letter-spacing: .22em;
-
-    }
-
-    .hero {
-
-        top: 46%;
-
-    }
-
-    footer {
-
-        font-size: 13px;
-
-        bottom: 18px;
-
-    }
+left:22px;
+top:22px;
 
 }
 
-/* =============================================
-   Launch Button
-   ============================================= */
+.logo{
 
-.launch-btn {
-    position: relative;
+width:46px;
+height:46px;
 
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-
-    padding: 18px 56px;
-
-    background: transparent;
-    border: 1px solid rgba(164, 203, 235, 0.28);
-    border-radius: 24px;
-
-    cursor: pointer;
-    outline: none;
-
-    /* Subtle glass surface */
-    backdrop-filter: blur(6px);
-    -webkit-backdrop-filter: blur(6px);
-
-    /* Inner glow layer */
-    box-shadow:
-        inset 0 1px 0 rgba(164, 203, 235, 0.12),
-        0 0 32px rgba(24, 98, 117, 0.18),
-        0 4px 24px rgba(0, 0, 0, 0.45);
-
-    overflow: hidden;
-
-    /* Smooth all transitions */
-    transition:
-        border-color 280ms ease,
-        box-shadow 280ms ease,
-        transform 180ms ease;
-
-    -webkit-tap-highlight-color: transparent;
-    user-select: none;
 }
 
-/* Button label */
-.launch-btn__text {
-    position: relative;
-    z-index: 1;
+.domain{
 
-    font-family: "Alegreya Sans", sans-serif;
-    font-size: clamp(1.05rem, 2.2vw, 1.2rem);
-    font-weight: 500;
+top:26px;
 
-    letter-spacing: 0.28em;
-    text-transform: uppercase;
+font-size:16px;
 
-    color: rgba(237, 237, 237, 0.88);
+letter-spacing:.22em;
 
-    transition: color 280ms ease;
 }
 
-/* Shimmer sweep — animates on hover */
-.launch-btn__shimmer {
-    position: absolute;
-    inset: 0;
+.hero{
 
-    background: linear-gradient(105deg,
-            transparent 35%,
-            rgba(164, 203, 235, 0.09) 50%,
-            transparent 65%);
-    background-size: 220% 100%;
-    background-position: 100% 0;
+top:46%;
 
-    transition: background-position 560ms ease;
 }
 
-/* ---- Hover state ---- */
-.launch-btn:hover {
-    border-color: rgba(164, 203, 235, 0.52);
+.hero h1{
 
-    box-shadow:
-        inset 0 1px 0 rgba(164, 203, 235, 0.18),
-        0 0 48px rgba(24, 98, 117, 0.32),
-        0 6px 32px rgba(0, 0, 0, 0.5);
+font-size:clamp(3.2rem,13vw,4.8rem);
 
-    transform: translateY(-1px);
 }
 
-.launch-btn:hover .launch-btn__text {
-    color: rgba(237, 237, 237, 1);
+footer{
+
+font-size:13px;
+
+bottom:18px;
+
 }
 
-.launch-btn:hover .launch-btn__shimmer {
-    background-position: 0% 0;
-}
-
-/* ---- Active / press state ---- */
-.launch-btn:active {
-    transform: translateY(1px);
-
-    box-shadow:
-        inset 0 1px 0 rgba(164, 203, 235, 0.10),
-        0 0 20px rgba(24, 98, 117, 0.20),
-        0 2px 12px rgba(0, 0, 0, 0.5);
-
-    border-color: rgba(164, 203, 235, 0.38);
-
-    transition:
-        transform 80ms ease,
-        box-shadow 80ms ease;
-}
-
-/* ---- Focus-visible (keyboard nav) ---- */
-.launch-btn:focus-visible {
-    outline: 2px solid rgba(164, 203, 235, 0.55);
-    outline-offset: 4px;
-}
-
-/* ---- Reduced motion ---- */
-@media (prefers-reduced-motion: reduce) {
-
-    .launch-btn,
-    .launch-btn__text,
-    .launch-btn__shimmer {
-        transition: none;
-    }
 }
 
 /* ---------- Tablet ---------- */
