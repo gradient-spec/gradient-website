@@ -10,33 +10,78 @@ const stats = [
 ]
 
 const boardMembers = [
-    { name: 'Anusha', role: 'President', initials: 'A' },
-    { name: 'Pranathi', role: 'Vice President', initials: 'P' },
-    { name: 'Suraj', role: 'Secratery', initials: 'S' },
-    { name: 'Rakesh', role: 'Joint Secratery', initials: 'R' },
-]
-
-// 4 fixed positions: front (bottom), right, top (back), left
-// Cards rotate clockwise through these slots
-const SLOTS = [
-    { x: 0, y: 130, scale: 1.1, zIndex: 4 }, // front (bottom-center)
-    { x: 440, y: -40, scale: 0.75, zIndex: 2 }, // right
-    { x: 0, y: -180, scale: 0.65, zIndex: 1 }, // top (back)
-    { x: -440, y: -40, scale: 0.75, zIndex: 2 }, // left
+    {
+        name: 'Anusha',
+        role: 'President',
+        initials: 'A',
+        image: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=800&q=80',
+        bio: 'Leading technical strategy, club vision, and community growth.'
+    },
+    {
+        name: 'Pranathi',
+        role: 'Vice President',
+        initials: 'P',
+        image: 'https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&w=800&q=80',
+        bio: 'Directing club operations, events, and corporate relations.'
+    },
+    {
+        name: 'Suraj',
+        role: 'Secretary',
+        initials: 'S',
+        image: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=800&q=80',
+        bio: 'Managing project timelines, team coordination, and communications.'
+    },
+    {
+        name: 'Rakesh',
+        role: 'Joint Secretary',
+        initials: 'R',
+        image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=800&q=80',
+        bio: 'Overseeing member drives, workshop logistics, and onboarding.'
+    },
+    {
+        name: 'Arjun Mehta',
+        role: 'Tech Lead',
+        initials: 'AM',
+        image: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=800&q=80',
+        bio: 'Architecting open source projects and hackathon systems.'
+    },
+    {
+        name: 'Ananya Iyer',
+        role: 'Design Lead',
+        initials: 'AI',
+        image: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=800&q=80',
+        bio: 'Crafting UI design systems and aesthetic brand guidelines.'
+    }
 ]
 
 export default function Home() {
-    const [step, setStep] = useState(0)
+    const [activeIndex, setActiveIndex] = useState(0)
     const [isPaused, setIsPaused] = useState(false)
+    const [isMobile, setIsMobile] = useState(false)
 
-    // Auto-cycle every 3 seconds
+    useEffect(() => {
+        const checkMobile = () => setIsMobile(window.innerWidth <= 768)
+        checkMobile()
+        window.addEventListener('resize', checkMobile)
+        return () => window.removeEventListener('resize', checkMobile)
+    }, [])
+
+    // Auto-rotate 3D orbit every 3.5s
     useEffect(() => {
         if (isPaused) return
         const interval = setInterval(() => {
-            setStep(prev => prev + 1)
-        }, 3000)
+            setActiveIndex(prev => (prev + 1) % boardMembers.length)
+        }, 3500)
         return () => clearInterval(interval)
     }, [isPaused])
+
+    const handlePrev = () => {
+        setActiveIndex(prev => (prev - 1 + boardMembers.length) % boardMembers.length)
+    }
+
+    const handleNext = () => {
+        setActiveIndex(prev => (prev + 1) % boardMembers.length)
+    }
 
     return (
         <>
@@ -89,7 +134,7 @@ export default function Home() {
                 </div>
             </section>
 
-            {/* Current Board */}
+            {/* Current Board — 50° Tilted Invisible Orbit Carousel */}
             <section
                 className="section board-showcase"
                 style={{ background: 'var(--bg-secondary)' }}
@@ -103,38 +148,88 @@ export default function Home() {
                         </div>
                     </AnimatedSection>
                 </div>
+
                 <div
-                    className="carousel-stage"
+                    className="orbit-stage-container"
                     onMouseEnter={() => setIsPaused(true)}
                     onMouseLeave={() => setIsPaused(false)}
                 >
-                    {boardMembers.map((m, i) => {
-                        const slotIndex = ((i + step) % 4 + 4) % 4
-                        const slot = SLOTS[slotIndex]
-                        const isFront = slotIndex === 0
+                    <div className="orbit-stage">
+                        {boardMembers.map((m, i) => {
+                            const N = boardMembers.length;
+                            // Angle around orbit (phi)
+                            const angle = ((i - activeIndex) * (2 * Math.PI / N));
 
-                        return (
-                            <div
-                                key={i}
-                                className={`carousel-card ${isFront ? 'front-card' : 'back-card'}`}
-                                style={{
-                                    transform: `translate(${slot.x}px, ${slot.y}px) scale(${slot.scale})`,
-                                    zIndex: slot.zIndex,
-                                }}
-                            >
-                                <div className="portrait-image">
-                                    <div className="portrait-placeholder" />
-                                    <div className="portrait-initial">{m.initials}</div>
+                            // 50-degree perspective pitch geometry — wider card spacing
+                            const Rx = isMobile ? 140 : 440;
+                            const Ry = isMobile ? 60 : 130;
+                            const Rz = 300;
+
+                            const x = Math.sin(angle) * Rx;
+                            const y = -Math.cos(angle) * Ry + (Ry * 0.4);
+                            const z = Math.cos(angle) * Rz;
+
+                            // Normalized depth factor: 1 = front (closest), 0 = back (furthest)
+                            const depthFactor = (z + Rz) / (2 * Rz);
+                            const scale = 0.72 + (depthFactor * 0.43);
+                            const opacity = 0.45 + (depthFactor * 0.55);
+                            const zIndex = Math.round(depthFactor * 20) + 1;
+                            const blur = Math.max(0, (1 - depthFactor) * 4);
+                            const isFront = i === activeIndex;
+
+                            return (
+                                <div
+                                    key={i}
+                                    className={`orbit-card ${isFront ? 'front-card' : 'back-card'}`}
+                                    onClick={() => setActiveIndex(i)}
+                                    style={{
+                                        transform: `translate3d(${x}px, ${y}px, 0px) scale(${scale})`,
+                                        zIndex: zIndex,
+                                        opacity: opacity,
+                                        filter: `blur(${blur}px)`,
+                                    }}
+                                >
+                                    <div className="portrait-image">
+                                        <img src={m.image} alt={m.name} loading="lazy" />
+                                    </div>
+                                    <div className="portrait-overlay" />
+                                    <div className="portrait-info">
+                                        <div className="portrait-badge">{m.role}</div>
+                                        <h3 className="portrait-name">{m.name}</h3>
+                                        <p className="portrait-bio">{m.bio}</p>
+                                    </div>
                                 </div>
-                                <div className="portrait-overlay" />
-                                <div className="portrait-info">
-                                    <h3 className="portrait-name">{m.name}</h3>
-                                    <div className="portrait-divider" />
-                                    <span className="portrait-role">{m.role}</span>
-                                </div>
-                            </div>
-                        )
-                    })}
+                            )
+                        })}
+                    </div>
+
+                    {/* Orbit Navigation Controls */}
+                    <div className="orbit-controls">
+                        <button
+                            className="orbit-nav-btn prev"
+                            onClick={handlePrev}
+                            aria-label="Previous member"
+                        >
+                            ‹
+                        </button>
+                        <div className="orbit-dots">
+                            {boardMembers.map((_, i) => (
+                                <button
+                                    key={i}
+                                    className={`orbit-dot ${i === activeIndex ? 'active' : ''}`}
+                                    onClick={() => setActiveIndex(i)}
+                                    aria-label={`Go to board member ${i + 1}`}
+                                />
+                            ))}
+                        </div>
+                        <button
+                            className="orbit-nav-btn next"
+                            onClick={handleNext}
+                            aria-label="Next member"
+                        >
+                            ›
+                        </button>
+                    </div>
                 </div>
             </section>
 

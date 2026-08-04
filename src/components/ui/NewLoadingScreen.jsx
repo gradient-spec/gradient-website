@@ -60,18 +60,38 @@ export default function NewLoadingScreen({ onReveal, onComplete }) {
 
                     if (logoMarkRef.current) {
                         const splashRect = logoMarkRef.current.getBoundingClientRect();
+                        const targetEl = document.querySelector('.navbar-logo');
 
-                        // Morph towards top-left navbar logo position
-                        const isMobile = window.innerWidth <= 768;
-                        const targetLeft = isMobile ? 22 : 42;
-                        const targetTop = isMobile ? 22 : 34;
-                        const targetSize = isMobile ? 46 : 64;
+                        let targetCenterX, targetCenterY, targetHeight;
+
+                        if (targetEl) {
+                            const targetRect = targetEl.getBoundingClientRect();
+                            const navbarEl = targetEl.closest('.navbar');
+                            let topOffset = 0;
+
+                            if (navbarEl) {
+                                const style = window.getComputedStyle(navbarEl);
+                                if (style.transform && style.transform !== 'none') {
+                                    const matrix = new DOMMatrix(style.transform);
+                                    topOffset = matrix.m42 || 0;
+                                }
+                            }
+
+                            targetCenterX = targetRect.left + targetRect.width / 2;
+                            targetCenterY = (targetRect.top - topOffset) + targetRect.height / 2;
+                            targetHeight = targetRect.height || 33;
+                        } else {
+                            const isMobile = window.innerWidth <= 768;
+                            const containerEl = document.querySelector('.navbar .container');
+                            const containerLeft = containerEl ? containerEl.getBoundingClientRect().left : (isMobile ? 20 : 40);
+                            targetCenterX = containerLeft + 11;
+                            targetCenterY = isMobile ? 24 : 32;
+                            targetHeight = 33;
+                        }
 
                         const splashCenterX = splashRect.left + splashRect.width / 2;
                         const splashCenterY = splashRect.top + splashRect.height / 2;
-                        const targetCenterX = targetLeft + targetSize / 2;
-                        const targetCenterY = targetTop + targetSize / 2;
-                        const scale = targetSize / splashRect.height;
+                        const scale = targetHeight / splashRect.height;
 
                         const deltaX = targetCenterX - splashCenterX;
                         const deltaY = targetCenterY - splashCenterY;

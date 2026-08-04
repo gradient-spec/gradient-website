@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default function LogoSVG({ className = '', progress = 100 }) {
+export default function LogoSVG({ className = '', progress = 100, fill = '#D3D3D3' }) {
     // Y coordinate mapping: at 0% progress -> Y=420 (below logo), at 100% progress -> Y=0 (top of logo)
     const fillY = 420 - (progress / 100) * 420;
 

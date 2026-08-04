@@ -32,7 +32,7 @@ export default function App() {
                 />
             )}
 
-            <div className={isRevealed ? 'app-revealed' : 'app-hidden'}>
+            <div className={`${isRevealed ? 'app-revealed' : 'app-hidden'} ${isLoading ? 'is-loading' : ''}`}>
                 <ScrollToTop />
                 <Navbar />
                 <main>

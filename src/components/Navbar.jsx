@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import { Link, useLocation } from 'react-router-dom'
+import LogoSVG from './ui/LogoSVG'
 
 const navLinks = [
     { to: '/', label: 'Home' },
@@ -30,24 +31,7 @@ export default function Navbar() {
         <nav className={`navbar ${scrolled ? 'scrolled' : ''}`}>
             <div className="container">
                 <Link to="/" className="navbar-brand">
-                    <svg viewBox="0 0 200 300" className="navbar-logo">
-                        {/* Same path as loading screen SVG */}
-                        <path
-                            fill="url(#navbar-liquid-grad)"
-                            d="M100 275 C60 275, 25 240, 25 185 C25 130, 55 82, 90 48 Q100 36, 107 22 Q115 36, 122 48 C155 82, 185 130, 185 185 C185 240, 148 275, 100 275 Z"
-                        />
-                        <path
-                            fill="url(#navbar-liquid-grad)"
-                            d="M107 20 C106 12, 108 5, 110 3 C112 1, 114 9, 113 17 Q110 23, 107 20 Z"
-                        />
-                        <defs>
-                            <linearGradient id="navbar-liquid-grad" x1="0" y1="1" x2="0.3" y2="0">
-                                <stop offset="0%" stopColor="#4a90d9" />
-                                <stop offset="50%" stopColor="#6b78c4" />
-                                <stop offset="100%" stopColor="#7b5ea7" />
-                            </linearGradient>
-                        </defs>
-                    </svg>
+                    <LogoSVG className="navbar-logo" progress={100} />
                     Gradient<span>.</span>
                 </Link>
                 <div className={`navbar-links ${menuOpen ? 'open' : ''}`}>
