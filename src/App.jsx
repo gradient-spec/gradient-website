@@ -1,54 +1,53 @@
-import "./App.css";
-import LightRays from "./components/ui/LightRays";
-import logo from "./assets/images/club_logo.png";
+import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom'
+import { useEffect, useState } from 'react'
+import Navbar from './components/Navbar'
+import Footer from './components/Footer'
+import LoadingScreen from './components/LoadingScreen'
+import Home from './pages/Home'
+import About from './pages/About'
+import Events from './pages/Events'
+import Products from './pages/Products'
+import Achievements from './pages/Achievements'
+import Boards from './pages/Boards'
+import Contact from './pages/Contact'
+
+function ScrollToTop() {
+    const { pathname } = useLocation()
+    useEffect(() => {
+        window.scrollTo(0, 0)
+    }, [pathname])
+    return null
+}
 
 export default function App() {
-  return (
-    <div className="app">
-      <LightRays
-        raysOrigin="top-center"
-        raysColor="#7b8787"
-        raysSpeed={0.18}
-        lightSpread={0.85}
-        rayLength={2.5}
-        followMouse={true}
-        mouseInfluence={0.02}
-        noiseAmount={0.01}
-        distortion={0.01}
-        pulsating={false}
-        fadeDistance={1}
-        saturation={0.8}
-      />
+    const [isLoading, setIsLoading] = useState(true)
+    const [isRevealed, setIsRevealed] = useState(false)
 
-      <a href="/" className="logo-link">
-        <img
-          src={logo}
-          alt="Gradient Club"
-          className="logo"
-        />
-      </a>
+    return (
+        <BrowserRouter>
+            {isLoading && (
+                <LoadingScreen
+                    onReveal={() => setIsRevealed(true)}
+                    onComplete={() => setIsLoading(false)}
+                />
+            )}
 
-      <div className="domain">
-        GRADIENTCLUB.IN
-      </div>
-
-      <main className="hero">
-    <h1>Launching Soon</h1>
-
-    <p className="subtitle">
-        Crafted with Passion, Built with Innovation.
-    </p>
-</main>
-
-<footer className="footer">
-    <span className="copyright">
-        © 2026 · GradientClub.in
-    </span>
-
-    <span className="crafted">
-        Crafted by Gradient Club
-    </span>
-</footer>
-    </div>
-  );
+            <div className={isRevealed ? 'app-revealed' : 'app-hidden'}>
+                <ScrollToTop />
+                <Navbar />
+                <main>
+                    <Routes>
+                        <Route path="/" element={<Home />} />
+                        <Route path="/about" element={<About />} />
+                        <Route path="/events" element={<Events />} />
+                        <Route path="/products" element={<Products />} />
+                        <Route path="/achievements" element={<Achievements />} />
+                        <Route path="/boards" element={<Boards />} />
+                        <Route path="/contact" element={<Contact />} />
+                    </Routes>
+                </main>
+                <Footer />
+            </div>
+        </BrowserRouter>
+    )
 }
