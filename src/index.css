@@ -535,59 +535,9 @@ p {
 }
 
 /* ============================================================
-   LOADING SCREEN
+   LOADING SCREEN — styles moved to components/ui/LoadingScreen.css
    ============================================================ */
 
-/* Fullscreen overlay */
-.loading-screen {
-  position: fixed;
-  inset: 0;
-  z-index: 9999;
-  background: var(--bg-primary);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: opacity 0.7s ease;
-}
-
-.loading-screen.flyout {
-  opacity: 0;
-  pointer-events: none;
-}
-
-/* Logo wrapper — centred, animates between phases */
-.loading-logo-wrapper {
-  width: 180px;
-  opacity: 0;
-  transition:
-    opacity 0.4s ease,
-    transform 0.8s cubic-bezier(0.4, 0, 0.2, 1),
-    filter 0.5s ease;
-}
-
-/* Phase: fade in */
-.loading-logo-wrapper.fadein {
-  opacity: 1;
-}
-
-/* Phase: settle — glow */
-.loading-logo-wrapper.settle {
-  opacity: 1;
-  filter: drop-shadow(0 0 24px rgba(106, 130, 200, 0.35)) drop-shadow(0 0 60px rgba(74, 144, 217, 0.15));
-}
-
-/* Phase: flyout — scale down + translate to navbar */
-.loading-logo-wrapper.flyout {
-  opacity: 0;
-  transform: scale(0.15) translate(-2600%, -2200%);
-  filter: drop-shadow(0 0 8px rgba(106, 130, 200, 0.2));
-}
-
-.loading-logo-svg {
-  width: 100%;
-  height: auto;
-  display: block;
-}
 
 /* ---- App-level reveal animations ---- */
 .app-hidden .navbar,
