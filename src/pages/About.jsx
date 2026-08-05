@@ -31,7 +31,7 @@ export default function About() {
             <section className="section">
                 <div className="container">
                     <div className="grid-2">
-                        <AnimatedSection>
+                        <AnimatedSection direction="left">
                             <div className="card" style={{ padding: 'var(--sp-7)' }}>
                                 <h3 style={{ marginBottom: 'var(--sp-3)', color: 'var(--glow)' }}>Our Mission</h3>
                                 <p>
@@ -39,7 +39,7 @@ export default function About() {
                                 </p>
                             </div>
                         </AnimatedSection>
-                        <AnimatedSection delay={150}>
+                        <AnimatedSection delay={150} direction="right">
                             <div className="card" style={{ padding: 'var(--sp-7)' }}>
                                 <h3 style={{ marginBottom: 'var(--sp-3)', color: 'var(--glow)' }}>Our Vision</h3>
                                 <p>
@@ -61,7 +61,7 @@ export default function About() {
                             <p>The principles that guide everything we do.</p>
                         </div>
                     </AnimatedSection>
-                    <AnimatedSection delay={200}>
+                    <AnimatedSection delay={200} stagger>
                         <div className="grid-4">
                             {values.map((v, i) => (
                                 <div key={i} className="card value-card">

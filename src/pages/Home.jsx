@@ -121,10 +121,10 @@ export default function Home() {
             {/* Statistics */}
             <section className="section">
                 <div className="container">
-                    <AnimatedSection>
+                    <AnimatedSection stagger>
                         <div className="grid-4">
                             {stats.map((stat, i) => (
-                                <div key={i} className="card stat-card">
+                                <div key={i} className="card stat-card" style={{ '--stagger-index': i }}>
                                     <div className="stat-number">{stat.number}</div>
                                     <div className="stat-label">{stat.label}</div>
                                 </div>
@@ -242,7 +242,7 @@ export default function Home() {
                             <h2>Featured Event</h2>
                         </div>
                     </AnimatedSection>
-                    <AnimatedSection delay={200}>
+                    <AnimatedSection delay={200} direction="left">
                         <div className="card" style={{ maxWidth: '700px', margin: '0 auto', padding: 'var(--sp-7)' }}>
                             <div className="event-date">August 15, 2026</div>
                             <div className="event-tag">Hackathon</div>
@@ -266,7 +266,7 @@ export default function Home() {
                             <h2>Latest Achievement</h2>
                         </div>
                     </AnimatedSection>
-                    <AnimatedSection delay={200}>
+                    <AnimatedSection delay={200} direction="right">
                         <div className="card achievement-card" style={{ maxWidth: '500px', margin: '0 auto' }}>
                             <div className="achievement-icon">🏆</div>
                             <h3>National Hackathon Champions 2026</h3>
@@ -281,7 +281,7 @@ export default function Home() {
             {/* CTA */}
             <section className="cta-section" style={{ background: 'var(--bg-secondary)' }}>
                 <div className="container">
-                    <AnimatedSection>
+                    <AnimatedSection direction="fade">
                         <h2>Ready to Build Something Extraordinary?</h2>
                         <p>Join a community of passionate builders and make your mark on the future of technology.</p>
                         <div style={{ display: 'flex', gap: 'var(--sp-4)', justifyContent: 'center', flexWrap: 'wrap' }}>
