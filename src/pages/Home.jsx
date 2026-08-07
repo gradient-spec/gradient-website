@@ -106,11 +106,11 @@ export default function Home() {
             {/* What is Gradient */}
             <section className="section" style={{ background: 'var(--bg-secondary)' }}>
                 <div className="container">
-                    <AnimatedSection>
-                        <div className="section-heading">
+                    <AnimatedSection direction="scale">
+                        <div className="section-heading" style={{ maxWidth: '840px' }}>
                             <span className="section-label">About Us</span>
                             <h2>What is Gradient?</h2>
-                            <p>
+                            <p style={{ fontSize: 'clamp(1.2rem, 1.8vw, 1.5rem)', color: 'var(--text-primary)' }}>
                                 Gradient is a premier technical club dedicated to fostering innovation through hands-on projects, competitive programming, open-source contributions, and cutting-edge research. We believe in learning by building.
                             </p>
                         </div>
@@ -121,10 +121,10 @@ export default function Home() {
             {/* Statistics */}
             <section className="section">
                 <div className="container">
-                    <AnimatedSection stagger>
+                    <AnimatedSection stagger direction="up">
                         <div className="grid-4">
                             {stats.map((stat, i) => (
-                                <div key={i} className="card stat-card" style={{ '--stagger-index': i }}>
+                                <div key={i} className="stat-card" style={{ '--stagger-index': i }}>
                                     <div className="stat-number">{stat.number}</div>
                                     <div className="stat-label">{stat.label}</div>
                                 </div>
@@ -134,13 +134,13 @@ export default function Home() {
                 </div>
             </section>
 
-            {/* Current Board — 50° Tilted Invisible Orbit Carousel */}
+            {/* Current Board — 3D Perspective Carousel */}
             <section
                 className="section board-showcase"
                 style={{ background: 'var(--bg-secondary)' }}
             >
                 <div className="container">
-                    <AnimatedSection>
+                    <AnimatedSection direction="scale">
                         <div className="section-heading">
                             <span className="section-label">Leadership</span>
                             <h2>Current Board</h2>
@@ -157,10 +157,8 @@ export default function Home() {
                     <div className="orbit-stage">
                         {boardMembers.map((m, i) => {
                             const N = boardMembers.length;
-                            // Angle around orbit (phi)
                             const angle = ((i - activeIndex) * (2 * Math.PI / N));
 
-                            // 50-degree perspective pitch geometry — wider card spacing
                             const Rx = isMobile ? 140 : 440;
                             const Ry = isMobile ? 60 : 130;
                             const Rz = 300;
@@ -169,7 +167,6 @@ export default function Home() {
                             const y = -Math.cos(angle) * Ry + (Ry * 0.4);
                             const z = Math.cos(angle) * Rz;
 
-                            // Normalized depth factor: 1 = front (closest), 0 = back (furthest)
                             const depthFactor = (z + Rz) / (2 * Rz);
                             const scale = 0.72 + (depthFactor * 0.43);
                             const opacity = 0.45 + (depthFactor * 0.55);
@@ -236,50 +233,60 @@ export default function Home() {
             {/* Featured Event */}
             <section className="section">
                 <div className="container">
-                    <AnimatedSection>
-                        <div className="section-heading">
-                            <span className="section-label">Upcoming</span>
-                            <h2>Featured Event</h2>
-                        </div>
-                    </AnimatedSection>
-                    <AnimatedSection delay={200} direction="left">
-                        <div className="card" style={{ maxWidth: '700px', margin: '0 auto', padding: 'var(--sp-7)' }}>
-                            <div className="event-date">August 15, 2026</div>
-                            <div className="event-tag">Hackathon</div>
-                            <h3>GradientHacks 3.0</h3>
-                            <p style={{ marginBottom: 'var(--sp-5)' }}>
-                                Our flagship 48-hour hackathon bringing together 200+ developers, designers, and innovators to build the next big thing. Prizes worth ₹5,00,000.
-                            </p>
-                            <Link to="/events" className="btn btn-primary">Learn More</Link>
-                        </div>
-                    </AnimatedSection>
+                    <div className="grid-2" style={{ alignItems: 'center' }}>
+                        <AnimatedSection direction="left">
+                            <div className="section-heading" style={{ marginBottom: 0 }}>
+                                <span className="section-label">Upcoming</span>
+                                <h2>Featured Event</h2>
+                                <p style={{ marginTop: 'var(--sp-4)' }}>
+                                    Experience real-time collaboration, competitive problem solving, and intensive product incubation with Gradient.
+                                </p>
+                            </div>
+                        </AnimatedSection>
+                        <AnimatedSection delay={150} direction="scale">
+                            <div className="card event-card">
+                                <div className="event-date">August 15, 2026</div>
+                                <div className="event-tag">Hackathon</div>
+                                <h3>GradientHacks 3.0</h3>
+                                <p style={{ marginBottom: 'var(--sp-6)' }}>
+                                    Our flagship 48-hour hackathon bringing together 200+ developers, designers, and innovators to build the next big thing. Prizes worth ₹5,00,000.
+                                </p>
+                                <Link to="/events" className="btn btn-primary">Learn More</Link>
+                            </div>
+                        </AnimatedSection>
+                    </div>
                 </div>
             </section>
 
 
             {/* Latest Achievement */}
-            <section className="section">
+            <section className="section" style={{ background: 'var(--bg-secondary)' }}>
                 <div className="container">
-                    <AnimatedSection>
-                        <div className="section-heading">
-                            <span className="section-label">Recognition</span>
-                            <h2>Latest Achievement</h2>
-                        </div>
-                    </AnimatedSection>
-                    <AnimatedSection delay={200} direction="right">
-                        <div className="card achievement-card" style={{ maxWidth: '500px', margin: '0 auto' }}>
-                            <div className="achievement-icon">🏆</div>
-                            <h3>National Hackathon Champions 2026</h3>
-                            <p>
-                                Team Gradient secured first place at the National Collegiate Hackathon, competing against 500+ teams from across the country.
-                            </p>
-                        </div>
-                    </AnimatedSection>
+                    <div className="grid-2" style={{ alignItems: 'center' }}>
+                        <AnimatedSection delay={150} direction="scale">
+                            <div className="card achievement-card">
+                                <div className="achievement-icon">🏆</div>
+                                <h3>National Hackathon Champions 2026</h3>
+                                <p>
+                                    Team Gradient secured first place at the National Collegiate Hackathon, competing against 500+ teams from across the country.
+                                </p>
+                            </div>
+                        </AnimatedSection>
+                        <AnimatedSection direction="right">
+                            <div className="section-heading" style={{ marginBottom: 0 }}>
+                                <span className="section-label">Recognition</span>
+                                <h2>Latest Achievement</h2>
+                                <p style={{ marginTop: 'var(--sp-4)' }}>
+                                    Consistently pushing standard technical boundaries at top national and international stages.
+                                </p>
+                            </div>
+                        </AnimatedSection>
+                    </div>
                 </div>
             </section>
 
             {/* CTA */}
-            <section className="cta-section" style={{ background: 'var(--bg-secondary)' }}>
+            <section className="cta-section">
                 <div className="container">
                     <AnimatedSection direction="fade">
                         <h2>Ready to Build Something Extraordinary?</h2>

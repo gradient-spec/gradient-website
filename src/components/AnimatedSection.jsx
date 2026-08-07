@@ -5,6 +5,7 @@ const directionClass = {
     left: 'reveal-left',
     right: 'reveal-right',
     fade: 'reveal-fade',
+    scale: 'reveal-scale',
 }
 
 export default function AnimatedSection({ children, className = '', delay = 0, direction = 'up', stagger = false }) {
@@ -23,7 +24,7 @@ export default function AnimatedSection({ children, className = '', delay = 0, d
                     observer.unobserve(el)
                 }
             },
-            { threshold: 0.15 }
+            { threshold: 0.12 }
         )
 
         observer.observe(el)
@@ -49,3 +50,4 @@ export default function AnimatedSection({ children, className = '', delay = 0, d
         </div>
     )
 }
+
