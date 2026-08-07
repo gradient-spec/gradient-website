@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from 'react'
 import AnimatedSection from '../components/AnimatedSection'
+import EventStackSection from '../components/EventStackSection'
 import { Link } from 'react-router-dom'
 
 const stats = [
@@ -66,12 +67,12 @@ export default function Home() {
         return () => window.removeEventListener('resize', checkMobile)
     }, [])
 
-    // Auto-rotate 3D orbit every 3.5s
+    // Auto-rotate 3D orbit every 6s for a relaxed, visible transition
     useEffect(() => {
         if (isPaused) return
         const interval = setInterval(() => {
             setActiveIndex(prev => (prev + 1) % boardMembers.length)
-        }, 3500)
+        }, 6000)
         return () => clearInterval(interval)
     }, [isPaused])
 
@@ -101,6 +102,10 @@ export default function Home() {
                         <Link to="/about" className="btn btn-secondary btn-lg">Learn More</Link>
                     </div>
                 </div>
+                <div className="hero-scroll-hint">
+                    <span>Scroll</span>
+                    <div className="scroll-line"></div>
+                </div>
             </section>
 
             {/* What is Gradient */}
@@ -117,6 +122,9 @@ export default function Home() {
                     </AnimatedSection>
                 </div>
             </section>
+
+            {/* Thin section divider */}
+            <div style={{ width: '100%', height: '1px', background: 'linear-gradient(90deg, transparent 0%, var(--border) 20%, var(--border) 80%, transparent 100%)' }} />
 
             {/* Statistics */}
             <section className="section">
@@ -184,6 +192,7 @@ export default function Home() {
                                         zIndex: zIndex,
                                         opacity: opacity,
                                         filter: `blur(${blur}px)`,
+                                        transition: 'transform 2.2s cubic-bezier(0.34, 1.25, 0.64, 1), opacity 2.2s ease-in-out, filter 2.2s ease-in-out',
                                     }}
                                 >
                                     <div className="portrait-image">
@@ -230,33 +239,11 @@ export default function Home() {
                 </div>
             </section>
 
-            {/* Featured Event */}
-            <section className="section">
-                <div className="container">
-                    <div className="grid-2" style={{ alignItems: 'center' }}>
-                        <AnimatedSection direction="left">
-                            <div className="section-heading" style={{ marginBottom: 0 }}>
-                                <span className="section-label">Upcoming</span>
-                                <h2>Featured Event</h2>
-                                <p style={{ marginTop: 'var(--sp-4)' }}>
-                                    Experience real-time collaboration, competitive problem solving, and intensive product incubation with Gradient.
-                                </p>
-                            </div>
-                        </AnimatedSection>
-                        <AnimatedSection delay={150} direction="scale">
-                            <div className="card event-card">
-                                <div className="event-date">August 15, 2026</div>
-                                <div className="event-tag">Hackathon</div>
-                                <h3>GradientHacks 3.0</h3>
-                                <p style={{ marginBottom: 'var(--sp-6)' }}>
-                                    Our flagship 48-hour hackathon bringing together 200+ developers, designers, and innovators to build the next big thing. Prizes worth ₹5,00,000.
-                                </p>
-                                <Link to="/events" className="btn btn-primary">Learn More</Link>
-                            </div>
-                        </AnimatedSection>
-                    </div>
-                </div>
-            </section>
+            {/* Featured Events — Warm White Photo Stack Index Section */}
+            <EventStackSection />
+
+            {/* Thin section divider */}
+            <div style={{ width: '100%', height: '1px', background: 'linear-gradient(90deg, transparent 0%, var(--border) 20%, var(--border) 80%, transparent 100%)' }} />
 
 
             {/* Latest Achievement */}

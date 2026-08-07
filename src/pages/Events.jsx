@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import AnimatedSection from '../components/AnimatedSection'
+import EventStackSection from '../components/EventStackSection'
 
 const events = {
     upcoming: [
@@ -69,6 +70,9 @@ export default function Events() {
                     </AnimatedSection>
                 </div>
             </section>
+
+            {/* Warm White Featured Spotlight */}
+            <EventStackSection title="Featured Spotlight" label="Highlight Index" />
 
             {/* Gallery */}
             <section className="section" style={{ background: 'var(--bg-secondary)' }}>

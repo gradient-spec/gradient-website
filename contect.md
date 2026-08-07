@@ -1,17 +1,25 @@
-# Project Context & Change Log
+# Project Context — Gradient Club Website
 
-## Overview
-This document tracks changes made to the project per workspace rules.
+## Last Updated
+2026-08-07
 
-## Recent Changes
-- Initialized context tracking.
-- Created `Footer.jsx` component (`src/components/Footer.jsx`) matching the sleek dark reference image layout.
-- Updated `src/index.css` & `Footer.jsx` to render the exact `"gradient"` wordmark finish matching the zoomed-in `weave` reference screenshot.
-- Updated `.footer-giant-wordmark` in `src/index.css` to use `text-transform: uppercase`, `font-family: "PP Neue Montreal", sans-serif`, and `font-weight: 700`.
-- Reduced `font-size` clamp for `.footer-giant-wordmark` to `clamp(4rem, 14vw, 18rem)` to ensure the uppercase text does not get cut off by `overflow: hidden`.
-- Remodeled website UI/UX into ultra-luxurious, minimal, spacious godaylight-inspired aesthetic without changing content or removing any sections.
-- Overhauled design tokens in `src/index.css`: deep obsidian backgrounds (`#06080B`), subtle grain overlay, fine hairline borders, cubic-bezier inertia curves (`cubic-bezier(0.16, 1, 0.3, 1)`), and dramatic typographic hierarchy.
-- Updated `AnimatedSection.jsx` with scroll scale physics reveal transitions.
-- Recomposed `Home.jsx` layouts with left-aligned headers and asymmetric grid compositions.
-- Successfully verified build via `npm run build`.
+## Project Overview
+Premium, minimal, tech-focused website for the Gradient technical club.
 
+## Current Phase
+UI/UX Fix — Rewrote card stack animation using pure CSS classes.
+
+## Card Stack Fix — Third Attempt
+### Root Causes Fixed
+1. **Inline style transitions are unreliable in React**: Replaced all inline `style={{ transition: ... }}` with CSS class-driven transitions (`.psc` base class with `transition` property).
+2. **`prefers-reduced-motion` was killing transitions**: The global `*` selector with `transition-duration: 0.01ms !important` was overriding card transitions even when not needed. Added `:not(.psc)` exclusion.
+
+### New Architecture
+- Cards use CSS class `.psc` (Physical Stack Card) with transitions defined at the CSS level
+- Position classes: `.stack-top`, `.stack-second`, `.stack-third`, `.stack-hidden`
+- Deal animation class: `.dealing-out` (slides card to left with `!important` override)
+- React only swaps class names — CSS handles all animation
+- Cards rendered in fixed DOM order via `items.map()` — React never unmounts/remounts
+
+## Build Verification
+- Production build confirmed successful (`npm run build`)
