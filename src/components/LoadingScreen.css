@@ -1,0 +1,120 @@
+/* ==========================================================================
+   GRADIENT CLUB - #11161C SPLASH SCREEN & LOGO FILL ANIMATION
+   ========================================================================== */
+
+.splash-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #11161c;
+  transition: background-color 1s cubic-bezier(0.16, 1, 0.3, 1);
+  overflow: hidden;
+  user-select: none;
+  font-family: "Alegreya Sans", -apple-system, sans-serif;
+}
+
+.splash-overlay.is-morphing {
+  background-color: transparent !important;
+  pointer-events: none;
+}
+
+.splash-center {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 24px;
+}
+
+/* Center Logo Mark Box (Morphs to 64px x 64px in top-left) */
+.splash-logo-mark-box {
+  position: relative;
+  width: 210px;
+  height: 288px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transform-origin: center center;
+  will-change: transform;
+}
+
+.logo-svg-wrapper {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Clean SVG without background shimmer pulses */
+.animated-logo-svg {
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  filter: drop-shadow(0 0 20px rgba(0, 0, 0, 0.4));
+}
+
+/* Attached Brand Text + Percentage Block (Fades / scales out independently) */
+.splash-brand-text-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  transition: opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.splash-brand-text-wrapper.fade-out {
+  opacity: 0 !important;
+  transform: translateY(16px) scale(0.9);
+  pointer-events: none;
+}
+
+.brand-text-block {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.brand-title {
+  font-family: "Geist", "Alegreya Sans", sans-serif;
+  font-size: 34px;
+  font-weight: 800;
+  color: #ffffff;
+  letter-spacing: 0.18em;
+  line-height: 1;
+  text-transform: uppercase;
+  margin: 0;
+}
+
+.brand-subtitle {
+  font-family: "JetBrains Mono", "Alegreya Sans", monospace;
+  font-size: 11px;
+  font-weight: 500;
+  color: #d3d3d3;
+  letter-spacing: 0.32em;
+  line-height: 1;
+  text-transform: uppercase;
+  margin-top: 8px;
+}
+
+.splash-percentage-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 4px;
+}
+
+.splash-percentage {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-size: 14px;
+  font-weight: 600;
+  color: #8295b0;
+  letter-spacing: 0.08em;
+  font-variant-numeric: tabular-nums;
+}
