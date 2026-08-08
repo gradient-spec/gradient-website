@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import AnimatedSection from '../components/AnimatedSection';
-import { ArrowRight } from 'lucide-react';
+import { ArrowRight, Image as ImageIcon } from 'lucide-react';
 import './Home.css';
 
 const Home = () => {
@@ -149,6 +149,41 @@ const Home = () => {
                 <p className="event-desc">An AI-Technical Fest celebrating AI Appreciation Day. Features Idea Pitches, Cognitive Canvas, Neuro Debugg, and more.</p>
               </Link>
             </div>
+          </AnimatedSection>
+        </div>
+      </section>
+
+      {/* Gallery Section */}
+      <section className="gallery-section section-padding">
+        <div className="container">
+          <AnimatedSection className="text-center mb-6">
+            <h2 className="title-medium uppercase">Event Gallery</h2>
+            <p className="subtitle-text">Glimpses of innovation, teamwork, and our amazing community.</p>
+          </AnimatedSection>
+          
+          <div className="home-gallery-grid mt-6">
+            {[1, 2, 3, 4, 5, 6].map((item) => (
+              <AnimatedSection key={item} delay={`delay-${item * 100}`} className="home-gallery-item">
+                <div className="home-gallery-placeholder hover-trigger">
+                  <ImageIcon size={48} opacity={0.2} />
+                  <span>Gallery Image {item}</span>
+                </div>
+              </AnimatedSection>
+            ))}
+          </div>
+        </div>
+      </section>
+      {/* Call to Action Section */}
+      <section className="cta-section section-padding">
+        <div className="container">
+          <AnimatedSection className="cta-content text-center">
+            <h2 className="title-large uppercase">Join the Future</h2>
+            <p className="cta-desc">
+              Be a part of the most active tech community on campus. Let's build something amazing together.
+            </p>
+            <Link to="/contact" className="btn-primary mt-6">
+              Become a Member
+            </Link>
           </AnimatedSection>
         </div>
       </section>

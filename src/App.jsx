@@ -4,7 +4,8 @@ import Layout from './components/Layout';
 import Home from './pages/Home';
 import About from './pages/About';
 import Events from './pages/Events';
-import Board from './pages/Board';
+import Boards from './pages/Boards';
+import Products from './pages/Products';
 import Contact from './pages/Contact';
 
 function App() {
@@ -15,7 +16,8 @@ function App() {
           <Route index element={<Home />} />
           <Route path="about" element={<About />} />
           <Route path="events" element={<Events />} />
-          <Route path="board" element={<Board />} />
+          <Route path="products" element={<Products />} />
+          <Route path="boards" element={<Boards />} />
           <Route path="contact" element={<Contact />} />
         </Route>
       </Routes>

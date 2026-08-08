@@ -1,110 +1,181 @@
-.featured-event-large {
-  background: linear-gradient(145deg, #111 0%, #050505 100%);
-  border: 1px solid var(--accent-color);
-  border-radius: 2rem;
-  padding: 4rem;
-  margin-bottom: 6rem;
-  position: relative;
-  overflow: hidden;
+.events-page {
+  width: 100%;
 }
 
-.featured-event-large::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  right: 0;
-  width: 50%;
-  height: 100%;
-  background: radial-gradient(circle at right, rgba(187, 152, 77, 0.1) 0%, transparent 70%);
-  pointer-events: none;
+.section-title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-bottom: 3rem;
+  letter-spacing: -0.02em;
+}
+
+.featured-event-large {
+  background: linear-gradient(145deg, #111, #0a0a0a);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  overflow: hidden;
+  position: relative;
+  transition: transform 0.3s ease, border-color 0.3s ease;
+}
+
+.featured-event-large:hover {
+  transform: translateY(-5px);
+  border-color: var(--accent-color);
+}
+
+.fel-content {
+  padding: 3rem;
+}
+
+.event-badge {
+  display: inline-block;
+  padding: 0.25rem 0.75rem;
+  background-color: rgba(187, 152, 77, 0.2);
+  color: var(--accent-color);
+  font-size: 0.875rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  border-radius: 4px;
+  margin-bottom: 1rem;
 }
 
 .fel-title {
-  font-size: clamp(2.5rem, 5vw, 4rem);
-  margin-bottom: 1rem;
+  font-size: 3rem;
   font-weight: 900;
+  letter-spacing: -0.02em;
+  margin-bottom: 1rem;
+  color: #fff;
 }
 
 .fel-desc {
-  font-size: 1.25rem;
+  font-size: 1.125rem;
   color: var(--text-secondary);
   max-width: 800px;
   margin-bottom: 2rem;
+  line-height: 1.6;
 }
 
 .fel-meta {
   display: flex;
-  gap: 2rem;
-  margin-bottom: 3rem;
   flex-wrap: wrap;
+  gap: 2rem;
+  margin-bottom: 2rem;
+  padding-bottom: 2rem;
+  border-bottom: 1px solid var(--border-color);
 }
 
 .meta-item {
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  color: var(--accent-color);
+  color: #ddd;
   font-weight: 500;
+}
+
+.meta-item svg {
+  color: var(--accent-color);
 }
 
 .fel-tracks h4 {
   font-size: 1.25rem;
   margin-bottom: 1rem;
+  color: #fff;
 }
 
 .fel-tracks ul {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 1rem;
-  margin-bottom: 3rem;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 0.5rem;
 }
 
 .fel-tracks li {
-  padding: 1rem;
-  background-color: rgba(255, 255, 255, 0.03);
-  border-radius: 0.5rem;
-  border: 1px solid var(--border-color);
   color: var(--text-secondary);
+  position: relative;
+  padding-left: 1.5rem;
+}
+
+.fel-tracks li::before {
+  content: '→';
+  position: absolute;
+  left: 0;
+  color: var(--accent-color);
 }
 
 .events-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   gap: 2rem;
 }
 
-.event-item {
-  padding: 3rem 2rem;
-  background-color: #050505;
-  border-radius: 1rem;
+.event-card-small {
+  background-color: #0a0a0a;
   border: 1px solid var(--border-color);
-  transition: all 0.3s ease;
+  padding: 2rem;
+  border-radius: 8px;
+  transition: transform 0.3s ease;
 }
 
-.event-item:hover {
-  border-color: var(--accent-color);
+.event-card-small.border-accent {
+  border-color: rgba(187, 152, 77, 0.3);
+}
+
+.event-card-small:hover {
   transform: translateY(-5px);
 }
 
-.event-item h4 {
+.event-date-small {
+  color: var(--accent-color);
+  font-size: 0.875rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  margin-bottom: 0.5rem;
+  display: block;
+}
+
+.event-card-small h4 {
   font-size: 1.5rem;
+  color: #fff;
   margin-bottom: 1rem;
 }
 
-.event-item p {
+.event-card-small p {
   color: var(--text-secondary);
-  line-height: 1.6;
+  line-height: 1.5;
 }
 
-@media (max-width: 992px) {
-  .featured-event-large {
-    padding: 2.5rem;
-  }
-  
-  .events-grid {
-    grid-template-columns: 1fr;
-  }
-  
+/* Gallery */
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1.5rem;
+}
+
+.gallery-item {
+  width: 100%;
+  aspect-ratio: 4/3;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.gallery-placeholder {
+  width: 100%;
+  height: 100%;
+  background-color: #111;
+  border: 1px dashed var(--border-color);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-secondary);
+  gap: 1rem;
+  transition: background-color 0.3s ease;
+}
+
+.gallery-placeholder:hover {
+  background-color: #1a1a1a;
+}
+
+@media (max-width: 768px) {
   .fel-meta {
     flex-direction: column;
     gap: 1rem;

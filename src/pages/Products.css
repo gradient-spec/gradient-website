@@ -1,0 +1,131 @@
+.products-page {
+  width: 100%;
+}
+
+.projects-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 2rem;
+}
+
+.project-card {
+  background-color: #0a0a0a;
+  border: 1px solid var(--border-color);
+  padding: 3rem;
+  border-radius: 12px;
+  transition: transform 0.3s ease, border-color 0.3s ease;
+}
+
+.project-card:hover {
+  transform: translateY(-5px);
+  border-color: var(--accent-color);
+}
+
+.project-icon {
+  color: var(--accent-color);
+  margin-bottom: 1.5rem;
+}
+
+.project-card h3 {
+  font-size: 1.75rem;
+  margin-bottom: 1rem;
+  color: #fff;
+}
+
+.project-card p {
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+
+.project-card-small {
+  background-color: #111;
+  border: 1px solid var(--border-color);
+  padding: 2rem;
+  border-radius: 8px;
+  transition: transform 0.3s ease;
+}
+
+.project-card-small.border-accent:hover {
+  border-color: rgba(187, 152, 77, 0.5);
+  transform: translateY(-3px);
+}
+
+.project-card-small h4 {
+  font-size: 1.25rem;
+  margin-bottom: 0.75rem;
+  color: #fff;
+}
+
+.project-card-small p {
+  color: var(--text-secondary);
+}
+
+.btn-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--accent-color);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-size: 0.875rem;
+}
+
+.btn-link:hover {
+  opacity: 0.8;
+}
+
+.opensource-banner {
+  background: linear-gradient(145deg, #111, #050505);
+  border: 1px solid var(--border-color);
+  padding: 4rem 2rem;
+  border-radius: 12px;
+}
+
+.opensource-banner h3 {
+  font-size: 2.5rem;
+}
+
+.research-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  max-width: 900px;
+}
+
+.research-item {
+  display: flex;
+  gap: 1.5rem;
+  background-color: #0a0a0a;
+  padding: 2rem;
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+}
+
+.research-icon {
+  flex-shrink: 0;
+  width: 50px;
+  height: 50px;
+  background-color: rgba(187, 152, 77, 0.1);
+  color: var(--accent-color);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+}
+
+.research-content h4 {
+  font-size: 1.5rem;
+  margin-bottom: 0.5rem;
+  color: #fff;
+}
+
+.research-content p {
+  color: var(--text-secondary);
+}
+
+@media (max-width: 768px) {
+  .research-item {
+    flex-direction: column;
+  }
+}
