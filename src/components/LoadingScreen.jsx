@@ -1,135 +1,73 @@
-import React, { useState, useEffect, useRef } from 'react';
-import LogoSVG from './LogoSVG';
+import React, { useState, useEffect } from 'react';
 import './LoadingScreen.css';
 
-export default function LoadingScreen({ onComplete, targetLogoRef }) {
-  const [progress, setProgress] = useState(0);
-  const [phase, setPhase] = useState('loading'); // 'loading' | 'morphing' | 'complete'
+export default function LoadingScreen({ onComplete }) {
+  const [phase, setPhase] = useState('initial'); // 'initial' | 'gradient-in' | 'club-in' | 'glow' | 'fade-out'
   const [isFinished, setIsFinished] = useState(false);
 
-  const splashContainerRef = useRef(null);
-  const logoMarkRef = useRef(null);
-
   useEffect(() => {
-    setProgress(0);
-    setPhase('loading');
-    setIsFinished(false);
+    // Phase 1: Show "Gradient" text with fade in
+    const t1 = setTimeout(() => setPhase('gradient-in'), 300);
 
-    if (logoMarkRef.current) {
-      logoMarkRef.current.style.transform = 'none';
-      logoMarkRef.current.style.transition = 'none';
-    }
+    // Phase 2: Slide "Club" out from inside "Gradient"
+    const t2 = setTimeout(() => setPhase('club-in'), 1200);
 
-    let animationFrame;
-    let startTime = null;
-    const duration = 2100; // 2.1s smooth continuous loading timeline
+    // Phase 3: Golden glow burst from divider
+    const t3 = setTimeout(() => setPhase('glow'), 2000);
 
-    const animateProgress = (timestamp) => {
-      if (!startTime) startTime = timestamp;
-      const elapsed = timestamp - startTime;
-      const t = Math.min(elapsed / duration, 1);
+    // Phase 4: Fade out and complete
+    const t4 = setTimeout(() => setPhase('fade-out'), 3200);
 
-      // Smooth organic velocity curve: continuous motion from 0 to 100 without stutter or freezing
-      let rawProgress;
-      if (t < 0.82) {
-        const subT = t / 0.82;
-        rawProgress = (1 - Math.pow(1 - subT, 2.2)) * 0.95;
-      } else {
-        const subT = (t - 0.82) / 0.18;
-        rawProgress = 0.95 + subT * 0.05;
-      }
-
-      const currentCount = Math.min(100, Math.floor(rawProgress * 100));
-      setProgress(currentCount);
-
-      if (t < 1) {
-        animationFrame = requestAnimationFrame(animateProgress);
-      } else {
-        setProgress(100);
-
-        // Hold briefly at 100% full, then trigger morph transition
-        setTimeout(() => {
-          setPhase('morphing');
-
-          if (logoMarkRef.current) {
-            const splashRect = logoMarkRef.current.getBoundingClientRect();
-            let targetRect = null;
-
-            if (targetLogoRef?.current) {
-              targetRect = targetLogoRef.current.getBoundingClientRect();
-            }
-
-            const splashCenterX = splashRect.left + splashRect.width / 2;
-            const splashCenterY = splashRect.top + splashRect.height / 2;
-
-            let targetCenterX, targetCenterY, scale;
-
-            if (targetRect && targetRect.width > 0 && targetRect.top < window.innerHeight / 2) {
-              targetCenterX = targetRect.left + targetRect.width / 2;
-              targetCenterY = targetRect.top + targetRect.height / 2;
-              scale = targetRect.height / splashRect.height;
-            } else {
-              const isMobile = window.innerWidth <= 768;
-              const targetLeft = isMobile ? 22 : 42;
-              const targetTop = isMobile ? 22 : 34;
-              const targetSize = isMobile ? 46 : 64;
-
-              targetCenterX = targetLeft + targetSize / 2;
-              targetCenterY = targetTop + targetSize / 2;
-              scale = targetSize / splashRect.height;
-            }
-
-            const deltaX = targetCenterX - splashCenterX;
-            const deltaY = targetCenterY - splashCenterY;
-
-            logoMarkRef.current.style.transition = 'transform 1s cubic-bezier(0.16, 1, 0.3, 1)';
-            logoMarkRef.current.style.transform = `translate(${deltaX}px, ${deltaY}px) scale(${scale})`;
-          }
-
-          // Complete transition and reveal website header
-          setTimeout(() => {
-            setPhase('complete');
-            setIsFinished(true);
-            if (onComplete) onComplete();
-          }, 1000);
-        }, 180);
-      }
-    };
-
-    animationFrame = requestAnimationFrame(animateProgress);
+    // Phase 5: Remove from DOM
+    const t5 = setTimeout(() => {
+      setIsFinished(true);
+      if (onComplete) onComplete();
+    }, 4000);
 
     return () => {
-      if (animationFrame) cancelAnimationFrame(animationFrame);
+      clearTimeout(t1);
+      clearTimeout(t2);
+      clearTimeout(t3);
+      clearTimeout(t4);
+      clearTimeout(t5);
     };
-  }, []);
+  }, [onComplete]);
 
-  if (isFinished) {
-    return null;
-  }
+  if (isFinished) return null;
 
   return (
-    <div
-      ref={splashContainerRef}
-      className={`splash-overlay ${phase === 'morphing' || phase === 'complete' ? 'is-morphing' : ''}`}
-    >
-      <div className="splash-center">
-        {/* Center Logo Mark Filling with #D3D3D3 as Progress Bar */}
-        <div ref={logoMarkRef} className="splash-logo-mark-box">
-          <LogoSVG progress={progress} />
+    <div className={`loading-overlay ${phase === 'fade-out' ? 'is-fading' : ''}`}>
+      {/* Subtle grid background */}
+      <div className="loading-grid-bg"></div>
+
+      {/* Main pill container */}
+      <div className="loading-pill">
+        {/* "Gradient" text - left side */}
+        <div className={`loading-word loading-gradient-word ${
+          phase === 'gradient-in' || phase === 'club-in' || phase === 'glow' || phase === 'fade-out' ? 'visible' : ''
+        }`}>
+          Gradient
         </div>
 
-        {/* Brand Text + Progress Counter */}
-        <div className={`splash-brand-text-wrapper ${phase !== 'loading' ? 'fade-out' : ''}`}>
-          <div className="brand-text-block">
-            <h2 className="brand-title">GRADIENT</h2>
-            <p className="brand-subtitle">Ideas ARE AUTOMATED</p>
-          </div>
+        {/* Golden divider line */}
+        <div className={`loading-divider ${
+          phase === 'club-in' || phase === 'glow' || phase === 'fade-out' ? 'visible' : ''
+        }`}>
+          <div className="divider-line"></div>
+          {/* Glow effect on the divider */}
+          <div className={`divider-glow ${phase === 'glow' || phase === 'fade-out' ? 'active' : ''}`}></div>
+        </div>
 
-          <div className="splash-percentage-row">
-            <span className="splash-percentage">{progress}%</span>
-          </div>
+        {/* "Club" text - slides out from inside Gradient */}
+        <div className={`loading-club-wrapper ${
+          phase === 'club-in' || phase === 'glow' || phase === 'fade-out' ? 'visible' : ''
+        }`}>
+          <span className="loading-club-word">Club</span>
         </div>
       </div>
+
+      {/* Comet / light streak */}
+      <div className={`loading-light-streak ${phase === 'glow' || phase === 'fade-out' ? 'active' : ''}`}></div>
     </div>
   );
 }

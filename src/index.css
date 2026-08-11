@@ -20,6 +20,7 @@
 
 html {
   font-size: 90%;
+  overflow-x: hidden;
 }
 
 html.lenis, html.lenis body {
@@ -44,6 +45,8 @@ body {
   font-family: var(--font-family);
   line-height: 1.5;
   overflow-x: hidden;
+  max-width: 100vw;
+  position: relative;
   -webkit-font-smoothing: antialiased;
 }
 
@@ -89,10 +92,9 @@ h1, h2, h3, h4, h5, h6 {
 
 /* Utility */
 .container {
-  width: 100%;
-  max-width: 1400px;
+  width: 92%;
+  max-width: 1600px;
   margin: 0 auto;
-  padding: 0 2rem;
 }
 
 .section-padding {
