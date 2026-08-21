@@ -1,0 +1,92 @@
+/**
+ * ============================================================
+ * GRADIENT TYPOGRAPHY SYSTEM
+ * ============================================================
+ *
+ * Centralized typography utilities based on Gradient Design Spec.
+ * Uses font variables defined in tokens.css.
+ * ============================================================
+ */
+
+/* Display Typography (Playfair Display) */
+.text-display {
+  font-family: var(--font-display);
+  font-size: var(--font-size-4xl);
+  font-weight: var(--font-weight-bold);
+  line-height: var(--line-height-tight);
+  letter-spacing: var(--letter-spacing-tight);
+}
+
+.text-display-italic {
+  font-family: var(--font-display);
+  font-size: inherit; /* Inherits from parent, typically .text-display */
+  font-style: italic;
+  font-weight: inherit;
+}
+
+/* Headings (Playfair Display) */
+.text-heading {
+  font-family: var(--font-display);
+  font-size: var(--font-size-3xl);
+  font-weight: var(--font-weight-semibold);
+  line-height: var(--line-height-tight);
+  letter-spacing: var(--letter-spacing-tight);
+}
+
+/* Subheadings (Source Sans 3) */
+.text-subheading {
+  font-family: var(--font-body);
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-medium);
+  line-height: var(--line-height-base);
+  letter-spacing: var(--letter-spacing-normal);
+}
+
+/* Body (Source Sans 3) */
+.text-body {
+  font-family: var(--font-body);
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-regular);
+  line-height: var(--line-height-base);
+  letter-spacing: var(--letter-spacing-normal);
+}
+
+.text-body-small {
+  font-family: var(--font-body);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-regular);
+  line-height: var(--line-height-base);
+  letter-spacing: var(--letter-spacing-normal);
+}
+
+/* Label (Source Sans 3) */
+.text-label {
+  font-family: var(--font-body);
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-semibold);
+  text-transform: uppercase;
+  letter-spacing: var(--letter-spacing-wide);
+  line-height: var(--line-height-tight);
+}
+
+/* Metadata & Technical (Geist Mono) */
+.text-metadata {
+  font-family: var(--font-mono);
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-regular);
+  line-height: var(--line-height-tight);
+  letter-spacing: var(--letter-spacing-normal);
+}
+
+.text-technical {
+  font-family: var(--font-mono);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  line-height: var(--line-height-tight);
+  letter-spacing: var(--letter-spacing-tight);
+}
+
+/* Development Placeholder */
+.dev-placeholder {
+  opacity: 0.6;
+}

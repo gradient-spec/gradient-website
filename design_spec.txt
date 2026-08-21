@@ -1,0 +1,572 @@
+GRADIENT
+
+Design & Experience Specification
+
+Consolidated source of truth before Antigravity implementation
+
+SOURCE OF TRUTH  Version 1.0 — consolidated decisions
+
+This document consolidates the design, visual, motion, content, accessibility, performance, and page-architecture decisions finalized during the Gradient website planning process.
+
+Document Rules
+
+LOCKED decisions must not be changed during implementation without an explicit new decision.
+
+DEFERRED decisions are intentionally unresolved and must not be invented.
+
+CONTEXTUAL decisions may vary by page while remaining inside the global system.
+
+Do not add pages, sections, features, colors, fonts, animations, or content that were not specified.
+
+When a required detail is missing, report the ambiguity rather than silently inventing a solution.
+
+Previously rejected geometry from the Gradient Bible must not be imported.
+
+01 — Brand Foundation
+
+LOCKED  Gradient is a college technical club focused on technology, building, experimentation, learning, and community.
+
+Premium, futuristic, technical, atmospheric, story-driven, performance-first.
+
+Technical + human + premium balance.
+
+Innovation, credibility, and craftsmanship through clarity and restraint.
+
+Gradient should feel like Gradient, not an imitation of another product or design system.
+
+Simplicity over complexity.
+
+Motion with purpose.
+
+Consistent spacing.
+
+High readability.
+
+Accessibility first.
+
+Smooth interactions.
+
+Scalable component system.
+
+Performance-first implementation.
+
+Everything feels connected.
+
+The experience is effortless.
+
+Typography, color, and geometry are the three strongest global identity systems.
+
+The Gradient logo is a recurring visual anchor and recognition element.
+
+02 — Color System
+
+LOCKED  Overall direction: lighter-side, premium, technical, modern, restrained.
+
+LOCKED  Brand accent: #960E29
+
+LOCKED  No gradients.
+
+Move away from black + neon technical-club aesthetics.
+
+Use light/neutral territory as the primary foundation.
+
+Use #960E29 intentionally for primary actions, active states, important indicators, and key highlights.
+
+Avoid neon glow, excessive accent usage, rainbow treatments, and gradient backgrounds.
+
+Use light/neutral surfaces, subtle borders, and restrained shadows.
+
+The palette must work with unpredictable real photography without requiring universal color grading.
+
+Color must not be the only state/status indicator.
+
+Deferred
+
+Complete accent state table
+
+Dark-mode palette
+
+Additional color tokens not explicitly finalized
+
+03 — Typography System
+
+LOCKED  Playfair Display — display/title typeface.
+
+LOCKED  Playfair Display Italic — selective editorial emphasis.
+
+LOCKED  Source Sans 3 — body/interface.
+
+LOCKED  Geist Mono — technical/metadata.
+
+Playfair Display: page titles, hero typography, major headings, editorial statements.
+
+Playfair Display Italic: selective emphasis of a word or phrase; not a general heading style.
+
+Source Sans 3: body copy, descriptions, forms, general interface text.
+
+Geist Mono: technical metadata, dates, labels, system information, project technologies where appropriate.
+
+Typography is a primary global identity system.
+
+Hierarchy should primarily come from typeface, size, weight, spacing, and placement.
+
+Major typography can receive transformational motion; body text stays restrained.
+
+Typography must handle unpredictable content lengths gracefully.
+
+04 — Layout + Golden Ratio
+
+LOCKED  Golden Ratio (φ ≈ 1.618) is a compositional tool, not a mathematical requirement visible to users.
+
+LOCKED  12-column desktop grid.
+
+LOCKED  1200–1400px desktop maximum content width.
+
+LOCKED  96–128px baseline vertical section padding.
+
+LOCKED  24–32px baseline card gaps.
+
+Use Golden Ratio relationships within the grid for typography, image/text proportions, columns, featured compositions, and spacing where useful.
+
+Do not force every dimension to exactly follow 1.618.
+
+Intentional asymmetry is allowed, but remains controlled by the grid.
+
+Whitespace is an active design element.
+
+Do not default every image/text layout to 50/50.
+
+Responsive layouts preserve visual relationships rather than rigid numerical ratios.
+
+On mobile, desktop compositions are reinterpreted rather than simply shrunk.
+
+Content, readability, usability, and hierarchy take priority over mathematical purity.
+
+Deferred
+
+Exact spacing scale
+
+Typography scale
+
+Grid gutters
+
+Responsive breakpoints
+
+Tablet/mobile grid columns
+
+Border-radius scale
+
+Exact shadow values
+
+Exact Golden-Ratio-derived tokens
+
+05 — Visual Language + Component System
+
+Components are minimal, precise, premium, functional, and scalable.
+
+Buttons: rounded, minimal, clear hierarchy; primary action uses #960E29.
+
+Cards: surface background + soft border + subtle shadow + hover elevation.
+
+Cards are surfaces holding content, not decorative floating objects.
+
+Light/neutral surfaces with soft, subtle borders.
+
+Three conceptual shadow levels: small, medium, large.
+
+Glassmorphism is not a foundational style and must not be overused.
+
+Use a Linear/framework-inspired structural language.
+
+Do not import previously rejected Gradient Bible geometry.
+
+Framework can appear through alignment, lines, structural divisions, diagrams, and editorial compositions.
+
+Keep a small reusable component vocabulary.
+
+Focus states must remain visible and accessible.
+
+Event cards prioritize name, date/time, photography.
+
+Project cards prioritize name and purpose; technical information is secondary.
+
+Board profiles default to name + role + social links, with an expanded state.
+
+Galleries use editorial/masonry presentation.
+
+Contact form is secondary.
+
+06 — Motion + Interaction
+
+Three levels: micro motion, content motion, transformational motion.
+
+Body/supporting content generally uses simple fades and subtle movement.
+
+Major headings and major elements may use transformational motion.
+
+Motion must guide, explain, confirm, transition, or establish identity.
+
+Page transitions use content transformation + editorial transition.
+
+Transitions are cinematic but must remain fast enough to preserve flow.
+
+Gradient logo is the persistent transition anchor.
+
+Use enhanced smooth scrolling without aggressive scroll hijacking.
+
+Scroll-driven motion is moderate and reserved for meaningful sections.
+
+Scroll snap is contextual, not global.
+
+Back-to-top may appear after significant scrolling.
+
+Desktop uses a subtle custom cursor responding to interactive elements, geometry, and text.
+
+Loading uses logo reveal + framework transformation.
+
+Loading has a minimum duration for consistency but must not unnecessarily delay interaction.
+
+Returning visitors receive the same loading experience.
+
+Reduced motion preserves the same structure with simpler motion.
+
+Target 60 FPS whenever possible; optimize before simplifying.
+
+07 — Imagery System
+
+Real Gradient imagery is preferred: people, events, projects, environments, history, and work.
+
+The site must support raw/unpredictable images.
+
+Support different aspect ratios, lighting, framing, resolution, orientation, backgrounds, and image quality.
+
+Use intelligent cropping by default; contextual/manual art direction is allowed.
+
+Never stretch or distort images.
+
+Do not force every image into 16:9.
+
+Do not universally tint, desaturate, grain, gradient-overlay, or heavily filter photographs.
+
+Use overlays only when genuinely necessary for readability.
+
+Prefer typography beside imagery when possible rather than forcing text over it.
+
+Event galleries use masonry/editorial layouts and larger image viewing.
+
+Board photography may be formal, natural, historical, or otherwise authentic.
+
+Project visuals may include screenshots, hardware, prototypes, photography, diagrams, and technical visualizations.
+
+Technical diagrams should explain something rather than serve as decorative wallpaper.
+
+Missing imagery must not be fabricated; layouts adapt.
+
+Meaningful imagery needs appropriate alternative text.
+
+08 — Global Experience
+
+Global navigation: Home, About, Events, Projects, Boards, Contact.
+
+Navigation is contextual/editorial.
+
+Initial navbar direction: solid surface.
+
+Navbar transforms on scroll into a more defined state with blur where appropriate.
+
+Logo participates subtly in navigation and transitions.
+
+Active route uses accent underline + typography transformation.
+
+Navigation interaction combines typography transformation + framework reaction.
+
+Route changes use cinematic content transformation + editorial transition.
+
+Mobile uses compact expandable navigation that can transform into a fullscreen editorial menu.
+
+Route changes move focus to the page heading.
+
+Unavailable content is generally hidden rather than presented as unnecessary empty states.
+
+Errors are branded but restrained.
+
+404 is simple and branded.
+
+Footer is editorial/minimal with generous spacing, social links, and quick navigation.
+
+No signature footer interaction.
+
+Global continuity comes primarily from typography, color, and geometry; the logo is the recurring brand anchor.
+
+09 — Responsive, Accessibility + Performance
+
+Responsive design is built from the beginning.
+
+Desktop can express the full 12-column, editorial, asymmetrical, Golden-Ratio-driven system.
+
+Tablet is an intermediate interpretation.
+
+Mobile is a deliberate composition, not a compressed desktop.
+
+Content, readability, usability, and hierarchy take priority as space decreases.
+
+Hover must never be required for meaningful interaction.
+
+Touch targets must be sufficiently generous.
+
+Custom cursor is desktop-only.
+
+All interactive elements must be keyboard reachable.
+
+Visible focus states are required.
+
+Color is never the sole state/status indicator.
+
+Reduced-motion users retain the same structure and content with simpler motion.
+
+Use responsive image sizing/compression and lazy loading where appropriate.
+
+Prioritize critical above-the-fold content.
+
+Reserve space to reduce layout shift.
+
+Use progressive enhancement so core content/functionality survives visual-effect failure.
+
+Device capability can reduce computational workload without changing the identity.
+
+10 — Complete Page Architecture
+
+HOME
+
+Hero
+
+What is Gradient
+
+Current Board
+
+Featured Event
+
+Call to Action
+
+ABOUT
+
+History
+
+Mission
+
+Vision
+
+Timeline
+
+EVENTS
+
+Events Hero
+
+Upcoming Events
+
+Ongoing Events
+
+Past Events
+
+Event Gallery
+
+PROJECTS
+
+Projects Hero
+
+Featured Projects
+
+Project Collection
+
+Project Exploration
+
+BOARDS
+
+Boards Hero
+
+Current Board — grouped by Team/Department
+
+Previous Boards — chronological archive
+
+Gradient Today
+
+CONTACT
+
+Editorial Closing
+
+Connect — email, socials, official contact information
+
+Collaborate
+
+Contact Form
+
+Closing
+
+Shared Footer
+
+Explicitly Excluded from Current Architecture
+
+Statistics section
+
+Achievements section/page
+
+Open Source page
+
+Research page
+
+Alumni page
+
+Join Gradient option/page
+
+New project-detail pages for projects that already have hosted pages
+
+Speculative search/filter/detail infrastructure
+
+Page Roles
+
+Home — brand introduction
+
+About — editorial/story
+
+Events — activity/energy
+
+Projects — technical/editorial
+
+Boards — human/expressive
+
+Contact — closing/relationship
+
+Narrative Spine
+
+HOME → Who is Gradient?
+ABOUT → Why does Gradient exist?
+EVENTS → What does Gradient do?
+PROJECTS → What does Gradient build?
+BOARDS → Who builds it?
+CONTACT → How can I connect?
+
+11 — Content & Authenticity Rules
+
+Do not fabricate content.
+
+Do not create empty sections just to preserve a template.
+
+Real Gradient material is preferred over generic stock imagery.
+
+Hosted project pages remain external; redirect rather than recreate them.
+
+Mission and Vision are sufficient for About; values are not showcased.
+
+Boards focus on people and the roles they played.
+
+No Join Gradient option for now.
+
+12 — Antigravity Implementation Contract
+
+MANDATORY  Read → Understand → Plan → Change only specified scope → Verify → Report → Stop.
+
+Read and understand the entire relevant codebase before changing anything.
+
+Identify the exact files/components relevant to the task.
+
+Treat this specification as authoritative.
+
+Do not modify unrelated files/components.
+
+Implement only requested scope.
+
+Do not invent missing content, colors, fonts, motion tokens, breakpoints, or component states.
+
+Do not add features because they seem like improvements.
+
+Do not reintroduce Statistics or Achievements.
+
+Do not use gradients.
+
+Do not import rejected Gradient Bible geometry.
+
+Do not recreate already-hosted project pages.
+
+Preserve accessibility, responsiveness, and performance.
+
+Prefer a performant implementation before simplifying a visual effect.
+
+If information is missing, STOP AND REPORT THE AMBIGUITY — do not guess.
+
+After implementation, verify behavior, responsiveness, accessibility, and performance as relevant; report exactly what changed; stop.
+
+13 — Deferred Decisions Register
+
+Accent hover/pressed/focus/disabled tokens
+
+Dark-mode palette
+
+Exact typography sizes, weights, line-height, letter-spacing
+
+Exact spacing/type tokens derived from Golden Ratio
+
+Grid gutters and responsive breakpoints
+
+Tablet/mobile grid columns
+
+Exact border radii and shadow values
+
+Exact component dimensions
+
+Exact motion durations/easing
+
+Exact transition choreography
+
+Exact loader timing
+
+Exact cursor dimensions/physics
+
+Exact scroll physics
+
+Image aspect-ratio/crop tokens
+
+Image CDN/hosting strategy
+
+Exact gallery lightbox behavior
+
+Exact performance budgets
+
+Exact supported browser matrix
+
+14 — Deferred Brand Principle
+
+DEFERRED  The statement “Gradient never sacrifices ______ for ______.” remains intentionally deferred.
+
+15 — Current Status
+
+Brand foundation — LOCKED
+
+Color system — LOCKED
+
+Typography — LOCKED
+
+Layout + Golden Ratio — LOCKED
+
+Visual language + component system — LOCKED
+
+Motion + interaction — LOCKED
+
+Imagery system — LOCKED
+
+Global experience — LOCKED
+
+Responsive + accessibility + performance — LOCKED
+
+Page architecture — LOCKED
+
+Implementation boundaries — LOCKED
+
+Token-level details listed in the Deferred Decisions Register — NOT YET FINALIZED
+
+Final philosophical principle — DEFERRED
+
+16 — Final Rule
+
+Build what has been decided. Preserve what has been locked. Do not invent what has not been decided.
+
+Gradient Design & Experience Specification — Pre-Implementation Source of Truth

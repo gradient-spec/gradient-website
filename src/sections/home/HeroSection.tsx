@@ -1,0 +1,130 @@
+import React from 'react';
+import { motion, useReducedMotion, type Variants } from 'framer-motion';
+
+export const HeroSection: React.FC = () => {
+  const prefersReducedMotion = useReducedMotion();
+
+  // Typography/Text entrance motion (subtle fade + y-transform)
+  const textVariants: Variants = {
+    hidden: { opacity: 0, y: prefersReducedMotion ? 0 : 20 },
+    visible: { 
+      opacity: 1, 
+      y: 0, 
+      transition: { duration: 0.6, ease: 'easeOut', staggerChildren: 0.15 } 
+    }
+  };
+
+  const childVariants: Variants = {
+    hidden: { opacity: 0, y: prefersReducedMotion ? 0 : 20 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: 'easeOut' } }
+  };
+
+  // Image reveal (transformational motion)
+  const imageVariants: Variants = {
+    hidden: { opacity: 0, clipPath: prefersReducedMotion ? 'inset(0% 0% 0% 0%)' : 'inset(10% 0% 10% 0%)', scale: prefersReducedMotion ? 1 : 1.02 },
+    visible: { 
+      opacity: 1, 
+      clipPath: 'inset(0% 0% 0% 0%)', 
+      scale: 1,
+      transition: { duration: 0.8, ease: 'easeOut', delay: 0.2 } 
+    }
+  };
+
+  return (
+    <section aria-label="Introduction" className="section" style={{ overflow: 'hidden' }}>
+      <div className="container">
+        <div 
+          className="grid" 
+          style={{ 
+            alignItems: 'center', 
+            // We use the global .grid but override the columns behavior for responsiveness natively via CSS inline styles using standard CSS functions or rely on the grid auto flow.
+            // A simple way to handle the 7/5 split responsive behavior without writing a new CSS class:
+          }}
+        >
+          {/* Text Content Block */}
+          <motion.div 
+            initial="hidden"
+            animate="visible"
+            variants={textVariants}
+            style={{ 
+              gridColumn: '1 / span 7',
+              // On tablet/mobile, we'll let it span full width using standard media queries in layout.css if possible, or use inline min-width strategies. 
+              // Wait, layout.css already sets `.grid > * { grid-column: 1 / -1 !important; }` on max-width 768px.
+              // So we can safely use gridColumn: '1 / 8' and it will become '1 / -1' on tablet/mobile automatically due to the !important in layout.css.
+              // Wait! The user said: "Also do not assume Tablet must immediately collapse to a single column. Where useful, preserve an asymmetric composition at tablet width before stacking on smaller screens."
+              // We'll need a small scoped style block to handle this gracefully without adding global breakpoints.
+            }}
+            className="hero-text-block"
+          >
+            {/* Scoped style for responsive behavior without a new global CSS file */}
+            <style>{`
+              .hero-text-block { grid-column: 1 / span 7; }
+              .hero-image-block { 
+                grid-column: 8 / span 5; 
+                min-height: var(--hero-frame-height-desktop, 70vh);
+              }
+              @media (max-width: 992px) {
+                .hero-text-block { grid-column: 1 / span 6; }
+                .hero-image-block { 
+                  grid-column: 7 / span 6; 
+                  min-height: var(--hero-frame-height-tablet, 50vh);
+                }
+              }
+              @media (max-width: 768px) {
+                .hero-text-block, .hero-image-block { grid-column: 1 / -1 !important; }
+                .hero-image-block { 
+                  margin-top: var(--space-6); 
+                  min-height: var(--hero-frame-height-mobile, 40vh);
+                }
+              }
+            `}</style>
+            
+            <motion.div variants={childVariants} className="text-metadata" style={{ color: 'var(--color-accent)', marginBottom: 'var(--space-4)', textTransform: 'uppercase' }}>
+              [Dev Placeholder: Metadata Signal]
+            </motion.div>
+            
+            <motion.h1 
+              variants={childVariants} 
+              id="page-heading" 
+              tabIndex={-1} 
+              className="text-display dev-placeholder" 
+              style={{ outline: 'none', marginBottom: 'var(--space-5)' }}
+            >
+              [Dev Placeholder: Primary Identity <span className="text-display-italic">Statement</span>]
+            </motion.h1>
+            
+            <motion.p variants={childVariants} className="text-subheading dev-placeholder" style={{ color: 'var(--color-text-secondary)', maxWidth: '90%' }}>
+              [Dev Placeholder: Supporting statement expanding on the identity, setting the editorial and technical tone of Gradient.]
+            </motion.p>
+          </motion.div>
+
+          {/* Image Content Block */}
+          <motion.div 
+            initial="hidden"
+            animate="visible"
+            variants={imageVariants}
+            className="hero-image-block"
+            style={{ 
+              position: 'relative',
+              width: '100%',
+              backgroundColor: 'var(--color-surface-secondary)',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              border: '1px dashed var(--color-border-strong)',
+              borderRadius: 'var(--radius-sm)'
+            }}
+          >
+            <div className="text-metadata" style={{ color: 'var(--color-text-muted)', textAlign: 'center', padding: 'var(--space-4)' }}>
+              Image Placeholder
+            </div>
+            {/* When a real image is provided, its fit behavior will be intentionally chosen (e.g. object-fit: cover, contain, or a specific object-position) instead of universally assuming cover.
+                <img src="..." alt="..." style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', objectFit: 'cover' }} />
+            */}
+          </motion.div>
+
+        </div>
+      </div>
+    </section>
+  );
+};
