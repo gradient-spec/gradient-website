@@ -79,23 +79,15 @@ export const HeroSection: React.FC = () => {
               }
             `}</style>
             
-            <motion.div variants={childVariants} className="text-metadata" style={{ color: 'var(--color-accent)', marginBottom: 'var(--space-4)', textTransform: 'uppercase' }}>
-              [Dev Placeholder: Metadata Signal]
-            </motion.div>
-            
             <motion.h1 
               variants={childVariants} 
               id="page-heading" 
               tabIndex={-1} 
-              className="text-display dev-placeholder" 
+              className="text-display" 
               style={{ outline: 'none', marginBottom: 'var(--space-5)' }}
             >
-              [Dev Placeholder: Primary Identity <span className="text-display-italic">Statement</span>]
+              Gradient
             </motion.h1>
-            
-            <motion.p variants={childVariants} className="text-subheading dev-placeholder" style={{ color: 'var(--color-text-secondary)', maxWidth: '90%' }}>
-              [Dev Placeholder: Supporting statement expanding on the identity, setting the editorial and technical tone of Gradient.]
-            </motion.p>
           </motion.div>
 
           {/* Image Content Block */}

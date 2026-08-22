@@ -1,7 +1,10 @@
 # Gradient Website — Project Context
 
 ## Phase
-**Phase 12C** — Global Shell Implementation (COMPLETE)
+**Phase 12G** — Projects Page Implementation (COMPLETE)
+**Phase 12E** — About Page Implementation (COMPLETE)
+**Phase 12F** — Events Page Architecture (COMPLETE - Planning Only)
+**Phase 12D** — Home Page Implementation (COMPLETE)
 
 ## Tech Stack
 - **Framework:** React 19 + TypeScript 6
@@ -29,6 +32,7 @@ src/
 │   │   └── Footer.tsx           — Shared minimal editorial footer
 │   └── DesignSystemPreview.tsx  — Development-only Phase 12B design-system inspection tool
 ├── data/                        — Typed data placeholders (events, projects, boards)
+│   └── timeline.ts              — Contains approved Phase 12E About page timeline data
 ├── hooks/
 │   ├── useScroll.ts             — Tracks scroll position/direction for Navbar scroll state
 │   └── useFocusTrap.ts          — Handles keyboard focus trapping for the mobile navigation
@@ -36,7 +40,11 @@ src/
 │   └── RootLayout.tsx           — Global application shell (shared Navbar, page content outlet, Footer, route-change focus management, route-transition foundation)
 ├── lib/                 — Utilities (empty — later phases)
 ├── pages/               — 6 page shells + NotFound
-├── sections/            — Page-specific compositions (empty — later phases)
+├── sections/            — Page-specific compositions
+│   ├── home/            — Phase 12D completed Home sections
+│   ├── about/           — Phase 12E About page sections (AboutHistory, MissionVision, Timeline)
+│   ├── events/          — Phase 12F Events page sections (EventsHero, ActiveEvents, PastEvents, EventGallery)
+│   └── projects/        — Phase 12G Projects page sections (ProjectsHero, FeaturedProjects, ProjectCollection, ProjectExploration)
 ├── styles/
 │   ├── global.css       — Import entry point
 │   ├── fonts.css        — Google Fonts loading
@@ -44,16 +52,16 @@ src/
 │   ├── base.css         — Reset + accessibility foundations
 │   ├── layout.css       — Container, grid, section utilities
 │   └── typography.css   — Typography utility classes
-└── types/               — TypeScript interfaces (events, projects, boards)
+└── types/               — TypeScript interfaces (events, projects, boards, timeline)
 ```
 
 ## Routes
 | Path       | Page     | Status |
 |------------|----------|--------|
-| `/`        | Home     | Shell  |
-| `/about`   | About    | Shell  |
-| `/events`  | Events   | Shell  |
-| `/projects`| Projects | Shell  |
+| `/`        | Home     | Integrated |
+| `/about`   | About    | Integrated |
+| `/events`  | Events   | Integrated |
+| `/projects`| Projects | Integrated |
 | `/boards`  | Boards   | Shell  |
 | `/contact` | Contact  | Shell  |
 | `*`        | NotFound | Shell  |
@@ -90,3 +98,6 @@ src/
 - **Route Transitions**: The current candidate motion choreography uses Framer Motion `AnimatePresence` with a restrained fade and a subtle approximately 10px Y translation. Motion durations and easing remain deferred candidate values.
 - **Mobile Navigation**: Supports focus trap, focus entering the menu when opened, Escape-to-close, scroll lock, and focus restoration to the trigger when closed.
 - **Footer**: Social/contact destinations are temporary development placeholders and must be replaced with verified Gradient information before production.
+- **Phase 12E (About Page)**: The About page architecture consists of exactly four structures: About History / Opening, Mission, Vision, and Timeline (Mission and Vision share a unified `MissionVisionSection.tsx` component). All approved source-of-truth copy has been integrated.
+- **Timeline Architecture (Phase 12E)**: The Timeline uses a semantic `<ol>` structure powered by a dedicated `src/types/timeline.ts` and `src/data/timeline.ts`. The timeline contains *exactly* the two approved milestones (2020 — Gradient begins; 2020 onward — SPECATHON) with no fabricated entries.
+- **Image Dependency (Phase 12E)**: The About page is textually complete. The only remaining dependency is the supply of authentic Gradient photography to replace the structural development image frame in the History section.

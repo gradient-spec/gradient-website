@@ -13,7 +13,7 @@ export interface EventData {
   /** Event title */
   title: string;
   /** Short description of the event */
-  description: string;
+  description?: string;
   /** Event date (ISO 8601) */
   date: string;
   /** Optional end date for multi-day events (ISO 8601) */

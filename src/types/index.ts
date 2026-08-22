@@ -5,3 +5,4 @@
 export type { EventData, EventImage, EventStatus } from './events';
 export type { ProjectData, ProjectImage } from './projects';
 export type { BoardMember, BoardYear, SocialLink } from './boards';
+export type { TimelineEntry } from './timeline';

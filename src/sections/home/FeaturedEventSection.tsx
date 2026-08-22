@@ -9,9 +9,14 @@ export const FeaturedEventSection: React.FC = () => {
   const CANDIDATE_STAGGER_DELAY = 0.15;
   const CANDIDATE_Y_TRANSLATION = 15;
 
-  // Find the first upcoming event. If none exists, fallback to the placeholder state.
-  // We explicitly do not fallback to a past event.
+  // Find the first upcoming event.
+  // We explicitly do not fallback to a past or ongoing event.
   const featuredEvent = events.find(e => e.status === 'upcoming') || null;
+
+  // Per specification: Omit the section entirely when no verified upcoming event exists.
+  if (!featuredEvent) {
+    return null;
+  }
 
   const sectionVariants: Variants = {
     hidden: { opacity: 0 },
@@ -33,35 +38,7 @@ export const FeaturedEventSection: React.FC = () => {
     }
   };
 
-  // Render a structural placeholder instead of fake domain data
-  const renderPlaceholders = () => (
-    <>
-      <motion.div variants={itemVariants} className="event-info-metadata text-metadata" style={{ color: 'var(--color-accent)', marginBottom: 'var(--space-4)', textTransform: 'uppercase' }}>
-        [Dev Placeholder: Section Metadata]
-      </motion.div>
-      <motion.h2 variants={itemVariants} id="featured-event-heading" className="text-heading dev-placeholder" style={{ marginBottom: 'var(--space-4)' }}>
-        [Dev Placeholder: Featured Event Title]
-      </motion.h2>
-      <motion.p variants={itemVariants} className="text-body dev-placeholder" style={{ color: 'var(--color-text-secondary)', marginBottom: 'var(--space-6)' }}>
-        [Dev Placeholder: Short description explaining the purpose of the featured event and what it entails. Not an entire page of text.]
-      </motion.p>
-      
-      <motion.div variants={itemVariants} className="event-info-details" style={{ marginBottom: 'var(--space-6)' }}>
-        <p className="text-metadata" style={{ color: 'var(--color-text-primary)', marginBottom: 'var(--space-1)' }}>
-          [Dev Placeholder: Date & Time]
-        </p>
-        <p className="text-metadata" style={{ color: 'var(--color-text-secondary)' }}>
-          [Dev Placeholder: Location]
-        </p>
-      </motion.div>
-      
-      <motion.div variants={itemVariants}>
-        <a href="#events-placeholder" className="text-label" style={{ color: 'var(--color-accent)', textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: 'var(--space-2)' }}>
-          [Dev Placeholder: View Event Details] <span aria-hidden="true">&rarr;</span>
-        </a>
-      </motion.div>
-    </>
-  );
+
 
   return (
     <section className="section" aria-labelledby="featured-event-heading" style={{ overflow: 'hidden' }}>
@@ -137,48 +114,46 @@ export const FeaturedEventSection: React.FC = () => {
 
           {/* Right Block (Span 6, spaced at col 7) - Event Information */}
           <div className="event-info-block">
-            {featuredEvent ? (
-              <>
-                <motion.div variants={itemVariants} className="text-metadata" style={{ color: 'var(--color-accent)', marginBottom: 'var(--space-4)', textTransform: 'uppercase' }}>
-                  {featuredEvent.status === 'upcoming' ? 'Upcoming Event' : 'Event'}
-                </motion.div>
-                
-                <motion.h2 
-                  id="featured-event-heading"
-                  variants={itemVariants} 
-                  className="text-heading" 
-                  style={{ marginBottom: 'var(--space-4)' }}
-                >
-                  {featuredEvent.title}
-                </motion.h2>
-                
-                <motion.p variants={itemVariants} className="text-body" style={{ color: 'var(--color-text-secondary)', marginBottom: 'var(--space-6)' }}>
-                  {featuredEvent.description}
-                </motion.p>
-                
-                {(featuredEvent.date || featuredEvent.location) && (
-                  <motion.div variants={itemVariants} className="event-info-details" style={{ marginBottom: 'var(--space-6)' }}>
-                    {featuredEvent.date && (
-                      <p className="text-metadata" style={{ color: 'var(--color-text-primary)', marginBottom: 'var(--space-1)' }}>
-                        {featuredEvent.date}
-                      </p>
-                    )}
-                    {featuredEvent.location && (
-                      <p className="text-metadata" style={{ color: 'var(--color-text-secondary)' }}>
-                        {featuredEvent.location}
-                      </p>
-                    )}
-                  </motion.div>
+            <motion.div variants={itemVariants} className="text-metadata" style={{ color: 'var(--color-accent)', marginBottom: 'var(--space-4)', textTransform: 'uppercase' }}>
+              {featuredEvent.status === 'upcoming' ? 'Upcoming Event' : 'Event'}
+            </motion.div>
+            
+            <motion.h2 
+              id="featured-event-heading"
+              variants={itemVariants} 
+              className="text-heading" 
+              style={{ marginBottom: 'var(--space-4)' }}
+            >
+              {featuredEvent.title}
+            </motion.h2>
+            
+            {featuredEvent.description && (
+              <motion.p variants={itemVariants} className="text-body" style={{ color: 'var(--color-text-secondary)', marginBottom: 'var(--space-6)' }}>
+                {featuredEvent.description}
+              </motion.p>
+            )}
+            
+            {(featuredEvent.date || featuredEvent.location) && (
+              <motion.div variants={itemVariants} className="event-info-details" style={{ marginBottom: 'var(--space-6)' }}>
+                {featuredEvent.date && (
+                  <p className="text-metadata" style={{ color: 'var(--color-text-primary)', marginBottom: 'var(--space-1)' }}>
+                    {featuredEvent.date}
+                  </p>
                 )}
-                
-                <motion.div variants={itemVariants}>
-                  <a href={featuredEvent.externalUrl || "#events"} className="text-label" style={{ color: 'var(--color-accent)', textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: 'var(--space-2)' }}>
-                    {featuredEvent.externalUrl ? 'Register Now' : 'View Event Details'} <span aria-hidden="true">&rarr;</span>
-                  </a>
-                </motion.div>
-              </>
-            ) : (
-              renderPlaceholders()
+                {featuredEvent.location && (
+                  <p className="text-metadata" style={{ color: 'var(--color-text-secondary)' }}>
+                    {featuredEvent.location}
+                  </p>
+                )}
+              </motion.div>
+            )}
+            
+            {featuredEvent.externalUrl && (
+              <motion.div variants={itemVariants}>
+                <a href={featuredEvent.externalUrl} target="_blank" rel="noopener noreferrer" className="text-label" style={{ color: 'var(--color-accent)', textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: 'var(--space-2)' }}>
+                  Register Now <span aria-hidden="true">&rarr;</span>
+                </a>
+              </motion.div>
             )}
           </div>
         </motion.div>

@@ -5,11 +5,18 @@
  * will be composed here in later phases.
  */
 
+import { ProjectsHeroSection } from '@/sections/projects/ProjectsHeroSection';
+import { FeaturedProjectsSection } from '@/sections/projects/FeaturedProjectsSection';
+import { ProjectCollectionSection } from '@/sections/projects/ProjectCollectionSection';
+import { ProjectExplorationSection } from '@/sections/projects/ProjectExplorationSection';
+
 const ProjectsPage = () => {
   return (
     <main id="main-content">
-      <h1 id="page-heading" tabIndex={-1} className="sr-only" style={{ outline: 'none' }}>Gradient Projects</h1>
-      {/* Page sections will be composed here in later phases */}
+      <ProjectsHeroSection />
+      <FeaturedProjectsSection />
+      <ProjectCollectionSection />
+      <ProjectExplorationSection />
     </main>
   );
 };

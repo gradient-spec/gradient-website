@@ -79,10 +79,6 @@ export const WhatIsGradientSection: React.FC = () => {
                 }
               }
             `}</style>
-            
-            <motion.div variants={itemVariants} className="text-metadata" style={{ color: 'var(--color-accent)' }}>
-              [Dev Placeholder: Section Metadata]
-            </motion.div>
           </div>
 
           {/* Right Content (Span 8) */}
@@ -90,45 +86,33 @@ export const WhatIsGradientSection: React.FC = () => {
             <motion.h2 
               id="what-is-gradient-heading"
               variants={itemVariants} 
-              className="text-heading dev-placeholder" 
+              className="text-heading" 
               style={{ marginBottom: 'var(--space-5)' }}
             >
-              [Dev Placeholder: Primary intellectual introduction statement regarding Gradient's purpose and identity.]
+              About Gradient
             </motion.h2>
-
-            <motion.div variants={itemVariants} className="text-subheading dev-placeholder" style={{ color: 'var(--color-text-secondary)', maxWidth: '90%' }}>
-              [Dev Placeholder: Supporting introductory paragraph.]
-            </motion.div>
 
             <div className="mission-vision-grid">
               {/* Mission Block */}
               <motion.div variants={itemVariants}>
-                <h3 className="text-label dev-placeholder" style={{ color: 'var(--color-text-primary)', marginBottom: 'var(--space-3)' }}>
-                  [Dev Placeholder: Mission Label]
+                <h3 className="text-label" style={{ color: 'var(--color-text-primary)', marginBottom: 'var(--space-3)' }}>
+                  Mission
                 </h3>
-                <p className="text-body dev-placeholder" style={{ color: 'var(--color-text-secondary)' }}>
-                  [Dev Placeholder: What Gradient exists to do. An editorial paragraph explaining the organization's core mission without marketing jargon.]
+                <p className="text-body" style={{ color: 'var(--color-text-secondary)' }}>
+                  Ideas, made real.
                 </p>
               </motion.div>
 
               {/* Vision Block */}
               <motion.div variants={itemVariants}>
-                <h3 className="text-label dev-placeholder" style={{ color: 'var(--color-text-primary)', marginBottom: 'var(--space-3)' }}>
-                  [Dev Placeholder: Vision Label]
+                <h3 className="text-label" style={{ color: 'var(--color-text-primary)', marginBottom: 'var(--space-3)' }}>
+                  Vision
                 </h3>
-                <p className="text-body dev-placeholder" style={{ color: 'var(--color-text-secondary)' }}>
-                  [Dev Placeholder: Where Gradient is heading. An editorial paragraph explaining the long-term vision and trajectory.]
+                <p className="text-body" style={{ color: 'var(--color-text-secondary)' }}>
+                  A platform that reaches beyond the campus.
                 </p>
               </motion.div>
             </div>
-            
-            {/* About Link Placeholder */}
-            <motion.div variants={itemVariants} style={{ marginTop: 'var(--space-7)' }}>
-              {/* Using a placeholder for the link. In production, this would use a router Link */}
-              <a href="#about-placeholder" className="text-label" style={{ color: 'var(--color-accent)', textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: 'var(--space-2)' }}>
-                [Dev Placeholder: About Action] <span aria-hidden="true">&rarr;</span>
-              </a>
-            </motion.div>
           </div>
         </motion.div>
       </div>

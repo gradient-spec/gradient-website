@@ -5,11 +5,18 @@
  * will be composed here in later phases.
  */
 
+import { EventsHeroSection } from '@/sections/events/EventsHeroSection';
+import { ActiveEventsSection } from '@/sections/events/ActiveEventsSection';
+import { PastEventsSection } from '@/sections/events/PastEventsSection';
+import { EventGallerySection } from '@/sections/events/EventGallerySection';
+
 const EventsPage = () => {
   return (
     <main id="main-content">
-      <h1 id="page-heading" tabIndex={-1} className="sr-only" style={{ outline: 'none' }}>Gradient Events</h1>
-      {/* Page sections will be composed here in later phases */}
+      <EventsHeroSection />
+      <ActiveEventsSection />
+      <PastEventsSection />
+      <EventGallerySection />
     </main>
   );
 };

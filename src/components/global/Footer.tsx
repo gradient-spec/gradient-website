@@ -20,9 +20,6 @@ export const Footer: React.FC = () => {
             <p className="text-body-small" style={{ color: 'var(--color-text-secondary)', marginBottom: 'var(--space-4)', maxWidth: '80%' }}>
               A technical club focused on building, experimentation, learning, and community.
             </p>
-            <div className="text-metadata">
-              <span className="dev-placeholder" style={{ color: 'var(--color-text-muted)' }} title="Placeholder Email">[Dev: hello@placeholder.test]</span>
-            </div>
           </div>
           
           {/* Quick Nav */}
@@ -48,9 +45,17 @@ export const Footer: React.FC = () => {
           <div style={{ gridColumn: 'span 4' }}>
             <h4 className="text-label" style={{ marginBottom: 'var(--space-4)', color: 'var(--color-text-primary)' }}>Socials</h4>
             <ul style={{ display: 'flex', gap: 'var(--space-4)' }}>
-              <li><span className="text-body-small dev-placeholder" style={{ color: 'var(--color-text-muted)' }} title="Placeholder Twitter">[Dev: Twitter]</span></li>
-              <li><span className="text-body-small dev-placeholder" style={{ color: 'var(--color-text-muted)' }} title="Placeholder GitHub">[Dev: GitHub]</span></li>
-              <li><span className="text-body-small dev-placeholder" style={{ color: 'var(--color-text-muted)' }} title="Placeholder LinkedIn">[Dev: LinkedIn]</span></li>
+              <li>
+                <a 
+                  href="https://www.linkedin.com/in/spec-gradient-977369354/" 
+                  className="text-body-small" 
+                  style={{ color: 'var(--color-text-secondary)', textDecoration: 'none' }}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  LinkedIn
+                </a>
+              </li>
             </ul>
           </div>
         </div>
@@ -65,9 +70,6 @@ export const Footer: React.FC = () => {
         }}>
           <span className="text-metadata" style={{ color: 'var(--color-text-muted)' }}>
             &copy; {new Date().getFullYear()} Gradient Club. All rights reserved.
-          </span>
-          <span className="text-technical" style={{ color: 'var(--color-text-muted)' }}>
-            PHASE 12C CALIBRATION
           </span>
         </div>
       </div>

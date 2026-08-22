@@ -15,6 +15,11 @@ export const CurrentBoardSection: React.FC = () => {
   // Render a curated preview of up to 3 actual members
   const realMembers = currentBoard?.members.slice(0, 3) || [];
 
+  // Per specification: Omit the section entirely when no verified board data exists.
+  if (realMembers.length === 0) {
+    return null;
+  }
+
   const sectionVariants: Variants = {
     hidden: { opacity: 0 },
     visible: {
@@ -35,33 +40,7 @@ export const CurrentBoardSection: React.FC = () => {
     }
   };
 
-  // The rendering logic for the structural preview if no data exists.
-  // This explicitly avoids inventing fake domain objects or names.
-  const renderPlaceholders = () => (
-    <>
-      {[1, 2, 3].map((key) => (
-        <motion.div key={key} variants={itemVariants} className="board-member-item">
-          <div className="board-member-frame">
-            <span className="text-metadata" style={{ color: 'var(--color-text-muted)' }}>
-              Image Placeholder
-            </span>
-          </div>
-          
-          <h3 className="text-subheading dev-placeholder" style={{ color: 'var(--color-text-primary)', marginBottom: 'var(--space-1)' }}>
-            [Dev Placeholder: Member Name]
-          </h3>
-          
-          <p className="text-body dev-placeholder" style={{ color: 'var(--color-text-secondary)', marginBottom: 'var(--space-1)' }}>
-            [Dev Placeholder: Role]
-          </p>
-          
-          <p className="text-metadata dev-placeholder" style={{ color: 'var(--color-accent)' }}>
-            [Dev Placeholder: Team]
-          </p>
-        </motion.div>
-      ))}
-    </>
-  );
+
 
   return (
     <section className="section" aria-labelledby="current-board-heading" style={{ overflow: 'hidden' }}>
@@ -143,37 +122,33 @@ export const CurrentBoardSection: React.FC = () => {
 
           {/* Right Block (Span 9) - Curated Preview Grid */}
           <div className="board-preview-grid">
-            {realMembers.length > 0 ? (
-              realMembers.map((member) => (
-                <motion.div key={member.id} variants={itemVariants} className="board-member-item">
-                  <div className="board-member-frame">
-                    {/* When a real image is provided, its fit behavior will be intentionally chosen 
-                        (e.g. object-fit: cover, contain, or a specific object-position) */}
-                    {member.image ? (
-                      <img src={member.image} alt={member.imageAlt || member.name} style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', objectFit: 'cover' }} />
-                    ) : (
-                      <span className="text-metadata" style={{ color: 'var(--color-text-muted)' }}>Image Placeholder</span>
-                    )}
-                  </div>
-                  
-                  <h3 className="text-subheading" style={{ color: 'var(--color-text-primary)', marginBottom: 'var(--space-1)' }}>
-                    {member.name}
-                  </h3>
-                  
-                  <p className="text-body" style={{ color: 'var(--color-text-secondary)', marginBottom: 'var(--space-1)' }}>
-                    {member.role}
-                  </p>
-                  
-                  {member.team && (
-                    <p className="text-metadata" style={{ color: 'var(--color-accent)' }}>
-                      {member.team}
-                    </p>
+            {realMembers.map((member) => (
+              <motion.div key={member.id} variants={itemVariants} className="board-member-item">
+                <div className="board-member-frame">
+                  {/* When a real image is provided, its fit behavior will be intentionally chosen 
+                      (e.g. object-fit: cover, contain, or a specific object-position) */}
+                  {member.image ? (
+                    <img src={member.image} alt={member.imageAlt || member.name} style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', objectFit: 'cover' }} />
+                  ) : (
+                    <span className="text-metadata" style={{ color: 'var(--color-text-muted)' }}>Image Placeholder</span>
                   )}
-                </motion.div>
-              ))
-            ) : (
-              renderPlaceholders()
-            )}
+                </div>
+                
+                <h3 className="text-subheading" style={{ color: 'var(--color-text-primary)', marginBottom: 'var(--space-1)' }}>
+                  {member.name}
+                </h3>
+                
+                <p className="text-body" style={{ color: 'var(--color-text-secondary)', marginBottom: 'var(--space-1)' }}>
+                  {member.role}
+                </p>
+                
+                {member.team && (
+                  <p className="text-metadata" style={{ color: 'var(--color-accent)' }}>
+                    {member.team}
+                  </p>
+                )}
+              </motion.div>
+            ))}
           </div>
         </motion.div>
       </div>

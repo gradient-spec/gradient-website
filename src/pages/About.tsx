@@ -5,11 +5,16 @@
  * will be composed here in later phases.
  */
 
+import { AboutHistorySection } from '@/sections/about/AboutHistorySection';
+import { MissionVisionSection } from '@/sections/about/MissionVisionSection';
+import { TimelineSection } from '@/sections/about/TimelineSection';
+
 const AboutPage = () => {
   return (
     <main id="main-content">
-      <h1 id="page-heading" tabIndex={-1} className="sr-only" style={{ outline: 'none' }}>Gradient — About</h1>
-      {/* Page sections will be composed here in later phases */}
+      <AboutHistorySection />
+      <MissionVisionSection />
+      <TimelineSection />
     </main>
   );
 };
