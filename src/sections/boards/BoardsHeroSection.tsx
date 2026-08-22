@@ -1,6 +1,5 @@
 import React from 'react';
-import { motion } from 'framer-motion';
-import type { Variants } from 'framer-motion';
+import { motion, useReducedMotion, type Variants } from 'framer-motion';
 
 const containerVariants: Variants = {
   hidden: { opacity: 0 },
@@ -12,19 +11,23 @@ const containerVariants: Variants = {
   },
 };
 
-const itemVariants: Variants = {
-  hidden: { opacity: 0, y: 20 }, // CANDIDATE: 20px entrance motion
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: {
-      duration: 0.7,
-      ease: 'easeOut',
-    },
-  },
-};
+export const BoardsHeroSection: React.FC = () => {
 
-export const ProjectsHeroSection: React.FC = () => {
+  const prefersReducedMotion = useReducedMotion();
+
+  // Re-adjust itemVariants for reduced motion
+  const safeItemVariants: Variants = {
+    hidden: { opacity: 0, y: prefersReducedMotion ? 0 : 20 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 0.7,
+        ease: 'easeOut',
+      },
+    },
+  };
+
   return (
     <section 
       className="section" 
@@ -48,12 +51,12 @@ export const ProjectsHeroSection: React.FC = () => {
           <div style={{ gridColumn: 'span 7' }}>
             <motion.h1 
               id="page-heading" 
-              variants={itemVariants} 
+              variants={safeItemVariants} 
               className="text-display" 
               style={{ marginBottom: 'var(--space-5)', outline: 'none' }}
               tabIndex={-1}
             >
-              Projects
+              Boards
             </motion.h1>
           </div>
         </motion.div>

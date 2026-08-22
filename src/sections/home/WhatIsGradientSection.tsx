@@ -31,7 +31,11 @@ export const WhatIsGradientSection: React.FC = () => {
   };
 
   return (
-    <section className="section" aria-labelledby="what-is-gradient-heading" style={{ overflow: 'hidden' }}>
+    <section 
+      className="section" 
+      aria-labelledby="what-is-gradient-heading" 
+      style={{ overflow: 'hidden', paddingTop: 'var(--space-8)' }}
+    >
       <div className="container">
         <motion.div 
           className="grid"
@@ -47,18 +51,19 @@ export const WhatIsGradientSection: React.FC = () => {
             <style>{`
               .what-is-left-margin { 
                 grid-column: 1 / span 4;
-                border-left: 1px solid var(--color-border-subtle);
-                padding-left: var(--space-4);
+                border-top: 2px solid var(--color-border-subtle);
+                padding-top: var(--space-4);
                 height: 100%;
               }
               .what-is-right-content { 
                 grid-column: 5 / span 8; 
+                border-top: 1px solid var(--color-border-subtle);
+                padding-top: var(--space-4);
               }
               .mission-vision-grid {
                 display: grid;
                 grid-template-columns: 1fr 1fr;
                 gap: var(--grid-gutter);
-                margin-top: var(--space-7);
               }
               /* CANDIDATE breakpoint: Tablet */
               @media (max-width: 992px) {
@@ -70,7 +75,6 @@ export const WhatIsGradientSection: React.FC = () => {
               @media (max-width: 768px) {
                 .what-is-left-margin, .what-is-right-content { grid-column: 1 / -1 !important; }
                 .what-is-left-margin { 
-                  border-left: none; 
                   border-top: 1px solid var(--color-border-subtle);
                   padding-left: 0;
                   padding-top: var(--space-4);
@@ -79,18 +83,21 @@ export const WhatIsGradientSection: React.FC = () => {
                 }
               }
             `}</style>
+            
+            <motion.div variants={itemVariants}>
+              <span className="text-label" style={{ color: 'var(--color-accent)', display: 'block', marginBottom: 'var(--space-2)' }}>01</span>
+              <h2 
+                id="what-is-gradient-heading"
+                className="text-heading" 
+                style={{ fontSize: 'var(--font-size-xl)' }}
+              >
+                About Gradient
+              </h2>
+            </motion.div>
           </div>
 
           {/* Right Content (Span 8) */}
           <div className="what-is-right-content">
-            <motion.h2 
-              id="what-is-gradient-heading"
-              variants={itemVariants} 
-              className="text-heading" 
-              style={{ marginBottom: 'var(--space-5)' }}
-            >
-              About Gradient
-            </motion.h2>
 
             <div className="mission-vision-grid">
               {/* Mission Block */}

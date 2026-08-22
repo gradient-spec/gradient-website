@@ -1,15 +1,22 @@
 /**
  * Boards page — Human and expressive.
  *
- * Page sections (Boards Hero, Current Board, Previous Boards, Gradient Today)
- * will be composed here in later phases.
+ * Implements the structural architecture for the Gradient Boards.
+ * Content is dynamically rendered from verified data sources.
  */
+
+import { BoardsHeroSection } from '@/sections/boards/BoardsHeroSection';
+import { CurrentBoardSection } from '@/sections/boards/CurrentBoardSection';
+import { PreviousBoardsSection } from '@/sections/boards/PreviousBoardsSection';
+import { GradientTodaySection } from '@/sections/boards/GradientTodaySection';
 
 const BoardsPage = () => {
   return (
     <main id="main-content">
-      <h1 id="page-heading" tabIndex={-1} className="sr-only" style={{ outline: 'none' }}>Gradient Boards</h1>
-      {/* Page sections will be composed here in later phases */}
+      <BoardsHeroSection />
+      <CurrentBoardSection />
+      <PreviousBoardsSection />
+      <GradientTodaySection />
     </main>
   );
 };

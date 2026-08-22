@@ -1,15 +1,24 @@
 /**
  * Contact page — Closing and relationship.
  *
- * Page sections (Editorial Closing, Connect, Contact Form, Closing)
- * will be composed here in later phases.
+ * Implements the structural architecture for the Gradient Contact page.
+ * Content is dynamically rendered from verified data sources.
  */
+
+import { EditorialClosingSection } from '@/sections/contact/EditorialClosingSection';
+import { ConnectSection } from '@/sections/contact/ConnectSection';
+import { CollaborateSection } from '@/sections/contact/CollaborateSection';
+import { ContactFormSection } from '@/sections/contact/ContactFormSection';
+import { ClosingSection } from '@/sections/contact/ClosingSection';
 
 const ContactPage = () => {
   return (
     <main id="main-content">
-      <h1 id="page-heading" tabIndex={-1} className="sr-only" style={{ outline: 'none' }}>Contact Gradient</h1>
-      {/* Page sections will be composed here in later phases */}
+      <EditorialClosingSection />
+      <ConnectSection />
+      <CollaborateSection />
+      <ContactFormSection />
+      <ClosingSection />
     </main>
   );
 };

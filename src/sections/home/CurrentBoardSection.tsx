@@ -101,23 +101,24 @@ export const CurrentBoardSection: React.FC = () => {
             `}</style>
             
             <motion.div variants={itemVariants} className="text-metadata" style={{ color: 'var(--color-accent)', marginBottom: 'var(--space-4)', textTransform: 'uppercase' }}>
-              [Dev Placeholder: Section Metadata]
+              TEAM
             </motion.div>
 
             <motion.h2 
               id="current-board-heading"
               variants={itemVariants} 
-              className="text-heading dev-placeholder" 
+              className="text-heading" 
               style={{ marginBottom: 'var(--space-6)' }}
             >
-              [Dev Placeholder: Current Board Heading]
+              Current Board
             </motion.h2>
 
             <motion.div variants={itemVariants}>
-              <a href="#boards-placeholder" className="text-label" style={{ color: 'var(--color-accent)', textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: 'var(--space-2)' }}>
-                [Dev Placeholder: View Full Board Link] <span aria-hidden="true">&rarr;</span>
+              <a href="/boards" className="text-label" style={{ color: 'var(--color-accent)', textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: 'var(--space-2)' }}>
+                View Full Board <span aria-hidden="true">&rarr;</span>
               </a>
             </motion.div>
+
           </div>
 
           {/* Right Block (Span 9) - Curated Preview Grid */}

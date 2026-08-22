@@ -101,21 +101,37 @@ export const FeaturedEventSection: React.FC = () => {
         >
           {/* Left Block (Span 5) - Event Image */}
           <motion.div variants={itemVariants} className="event-image-block">
-            <div className="event-image-frame">
+            <div className="event-image-frame" style={{ borderRadius: 'var(--radius-md)' }}>
               {featuredEvent?.image ? (
                 <img src={featuredEvent.image} alt={featuredEvent.imageAlt || featuredEvent.title} style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', objectFit: 'cover' }} />
               ) : (
-                <span className="text-metadata" style={{ color: 'var(--color-text-muted)' }}>
-                  Event Image Placeholder
-                </span>
+                <>
+                  <div 
+                    style={{ 
+                      position: 'absolute', 
+                      top: 0, 
+                      left: 0, 
+                      right: 0, 
+                      bottom: 0, 
+                      background: 'linear-gradient(145deg, rgba(255,255,255,0.02) 0%, rgba(0,0,0,0.02) 100%)',
+                      pointerEvents: 'none'
+                    }} 
+                  />
+                  <span className="text-technical" style={{ color: 'var(--color-text-muted)', letterSpacing: '0.05em' }}>
+                    IMAGE PLACEHOLDER
+                  </span>
+                </>
               )}
             </div>
           </motion.div>
 
           {/* Right Block (Span 6, spaced at col 7) - Event Information */}
           <div className="event-info-block">
-            <motion.div variants={itemVariants} className="text-metadata" style={{ color: 'var(--color-accent)', marginBottom: 'var(--space-4)', textTransform: 'uppercase' }}>
-              {featuredEvent.status === 'upcoming' ? 'Upcoming Event' : 'Event'}
+            <motion.div variants={itemVariants} style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-2)', marginBottom: 'var(--space-4)' }}>
+              <span style={{ display: 'block', width: '6px', height: '6px', borderRadius: '50%', backgroundColor: 'var(--color-accent)' }} />
+              <span className="text-metadata" style={{ color: 'var(--color-text-secondary)', textTransform: 'uppercase', letterSpacing: '0.1em' }}>
+                {featuredEvent.status === 'upcoming' ? 'Upcoming Event' : 'Event'}
+              </span>
             </motion.div>
             
             <motion.h2 
@@ -149,10 +165,29 @@ export const FeaturedEventSection: React.FC = () => {
             )}
             
             {featuredEvent.externalUrl && (
-              <motion.div variants={itemVariants}>
-                <a href={featuredEvent.externalUrl} target="_blank" rel="noopener noreferrer" className="text-label" style={{ color: 'var(--color-accent)', textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: 'var(--space-2)' }}>
-                  Register Now <span aria-hidden="true">&rarr;</span>
+              <motion.div variants={itemVariants} style={{ marginTop: 'var(--space-2)' }}>
+                <a 
+                  href={featuredEvent.externalUrl} 
+                  target="_blank" 
+                  rel="noopener noreferrer" 
+                  className="text-label event-register-link" 
+                  style={{ 
+                    color: 'var(--color-text-primary)', 
+                    textDecoration: 'none', 
+                    display: 'inline-flex', 
+                    alignItems: 'center', 
+                    gap: 'var(--space-2)',
+                    borderBottom: '1px solid var(--color-border-subtle)',
+                    paddingBottom: 'var(--space-1)',
+                    transition: 'border-color var(--duration-micro) var(--easing-default)'
+                  }}
+                >
+                  Register Now <motion.span aria-hidden="true" whileHover={{ x: 4 }} transition={{ type: 'spring', stiffness: 300 }}>&rarr;</motion.span>
                 </a>
+                <style>{`
+                  .event-register-link:hover { border-bottom-color: var(--color-accent) !important; }
+                  .event-register-link:focus-visible { outline: var(--focus-ring-width) solid var(--color-accent); outline-offset: var(--focus-ring-offset); }
+                `}</style>
               </motion.div>
             )}
           </div>

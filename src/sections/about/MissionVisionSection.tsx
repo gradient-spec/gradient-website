@@ -30,7 +30,7 @@ export const MissionVisionSection: React.FC = () => {
       className="section" 
       aria-labelledby="mission-heading"
       style={{
-        paddingTop: 'var(--space-12)',
+        paddingTop: 'var(--space-8)',
         paddingBottom: 'var(--space-12)',
         backgroundColor: 'var(--color-surface-primary)',
       }}
@@ -43,91 +43,77 @@ export const MissionVisionSection: React.FC = () => {
           viewport={{ once: true, margin: '-100px' }}
           variants={containerVariants}
         >
-          {/* Mission Block - Left Aligned */}
-          <div style={{ gridColumn: '2 / span 5' }}>
-            <motion.div variants={itemVariants} className="text-metadata" style={{ color: 'var(--color-accent)', marginBottom: 'var(--space-4)', textTransform: 'uppercase' }}>
-              WHAT WE DO
-            </motion.div>
+          {/* Mission Row */}
+          <div className="editorial-row">
+            <div className="editorial-left">
+              <motion.div variants={itemVariants} className="text-metadata" style={{ color: 'var(--color-accent)', textTransform: 'uppercase', letterSpacing: '0.1em' }}>
+                [ 01 / MISSION ]
+              </motion.div>
+            </div>
             
-            <motion.h2 
-              id="mission-heading" 
-              variants={itemVariants} 
-              className="text-heading" 
-              style={{ marginBottom: 'var(--space-5)' }}
-            >
-              Ideas, made real.
-            </motion.h2>
-            
-            <motion.div variants={itemVariants} className="text-body" style={{ color: 'var(--color-text-secondary)', display: 'flex', flexDirection: 'column', gap: 'var(--space-4)' }}>
-              <p>
-                Gradient exists to provide students with opportunities to learn, build,
-                experiment, collaborate and create.
-              </p>
-              <p>
-                Created with the CSE-allied branches at its core, Gradient brings
-                students together through technical events, workshops, hackathons,
-                projects, mentorship and team-building opportunities. While rooted in
-                the CSE community, the club remains open to students from other areas
-                who want to bring forward an idea, explore it with others or work
-                towards implementing it.
-              </p>
-              <p>
-                At its core, Gradient is a place where ideas can be expressed,
-                developed and taken beyond the starting point.
-              </p>
-              <p style={{ fontWeight: 'bold', color: 'var(--color-text-primary)', marginTop: 'var(--space-4)' }}>
-                Gradient exists to create opportunities for students to turn ideas
-                into reality.
-              </p>
-            </motion.div>
+            <div className="editorial-right">
+              <motion.h2 
+                id="mission-heading" 
+                variants={itemVariants} 
+                className="text-display" 
+                style={{ fontSize: 'clamp(2.5rem, 5vw, 4rem)', lineHeight: '1.2' }}
+              >
+                Ideas, made real.
+              </motion.h2>
+            </div>
           </div>
 
-          {/* Vision Block - Right Aligned, staggered vertically */}
-          <div className="vision-block" style={{ gridColumn: '7 / span 5' }}>
-            <motion.div variants={itemVariants} className="text-metadata" style={{ color: 'var(--color-accent)', marginBottom: 'var(--space-4)', textTransform: 'uppercase' }}>
-              LOOKING AHEAD
-            </motion.div>
+          {/* Vision Row */}
+          <div className="editorial-row vision-row">
+            <div className="editorial-left">
+              <motion.div variants={itemVariants} className="text-metadata" style={{ color: 'var(--color-text-tertiary)', textTransform: 'uppercase', letterSpacing: '0.1em' }}>
+                [ 02 / VISION ]
+              </motion.div>
+            </div>
             
-            <motion.h2 
-              variants={itemVariants} 
-              className="text-heading" 
-              style={{ marginBottom: 'var(--space-5)' }}
-            >
-              A platform that reaches beyond the campus.
-            </motion.h2>
-            
-            <motion.div variants={itemVariants} className="text-body" style={{ color: 'var(--color-text-secondary)', display: 'flex', flexDirection: 'column', gap: 'var(--space-4)' }}>
-              <p>
-                Gradient's future is to grow beyond being only a college technical
-                club and become a broader platform for people who want to explore,
-                create and build.
-              </p>
-              <p>
-                While its roots remain in the college community, the ambition is to
-                gradually extend that community beyond the campus and eventually reach
-                an international audience.
-              </p>
-              <p>
-                The goal is not simply to grow in size, but to create a platform where
-                different kinds of people can come together, develop their abilities
-                and turn ideas into meaningful work.
-              </p>
-            </motion.div>
+            <div className="editorial-right">
+              <motion.h2 
+                variants={itemVariants} 
+                className="text-display" 
+                style={{ fontSize: 'clamp(2.5rem, 5vw, 4rem)', lineHeight: '1.2' }}
+              >
+                A platform that reaches beyond the campus.
+              </motion.h2>
+            </div>
           </div>
         </motion.div>
       </div>
 
       <style>{`
-        .vision-block {
-          margin-top: var(--space-12); /* Creates vertical stagger on desktop */
+        .editorial-row {
+          grid-column: 1 / -1;
+          display: grid;
+          grid-template-columns: repeat(12, 1fr);
+          gap: var(--grid-gutter);
+          border-top: 1px solid var(--color-border-subtle);
+          padding-top: var(--space-6);
+          padding-bottom: var(--space-6);
+        }
+        
+        .vision-row {
+          padding-bottom: 0;
+        }
+
+        .editorial-left {
+          grid-column: 1 / span 3;
+        }
+        
+        .editorial-right {
+          grid-column: 4 / span 9;
         }
         
         @media (max-width: 992px) {
-          .grid > div {
-            grid-column: span 12 !important;
+          .editorial-left {
+            grid-column: 1 / -1;
+            margin-bottom: var(--space-4);
           }
-          .vision-block {
-            margin-top: var(--space-10);
+          .editorial-right {
+            grid-column: 1 / -1;
           }
         }
       `}</style>

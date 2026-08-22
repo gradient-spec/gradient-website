@@ -41,21 +41,11 @@ export const Footer: React.FC = () => {
             </ul>
           </div>
           
-          {/* Socials */}
+          {/* Socials - Omitted until verified destinations are available */}
           <div style={{ gridColumn: 'span 4' }}>
             <h4 className="text-label" style={{ marginBottom: 'var(--space-4)', color: 'var(--color-text-primary)' }}>Socials</h4>
             <ul style={{ display: 'flex', gap: 'var(--space-4)' }}>
-              <li>
-                <a 
-                  href="https://www.linkedin.com/in/spec-gradient-977369354/" 
-                  className="text-body-small" 
-                  style={{ color: 'var(--color-text-secondary)', textDecoration: 'none' }}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  LinkedIn
-                </a>
-              </li>
+              {/* No verified official social links currently exist. */}
             </ul>
           </div>
         </div>

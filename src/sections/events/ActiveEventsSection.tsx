@@ -30,6 +30,11 @@ export const ActiveEventsSection: React.FC = () => {
   // Distinguish Upcoming and Ongoing
   const activeEvents = events.filter(e => e.status === 'upcoming' || e.status === 'ongoing');
   
+  // Per specification: Omit the section entirely when no verified active event exists.
+  if (activeEvents.length === 0) {
+    return null;
+  }
+  
   return (
     <section 
       className="section" 
@@ -51,20 +56,13 @@ export const ActiveEventsSection: React.FC = () => {
             id="active-events-heading"
             variants={itemVariants} 
             className="text-heading" 
-            style={{ marginBottom: 'var(--space-8)' }}
+            style={{ fontSize: 'var(--font-size-xl)', marginBottom: 'var(--space-8)' }}
           >
             Active
           </motion.h2>
 
-          {activeEvents.length === 0 ? (
-            <motion.div variants={itemVariants} style={{ padding: 'var(--space-8) 0', borderTop: '1px solid var(--color-border-subtle)' }}>
-              <p className="text-body" style={{ color: 'var(--color-text-secondary)' }}>
-                New events are currently being scheduled. Check back soon for updates.
-              </p>
-            </motion.div>
-          ) : (
-            <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-8)' }}>
-              {activeEvents.map((event) => (
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-8)' }}>
+            {activeEvents.map((event) => (
                 <motion.article 
                   key={event.id}
                   variants={itemVariants}
@@ -76,12 +74,15 @@ export const ActiveEventsSection: React.FC = () => {
                   <div className="grid">
                     {/* Left: Date & Metadata (Span 3) */}
                     <div style={{ gridColumn: 'span 3' }}>
-                      <div className="text-metadata" style={{ color: 'var(--color-text-primary)', marginBottom: 'var(--space-2)' }}>
+                      <div className="text-metadata" style={{ color: 'var(--color-text-primary)', marginBottom: 'var(--space-3)' }}>
                         {event.date}
                         {event.endDate && ` - ${event.endDate}`}
                       </div>
-                      <div className="text-metadata" style={{ color: 'var(--color-text-secondary)' }}>
-                        {event.status === 'ongoing' ? 'Ongoing' : 'Upcoming'}
+                      <div className="text-metadata" style={{ color: 'var(--color-text-secondary)', display: 'flex', alignItems: 'center', gap: 'var(--space-2)' }}>
+                        <span style={{ display: 'block', width: '6px', height: '6px', borderRadius: '50%', backgroundColor: 'var(--color-accent)' }} />
+                        <span style={{ textTransform: 'uppercase', letterSpacing: '0.1em' }}>
+                          {event.status === 'ongoing' ? 'Ongoing Event' : 'Upcoming Event'}
+                        </span>
                       </div>
                       {event.location && (
                         <div className="text-metadata" style={{ color: 'var(--color-text-muted)', marginTop: 'var(--space-2)' }}>
@@ -92,7 +93,7 @@ export const ActiveEventsSection: React.FC = () => {
                     
                     {/* Right: Title, Description & Link (Span 9) */}
                     <div style={{ gridColumn: 'span 9' }}>
-                      <h3 className="text-subheading" style={{ marginBottom: 'var(--space-3)' }}>
+                      <h3 className="text-heading" style={{ fontSize: 'var(--font-size-2xl)', marginBottom: 'var(--space-3)' }}>
                         {event.title}
                       </h3>
                       {event.description && (
@@ -101,39 +102,46 @@ export const ActiveEventsSection: React.FC = () => {
                         </p>
                       )}
                       {event.externalUrl && (
-                        <a 
-                          href={event.externalUrl}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="text-label"
-                          style={{
-                            display: 'inline-flex',
-                            color: 'var(--color-text-primary)',
-                            textDecoration: 'none',
-                            borderBottom: '1px solid var(--color-border-subtle)',
-                            paddingBottom: 'var(--space-1)'
-                          }}
-                        >
-                          View Details
-                        </a>
+                        <div style={{ marginTop: 'var(--space-2)' }}>
+                          <a 
+                            href={event.externalUrl}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="text-label active-event-link"
+                            style={{
+                              display: 'inline-flex',
+                              alignItems: 'center',
+                              gap: 'var(--space-2)',
+                              color: 'var(--color-text-primary)',
+                              textDecoration: 'none',
+                              borderBottom: '1px solid var(--color-border-subtle)',
+                              paddingBottom: 'var(--space-1)',
+                              transition: 'border-color var(--duration-micro) var(--easing-default)'
+                            }}
+                          >
+                            View Details <motion.span aria-hidden="true" whileHover={{ x: 4 }} transition={{ type: 'spring', stiffness: 300 }}>&rarr;</motion.span>
+                          </a>
+                        </div>
                       )}
                     </div>
                   </div>
                 </motion.article>
               ))}
             </div>
-          )}
-        </motion.div>
-      </div>
+          </motion.div>
+        </div>
 
-      <style>{`
-        @media (max-width: 768px) {
-          .grid > div {
-            grid-column: span 12 !important;
-            margin-bottom: var(--space-4);
+        <style>{`
+          .active-event-link:hover { border-bottom-color: var(--color-accent) !important; }
+          .active-event-link:focus-visible { outline: var(--focus-ring-width) solid var(--color-accent); outline-offset: var(--focus-ring-offset); }
+          
+          @media (max-width: 768px) {
+            .grid > div {
+              grid-column: span 12 !important;
+              margin-bottom: var(--space-4);
+            }
           }
-        }
-      `}</style>
-    </section>
-  );
-};
+        `}</style>
+      </section>
+    );
+  };

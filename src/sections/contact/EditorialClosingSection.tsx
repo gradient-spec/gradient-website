@@ -1,6 +1,5 @@
 import React from 'react';
-import { motion } from 'framer-motion';
-import type { Variants } from 'framer-motion';
+import { motion, useReducedMotion, type Variants } from 'framer-motion';
 
 const containerVariants: Variants = {
   hidden: { opacity: 0 },
@@ -12,19 +11,21 @@ const containerVariants: Variants = {
   },
 };
 
-const itemVariants: Variants = {
-  hidden: { opacity: 0, y: 20 }, // CANDIDATE: 20px entrance motion
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: {
-      duration: 0.7,
-      ease: 'easeOut',
-    },
-  },
-};
+export const EditorialClosingSection: React.FC = () => {
+  const prefersReducedMotion = useReducedMotion();
 
-export const ProjectsHeroSection: React.FC = () => {
+  const itemVariants: Variants = {
+    hidden: { opacity: 0, y: prefersReducedMotion ? 0 : 20 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 0.7,
+        ease: 'easeOut',
+      },
+    },
+  };
+
   return (
     <section 
       className="section" 
@@ -44,8 +45,7 @@ export const ProjectsHeroSection: React.FC = () => {
           animate="visible"
           variants={containerVariants}
         >
-          {/* Asymmetric 7:5 layout on desktop */}
-          <div style={{ gridColumn: 'span 7' }}>
+          <div style={{ gridColumn: 'span 12' }}>
             <motion.h1 
               id="page-heading" 
               variants={itemVariants} 
@@ -53,19 +53,13 @@ export const ProjectsHeroSection: React.FC = () => {
               style={{ marginBottom: 'var(--space-5)', outline: 'none' }}
               tabIndex={-1}
             >
-              Projects
+              Contact
             </motion.h1>
+            
+            {/* The rest of the Editorial Closing copy is unverified and thus omitted */}
           </div>
         </motion.div>
       </div>
-
-      <style>{`
-        @media (max-width: 992px) {
-          .grid > div {
-            grid-column: span 12 !important;
-          }
-        }
-      `}</style>
     </section>
   );
 };

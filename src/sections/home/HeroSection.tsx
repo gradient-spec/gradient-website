@@ -79,12 +79,18 @@ export const HeroSection: React.FC = () => {
               }
             `}</style>
             
+            <motion.div variants={childVariants} style={{ marginBottom: 'var(--space-3)' }}>
+              <span className="text-metadata" style={{ color: 'var(--color-text-tertiary)', letterSpacing: '0.1em' }}>
+                [ EST. 2020 ]
+              </span>
+            </motion.div>
+            
             <motion.h1 
               variants={childVariants} 
               id="page-heading" 
               tabIndex={-1} 
               className="text-display" 
-              style={{ outline: 'none', marginBottom: 'var(--space-5)' }}
+              style={{ outline: 'none', fontSize: 'clamp(4rem, 8vw, 6rem)', lineHeight: '1.1' }}
             >
               Gradient
             </motion.h1>
@@ -103,12 +109,24 @@ export const HeroSection: React.FC = () => {
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
-              border: '1px dashed var(--color-border-strong)',
-              borderRadius: 'var(--radius-sm)'
+              border: '1px solid var(--color-border-subtle)',
+              borderRadius: 'var(--radius-md)',
+              overflow: 'hidden'
             }}
           >
-            <div className="text-metadata" style={{ color: 'var(--color-text-muted)', textAlign: 'center', padding: 'var(--space-4)' }}>
-              Image Placeholder
+            <div 
+              style={{ 
+                position: 'absolute', 
+                top: 0, 
+                left: 0, 
+                right: 0, 
+                bottom: 0, 
+                background: 'linear-gradient(145deg, rgba(255,255,255,0.02) 0%, rgba(0,0,0,0.02) 100%)',
+                pointerEvents: 'none'
+              }} 
+            />
+            <div className="text-technical" style={{ color: 'var(--color-text-muted)', textAlign: 'center', padding: 'var(--space-4)', letterSpacing: '0.05em' }}>
+              IMAGE PLACEHOLDER
             </div>
             {/* When a real image is provided, its fit behavior will be intentionally chosen (e.g. object-fit: cover, contain, or a specific object-position) instead of universally assuming cover.
                 <img src="..." alt="..." style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', objectFit: 'cover' }} />
