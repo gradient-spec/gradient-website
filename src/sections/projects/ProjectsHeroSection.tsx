@@ -46,11 +46,17 @@ export const ProjectsHeroSection: React.FC = () => {
         >
           {/* Asymmetric 7:5 layout on desktop */}
           <div style={{ gridColumn: 'span 7' }}>
+            <motion.div variants={itemVariants} style={{ marginBottom: 'var(--space-3)' }}>
+              <span className="text-metadata" style={{ color: 'var(--color-text-tertiary)', letterSpacing: '0.1em' }}>
+                [ PORTFOLIO ]
+              </span>
+            </motion.div>
+            
             <motion.h1 
               id="page-heading" 
               variants={itemVariants} 
               className="text-display" 
-              style={{ marginBottom: 'var(--space-5)', outline: 'none' }}
+              style={{ marginBottom: 'var(--space-5)', outline: 'none', fontSize: 'clamp(4rem, 8vw, 6rem)', lineHeight: '1.1' }}
               tabIndex={-1}
             >
               Projects
