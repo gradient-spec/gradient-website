@@ -74,26 +74,26 @@ export const ActiveEventsSection: React.FC = () => {
                   <div className="grid">
                     {/* Left: Date & Metadata (Span 3) */}
                     <div style={{ gridColumn: 'span 3' }}>
-                      <div className="text-metadata" style={{ color: 'var(--color-text-primary)', marginBottom: 'var(--space-3)' }}>
+                      <div className="text-metadata" style={{ color: 'var(--color-text-primary)', marginBottom: 'var(--space-3)', fontWeight: 'var(--font-weight-medium)' }}>
                         {event.date}
                         {event.endDate && ` - ${event.endDate}`}
                       </div>
-                      <div className="text-metadata" style={{ color: 'var(--color-text-secondary)', display: 'flex', alignItems: 'center', gap: 'var(--space-2)' }}>
+                      <div className="text-metadata" style={{ color: 'var(--color-text-primary)', display: 'flex', alignItems: 'center', gap: 'var(--space-3)', fontSize: 'var(--font-size-sm)', fontWeight: 'var(--font-weight-medium)' }}>
                         <span style={{ display: 'block', width: '6px', height: '6px', borderRadius: '50%', backgroundColor: 'var(--color-accent)' }} />
-                        <span style={{ textTransform: 'uppercase', letterSpacing: '0.1em' }}>
+                        <span style={{ textTransform: 'uppercase', letterSpacing: '0.15em' }}>
                           {event.status === 'ongoing' ? 'Ongoing Event' : 'Upcoming Event'}
                         </span>
                       </div>
                       {event.location && (
-                        <div className="text-metadata" style={{ color: 'var(--color-text-muted)', marginTop: 'var(--space-2)' }}>
+                        <div className="text-metadata" style={{ color: 'var(--color-text-secondary)', marginTop: 'var(--space-2)' }}>
                           {event.location}
                         </div>
                       )}
                     </div>
                     
                     {/* Right: Title, Description & Link (Span 9) */}
-                    <div style={{ gridColumn: 'span 9' }}>
-                      <h3 className="text-heading" style={{ fontSize: 'var(--font-size-2xl)', marginBottom: 'var(--space-3)' }}>
+                    <div style={{ gridColumn: 'span 9', borderLeft: '2px solid var(--color-border-subtle)', paddingLeft: 'var(--space-4)' }}>
+                      <h3 className="text-heading" style={{ fontSize: 'var(--font-size-3xl)', marginBottom: 'var(--space-3)', lineHeight: '1.2' }}>
                         {event.title}
                       </h3>
                       {event.description && (
@@ -119,7 +119,7 @@ export const ActiveEventsSection: React.FC = () => {
                               transition: 'border-color var(--duration-micro) var(--easing-default)'
                             }}
                           >
-                            View Details <motion.span aria-hidden="true" whileHover={{ x: 4 }} transition={{ type: 'spring', stiffness: 300 }}>&rarr;</motion.span>
+                            View Details <motion.span aria-hidden="true" className="cta-arrow" transition={{ type: 'spring', stiffness: 300, damping: 20 }}>&rarr;</motion.span>
                           </a>
                         </div>
                       )}
@@ -133,7 +133,9 @@ export const ActiveEventsSection: React.FC = () => {
 
         <style>{`
           .active-event-link:hover { border-bottom-color: var(--color-accent) !important; }
-          .active-event-link:focus-visible { outline: var(--focus-ring-width) solid var(--color-accent); outline-offset: var(--focus-ring-offset); }
+          .active-event-link:focus-visible { outline: var(--focus-ring-width) solid var(--color-accent); outline-offset: var(--focus-ring-offset); border-radius: var(--radius-sm); }
+          .active-event-link .cta-arrow { display: inline-block; transition: transform 250ms cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+          .active-event-link:hover .cta-arrow, .active-event-link:focus-visible .cta-arrow { transform: translateX(4px); }
           
           @media (max-width: 768px) {
             .grid > div {

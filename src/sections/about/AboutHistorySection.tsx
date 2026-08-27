@@ -27,11 +27,12 @@ const itemVariants: Variants = {
 export const AboutHistorySection: React.FC = () => {
   return (
     <section 
+      aria-label="History" 
       className="section" 
-      aria-labelledby="page-heading"
-      style={{
-        paddingTop: 'var(--space-10)',
-        paddingBottom: 'var(--space-10)',
+      style={{ 
+        overflow: 'hidden',
+        paddingTop: 'var(--space-12)',
+        paddingBottom: 'var(--space-8)'
       }}
     >
       <div className="container">
@@ -68,7 +69,6 @@ export const AboutHistorySection: React.FC = () => {
               style={{
                 width: '100%',
                 height: '100%',
-                minHeight: '600px',
                 position: 'relative',
                 border: '1px solid var(--color-border-subtle)',
                 backgroundColor: 'var(--color-surface-secondary)',
@@ -99,12 +99,18 @@ export const AboutHistorySection: React.FC = () => {
       </div>
 
       <style>{`
+        .image-placeholder-frame {
+          min-height: 600px;
+        }
         @media (max-width: 992px) {
-          .grid > div {
-            grid-column: span 12 !important;
+          .image-placeholder-frame {
+            min-height: 400px;
           }
+        }
+        @media (max-width: 768px) {
           .image-placeholder-frame {
             margin-top: var(--space-8);
+            min-height: 300px;
           }
         }
       `}</style>

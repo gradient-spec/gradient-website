@@ -46,8 +46,8 @@ export const MissionVisionSection: React.FC = () => {
           {/* Mission Row */}
           <div className="editorial-row">
             <div className="editorial-left">
-              <motion.div variants={itemVariants} className="text-metadata" style={{ color: 'var(--color-accent)', textTransform: 'uppercase', letterSpacing: '0.1em' }}>
-                [ 01 / MISSION ]
+              <motion.div variants={itemVariants} className="text-label" style={{ color: 'var(--color-accent)', marginBottom: 'var(--space-3)' }}>
+                01 / MISSION
               </motion.div>
             </div>
             
@@ -66,8 +66,8 @@ export const MissionVisionSection: React.FC = () => {
           {/* Vision Row */}
           <div className="editorial-row vision-row">
             <div className="editorial-left">
-              <motion.div variants={itemVariants} className="text-metadata" style={{ color: 'var(--color-text-tertiary)', textTransform: 'uppercase', letterSpacing: '0.1em' }}>
-                [ 02 / VISION ]
+              <motion.div variants={itemVariants} className="text-label" style={{ color: 'var(--color-text-tertiary)', marginBottom: 'var(--space-3)' }}>
+                02 / VISION
               </motion.div>
             </div>
             
@@ -91,8 +91,8 @@ export const MissionVisionSection: React.FC = () => {
           grid-template-columns: repeat(12, 1fr);
           gap: var(--grid-gutter);
           border-top: 1px solid var(--color-border-subtle);
-          padding-top: var(--space-6);
-          padding-bottom: var(--space-6);
+          padding-top: var(--space-8);
+          padding-bottom: var(--space-8);
         }
         
         .vision-row {

@@ -30,7 +30,7 @@ export const EventsHeroSection: React.FC = () => {
       className="section" 
       aria-labelledby="events-hero-heading"
       style={{
-        paddingTop: 'var(--space-10)',
+        paddingTop: 'var(--space-12)',
         paddingBottom: 'var(--space-10)',
       }}
     >
@@ -68,7 +68,6 @@ export const EventsHeroSection: React.FC = () => {
               style={{
                 width: '100%',
                 height: '100%',
-                minHeight: '500px',
                 position: 'relative',
                 border: '1px solid var(--color-border-subtle)',
                 backgroundColor: 'var(--color-surface-secondary)',
@@ -99,12 +98,18 @@ export const EventsHeroSection: React.FC = () => {
       </div>
 
       <style>{`
+        .image-placeholder-frame {
+          min-height: 500px;
+        }
         @media (max-width: 992px) {
-          .grid > div {
-            grid-column: span 12 !important;
+          .image-placeholder-frame {
+            min-height: 350px;
           }
+        }
+        @media (max-width: 768px) {
           .image-placeholder-frame {
             margin-top: var(--space-8);
+            min-height: 250px;
           }
         }
       `}</style>

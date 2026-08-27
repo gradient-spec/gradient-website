@@ -48,26 +48,53 @@ export const Navbar: React.FC = () => {
 
           {/* Desktop Nav */}
           <nav aria-label="Primary Desktop Navigation" className="desktop-nav">
-            <ul style={{ display: 'flex', gap: 'var(--space-5)' }}>
+            <ul style={{ display: 'flex', gap: 'var(--space-6)' }}>
               {NAV_LINKS.map(link => (
                 <li key={link.path}>
                   <NavLink
                     to={link.path}
-                    className="text-body"
-                    style={({ isActive }) => ({
-                      color: isActive ? 'var(--color-accent)' : 'var(--color-text-secondary)',
-                      textDecoration: 'none',
-                      fontWeight: isActive ? 'var(--font-weight-semibold)' : 'var(--font-weight-regular)',
-                      borderBottom: isActive ? '2px solid var(--color-accent)' : '2px solid transparent',
-                      paddingBottom: 'var(--space-1)',
-                      transition: 'all var(--duration-micro) var(--easing-default)'
-                    })}
+                    className="text-body nav-link-item"
                   >
                     {link.name}
                   </NavLink>
                 </li>
               ))}
             </ul>
+            <style>{`
+              .nav-link-item {
+                position: relative;
+                color: var(--color-text-secondary);
+                text-decoration: none;
+                font-weight: var(--font-weight-regular);
+                padding-bottom: var(--space-1);
+                transition: color 200ms ease-out, opacity 200ms ease-out;
+              }
+              .nav-link-item:hover, .nav-link-item:focus-visible {
+                color: var(--color-text-primary);
+                opacity: 0.8;
+                outline: none;
+              }
+              .nav-link-item.active {
+                color: var(--color-accent);
+                font-weight: var(--font-weight-medium);
+              }
+              .nav-link-item::after {
+                content: '';
+                position: absolute;
+                bottom: 0;
+                left: 0;
+                width: 100%;
+                height: 1px;
+                background-color: var(--color-accent);
+                transform: scaleX(0);
+                transform-origin: right;
+                transition: transform 300ms ease-out;
+              }
+              .nav-link-item.active::after, .nav-link-item:focus-visible::after {
+                transform: scaleX(1);
+                transform-origin: left;
+              }
+            `}</style>
           </nav>
 
           {/* Mobile Trigger */}

@@ -26,12 +26,20 @@ export const HeroSection: React.FC = () => {
       opacity: 1, 
       clipPath: 'inset(0% 0% 0% 0%)', 
       scale: 1,
-      transition: { duration: 0.8, ease: 'easeOut', delay: 0.2 } 
+      transition: { duration: 0.8, ease: 'easeOut', delay: 0.3 } 
     }
   };
 
   return (
-    <section aria-label="Introduction" className="section" style={{ overflow: 'hidden' }}>
+    <section 
+      aria-label="Introduction" 
+      className="section" 
+      style={{ 
+        overflow: 'hidden',
+        paddingTop: 'var(--space-12)',
+        paddingBottom: 'var(--space-8)' 
+      }}
+    >
       <div className="container">
         <div 
           className="grid" 
@@ -46,27 +54,22 @@ export const HeroSection: React.FC = () => {
             initial="hidden"
             animate="visible"
             variants={textVariants}
-            style={{ 
-              gridColumn: '1 / span 7',
-              // On tablet/mobile, we'll let it span full width using standard media queries in layout.css if possible, or use inline min-width strategies. 
-              // Wait, layout.css already sets `.grid > * { grid-column: 1 / -1 !important; }` on max-width 768px.
-              // So we can safely use gridColumn: '1 / 8' and it will become '1 / -1' on tablet/mobile automatically due to the !important in layout.css.
-              // Wait! The user said: "Also do not assume Tablet must immediately collapse to a single column. Where useful, preserve an asymmetric composition at tablet width before stacking on smaller screens."
-              // We'll need a small scoped style block to handle this gracefully without adding global breakpoints.
-            }}
             className="hero-text-block"
+            style={{ 
+              gridColumn: '1 / span 6',
+            }}
           >
             {/* Scoped style for responsive behavior without a new global CSS file */}
             <style>{`
-              .hero-text-block { grid-column: 1 / span 7; }
+              .hero-text-block { grid-column: 1 / span 6; }
               .hero-image-block { 
-                grid-column: 8 / span 5; 
+                grid-column: 7 / span 6; 
                 min-height: var(--hero-frame-height-desktop, 70vh);
               }
               @media (max-width: 992px) {
-                .hero-text-block { grid-column: 1 / span 6; }
+                .hero-text-block { grid-column: 1 / span 5; }
                 .hero-image-block { 
-                  grid-column: 7 / span 6; 
+                  grid-column: 6 / span 7; 
                   min-height: var(--hero-frame-height-tablet, 50vh);
                 }
               }
@@ -79,8 +82,8 @@ export const HeroSection: React.FC = () => {
               }
             `}</style>
             
-            <motion.div variants={childVariants} style={{ marginBottom: 'var(--space-3)' }}>
-              <span className="text-metadata" style={{ color: 'var(--color-text-tertiary)', letterSpacing: '0.1em' }}>
+            <motion.div variants={childVariants} style={{ marginBottom: 'var(--space-4)' }}>
+              <span className="text-metadata" style={{ color: 'var(--color-text-secondary)', letterSpacing: '0.15em', fontSize: 'var(--font-size-sm)', fontWeight: 'var(--font-weight-medium)' }}>
                 [ EST. 2020 ]
               </span>
             </motion.div>
@@ -90,7 +93,7 @@ export const HeroSection: React.FC = () => {
               id="page-heading" 
               tabIndex={-1} 
               className="text-display" 
-              style={{ outline: 'none', fontSize: 'clamp(4rem, 8vw, 6rem)', lineHeight: '1.1' }}
+              style={{ outline: 'none', fontSize: 'clamp(4.5rem, 9vw, 7rem)', lineHeight: '1.05', letterSpacing: '-0.02em' }}
             >
               Gradient
             </motion.h1>
@@ -109,8 +112,9 @@ export const HeroSection: React.FC = () => {
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
-              border: '1px solid var(--color-border-subtle)',
-              borderRadius: 'var(--radius-md)',
+              border: '1px solid var(--color-border-default)',
+              boxShadow: 'var(--shadow-sm)',
+              borderRadius: 'var(--radius-lg)',
               overflow: 'hidden'
             }}
           >

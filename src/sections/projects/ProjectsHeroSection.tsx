@@ -31,13 +31,28 @@ export const ProjectsHeroSection: React.FC = () => {
       aria-labelledby="page-heading"
       style={{
         paddingTop: 'var(--space-12)',
-        paddingBottom: 'var(--space-10)',
-        minHeight: '40vh',
+        paddingBottom: 'var(--space-12)',
+        minHeight: '60vh',
         display: 'flex',
         alignItems: 'center',
+        position: 'relative',
+        overflow: 'hidden'
       }}
     >
-      <div className="container" style={{ width: '100%' }}>
+      <div 
+        aria-hidden="true" 
+        style={{
+          position: 'absolute',
+          top: 0,
+          right: 0,
+          width: '50%',
+          height: '100%',
+          background: 'radial-gradient(circle at 100% 50%, var(--color-surface-secondary) 0%, transparent 60%)',
+          opacity: 0.3,
+          zIndex: -1
+        }} 
+      />
+      <div className="container" style={{ width: '100%', position: 'relative', zIndex: 1 }}>
         <motion.div 
           className="grid" 
           initial="hidden"
@@ -46,8 +61,8 @@ export const ProjectsHeroSection: React.FC = () => {
         >
           {/* Asymmetric 7:5 layout on desktop */}
           <div style={{ gridColumn: 'span 7' }}>
-            <motion.div variants={itemVariants} style={{ marginBottom: 'var(--space-3)' }}>
-              <span className="text-metadata" style={{ color: 'var(--color-text-tertiary)', letterSpacing: '0.1em' }}>
+            <motion.div variants={itemVariants} style={{ marginBottom: 'var(--space-8)', borderTop: '1px solid var(--color-border-subtle)', paddingTop: 'var(--space-4)', display: 'inline-block' }}>
+              <span className="text-metadata" style={{ color: 'var(--color-text-secondary)', letterSpacing: '0.15em', fontSize: 'var(--font-size-sm)', fontWeight: 'var(--font-weight-medium)' }}>
                 [ PORTFOLIO ]
               </span>
             </motion.div>
@@ -56,7 +71,7 @@ export const ProjectsHeroSection: React.FC = () => {
               id="page-heading" 
               variants={itemVariants} 
               className="text-display" 
-              style={{ marginBottom: 'var(--space-5)', outline: 'none', fontSize: 'clamp(4rem, 8vw, 6rem)', lineHeight: '1.1' }}
+              style={{ marginBottom: 'var(--space-5)', outline: 'none', fontSize: 'clamp(4.5rem, 9vw, 7rem)', lineHeight: '1.05', letterSpacing: '-0.02em' }}
               tabIndex={-1}
             >
               Projects
@@ -66,11 +81,7 @@ export const ProjectsHeroSection: React.FC = () => {
       </div>
 
       <style>{`
-        @media (max-width: 992px) {
-          .grid > div {
-            grid-column: span 12 !important;
-          }
-        }
+        /* Handled by layout.css grid collapse at 768px */
       `}</style>
     </section>
   );

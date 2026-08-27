@@ -16,25 +16,22 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Navbar } from '@/components/global/Navbar';
 import { Footer } from '@/components/global/Footer';
 
+const RouteTransitionEffect = () => {
+  useEffect(() => {
+    // This effect runs exactly when the old route has completely exited 
+    // and the new route has mounted in the DOM.
+    window.scrollTo(0, 0);
+    const heading = document.getElementById('page-heading');
+    if (heading) {
+      heading.focus({ preventScroll: true });
+    }
+  }, []); // Runs once per route mount
+  
+  return null;
+};
+
 const RootLayout = () => {
   const { pathname } = useLocation();
-
-  /**
-   * Route-change focus management.
-   * Spec: "Route changes move focus to the page heading."
-   * Moves focus to #page-heading on route change for accessibility.
-   */
-  useEffect(() => {
-    // Small timeout ensures the DOM has updated with the new page content
-    const timeout = setTimeout(() => {
-      const heading = document.getElementById('page-heading');
-      if (heading) {
-        heading.focus({ preventScroll: true });
-      }
-      window.scrollTo(0, 0);
-    }, 50);
-    return () => clearTimeout(timeout);
-  }, [pathname]);
 
   return (
     <div id="app-root" style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
@@ -55,6 +52,7 @@ const RootLayout = () => {
           transition={{ duration: 0.3, ease: 'easeOut' }}
           style={{ flex: 1, display: 'flex', flexDirection: 'column' }}
         >
+          <RouteTransitionEffect />
           <Outlet />
         </motion.div>
       </AnimatePresence>

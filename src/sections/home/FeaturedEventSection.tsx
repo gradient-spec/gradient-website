@@ -52,6 +52,16 @@ export const FeaturedEventSection: React.FC = () => {
             gap: var(--grid-gutter);
             align-items: center;
           }
+          .event-left-margin {
+            grid-column: 1 / span 4;
+            border-top: 2px solid var(--color-border-subtle);
+            padding-top: var(--space-4);
+          }
+          .event-layout-grid {
+            grid-column: 5 / span 8;
+            border-top: 1px solid var(--color-border-subtle);
+            padding-top: var(--space-4);
+          }
           .event-image-block { 
             grid-column: 1 / span 5;
           }
@@ -60,10 +70,11 @@ export const FeaturedEventSection: React.FC = () => {
             grid-column: 7 / span 6; 
           }
           .event-image-frame {
-            aspect-ratio: 4/3; /* CANDIDATE visual framing decision. Do not treat as a universal requirement. */
-            background-color: var(--color-surface-secondary);
-            border: 1px dashed var(--color-border-strong);
-            border-radius: var(--radius-sm);
+            aspect-ratio: 4/3; 
+            background-color: var(--color-surface-primary);
+            border: 1px solid var(--color-border-subtle);
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-sm);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -127,9 +138,9 @@ export const FeaturedEventSection: React.FC = () => {
 
           {/* Right Block (Span 6, spaced at col 7) - Event Information */}
           <div className="event-info-block">
-            <motion.div variants={itemVariants} style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-2)', marginBottom: 'var(--space-4)' }}>
+            <motion.div variants={itemVariants} style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-3)', marginBottom: 'var(--space-4)' }}>
               <span style={{ display: 'block', width: '6px', height: '6px', borderRadius: '50%', backgroundColor: 'var(--color-accent)' }} />
-              <span className="text-metadata" style={{ color: 'var(--color-text-secondary)', textTransform: 'uppercase', letterSpacing: '0.1em' }}>
+              <span className="text-metadata" style={{ color: 'var(--color-text-primary)', textTransform: 'uppercase', letterSpacing: '0.15em', fontSize: 'var(--font-size-sm)', fontWeight: 'var(--font-weight-medium)' }}>
                 {featuredEvent.status === 'upcoming' ? 'Upcoming Event' : 'Event'}
               </span>
             </motion.div>
@@ -138,7 +149,7 @@ export const FeaturedEventSection: React.FC = () => {
               id="featured-event-heading"
               variants={itemVariants} 
               className="text-heading" 
-              style={{ marginBottom: 'var(--space-4)' }}
+              style={{ marginBottom: 'var(--space-5)', fontSize: 'var(--font-size-3xl)', lineHeight: '1.2' }}
             >
               {featuredEvent.title}
             </motion.h2>
@@ -150,14 +161,14 @@ export const FeaturedEventSection: React.FC = () => {
             )}
             
             {(featuredEvent.date || featuredEvent.location) && (
-              <motion.div variants={itemVariants} className="event-info-details" style={{ marginBottom: 'var(--space-6)' }}>
+              <motion.div variants={itemVariants} className="event-info-details" style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-2)', marginBottom: 'var(--space-6)', borderLeft: '2px solid var(--color-border-subtle)', paddingLeft: 'var(--space-4)' }}>
                 {featuredEvent.date && (
-                  <p className="text-metadata" style={{ color: 'var(--color-text-primary)', marginBottom: 'var(--space-1)' }}>
+                  <p className="text-body" style={{ color: 'var(--color-text-primary)' }}>
                     {featuredEvent.date}
                   </p>
                 )}
                 {featuredEvent.location && (
-                  <p className="text-metadata" style={{ color: 'var(--color-text-secondary)' }}>
+                  <p className="text-body" style={{ color: 'var(--color-text-secondary)' }}>
                     {featuredEvent.location}
                   </p>
                 )}
@@ -182,11 +193,13 @@ export const FeaturedEventSection: React.FC = () => {
                     transition: 'border-color var(--duration-micro) var(--easing-default)'
                   }}
                 >
-                  Register Now <motion.span aria-hidden="true" whileHover={{ x: 4 }} transition={{ type: 'spring', stiffness: 300 }}>&rarr;</motion.span>
+                  Register Now <motion.span aria-hidden="true" className="cta-arrow" transition={{ type: 'spring', stiffness: 300, damping: 20 }}>&rarr;</motion.span>
                 </a>
                 <style>{`
                   .event-register-link:hover { border-bottom-color: var(--color-accent) !important; }
-                  .event-register-link:focus-visible { outline: var(--focus-ring-width) solid var(--color-accent); outline-offset: var(--focus-ring-offset); }
+                  .event-register-link:focus-visible { outline: var(--focus-ring-width) solid var(--color-accent); outline-offset: var(--focus-ring-offset); border-radius: var(--radius-sm); }
+                  .event-register-link .cta-arrow { display: inline-block; transition: transform 250ms cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+                  .event-register-link:hover .cta-arrow, .event-register-link:focus-visible .cta-arrow { transform: translateX(4px); }
                 `}</style>
               </motion.div>
             )}

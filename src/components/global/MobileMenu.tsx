@@ -23,6 +23,35 @@ export const MobileMenu: React.FC<MobileMenuProps> = ({ isOpen, onClose, trigger
 
   useFocusTrap(menuRef as React.RefObject<HTMLElement | null>, isOpen, onClose, triggerRef as React.RefObject<HTMLElement | null>);
 
+  const containerVariants: import('framer-motion').Variants = {
+    closed: {
+      opacity: 0,
+      y: -20,
+      transition: {
+        duration: 0.3,
+        ease: 'easeIn',
+        when: 'afterChildren',
+        staggerChildren: 0.04,
+        staggerDirection: -1
+      }
+    },
+    open: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 0.35,
+        ease: 'easeOut',
+        when: 'beforeChildren',
+        staggerChildren: 0.05,
+      }
+    }
+  };
+
+  const itemVariants: import('framer-motion').Variants = {
+    closed: { opacity: 0, y: -12, transition: { duration: 0.2, ease: 'easeIn' } },
+    open: { opacity: 1, y: 0, transition: { duration: 0.3, ease: 'easeOut' } }
+  };
+
   return (
     <AnimatePresence>
       {isOpen && (
@@ -31,10 +60,10 @@ export const MobileMenu: React.FC<MobileMenuProps> = ({ isOpen, onClose, trigger
           role="dialog"
           aria-modal="true"
           aria-label="Mobile Navigation Menu"
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: -20 }}
-          transition={{ duration: 0.3, ease: 'easeOut' }}
+          initial="closed"
+          animate="open"
+          exit="closed"
+          variants={containerVariants}
           style={{
             position: 'fixed',
             top: 0,
@@ -52,39 +81,89 @@ export const MobileMenu: React.FC<MobileMenuProps> = ({ isOpen, onClose, trigger
             <span className="text-display" style={{ fontSize: 'var(--font-size-2xl)' }}>Gradient</span>
             <button
               onClick={onClose}
-              className="text-label"
+              className="text-label mobile-close-btn"
               aria-label="Close menu"
               style={{
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                minHeight: '44px',
+                minWidth: '44px',
                 padding: 'var(--space-2)',
                 backgroundColor: 'transparent',
-                border: '1px solid var(--color-border-subtle)',
-                borderRadius: 'var(--radius-sm)'
+                border: 'none',
+                cursor: 'pointer'
               }}
             >
-              Close
+              <span aria-hidden="true" style={{ fontSize: '1.25rem' }}>✕</span>
             </button>
+            <style>{`
+              .mobile-close-btn {
+                color: var(--color-text-secondary);
+                transition: color var(--duration-micro) var(--easing-default);
+              }
+              .mobile-close-btn:hover, .mobile-close-btn:focus-visible {
+                color: var(--color-text-primary);
+              }
+              .mobile-close-btn:focus-visible {
+                outline: var(--focus-ring-width) solid var(--color-accent);
+                outline-offset: var(--focus-ring-offset);
+                border-radius: var(--radius-sm);
+              }
+            `}</style>
           </div>
 
-          <nav style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-6)' }}>
+          <nav style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-3)' }}>
             {NAV_LINKS.map(link => (
-              <NavLink
-                key={link.path}
-                to={link.path}
-                onClick={onClose}
-                className={({ isActive }) => `text-display ${isActive ? 'text-display-italic' : ''}`}
-                style={({ isActive }) => ({
-                  color: isActive ? 'var(--color-accent)' : 'var(--color-text-primary)',
-                  textDecoration: 'none',
-                  fontSize: 'var(--font-size-3xl)',
-                  borderBottom: isActive ? '2px solid var(--color-accent)' : '2px solid transparent',
-                  alignSelf: 'flex-start',
-                  paddingBottom: 'var(--space-1)'
-                })}
-              >
-                {link.name}
-              </NavLink>
+              <motion.div key={link.path} variants={itemVariants}>
+                <NavLink
+                  to={link.path}
+                  onClick={onClose}
+                  className={({ isActive }) => `text-display mobile-nav-link ${isActive ? 'active' : ''}`}
+                  style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    minHeight: '44px',
+                    textDecoration: 'none',
+                    fontSize: 'clamp(2rem, 8vh, 3rem)',
+                    paddingBottom: 'var(--space-1)',
+                    width: 'fit-content'
+                  }}
+                >
+                  {link.name}
+                </NavLink>
+              </motion.div>
             ))}
           </nav>
+          
+          <style>{`
+            .mobile-nav-link {
+              color: var(--color-text-primary);
+              position: relative;
+              transition: color var(--duration-micro) var(--easing-default);
+            }
+            .mobile-nav-link.active, .mobile-nav-link:focus-visible {
+              color: var(--color-accent);
+              font-style: italic;
+              outline: none;
+            }
+            .mobile-nav-link::after {
+              content: '';
+              position: absolute;
+              bottom: 0;
+              left: 0;
+              width: 100%;
+              height: 2px;
+              background-color: var(--color-accent);
+              transform: scaleX(0);
+              transform-origin: right;
+              transition: transform 300ms ease-out;
+            }
+            .mobile-nav-link.active::after, .mobile-nav-link:focus-visible::after {
+              transform: scaleX(1);
+              transform-origin: left;
+            }
+          `}</style>
         </motion.div>
       )}
     </AnimatePresence>

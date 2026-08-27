@@ -63,15 +63,15 @@ export const TimelineSection: React.FC = () => {
               >
                 <div className="grid timeline-grid">
                   {/* Left: Date (Span 3) */}
-                  <div className="timeline-date">
-                    <div className="text-metadata" style={{ color: 'var(--color-text-primary)', letterSpacing: '0.05em' }}>
+                  <div className="timeline-date" style={{ gridColumn: 'span 3', position: 'relative' }}>
+                    <div className="text-metadata" style={{ color: 'var(--color-text-secondary)', position: 'sticky', top: 'var(--space-20)' }}>
                       {entry.date}
                     </div>
                   </div>
                   
                   {/* Right: Title & Description (Span 9) */}
                   <div className="timeline-content">
-                    <h3 className="text-heading" style={{ fontSize: 'var(--font-size-xl)', marginBottom: 'var(--space-4)' }}>
+                    <h3 className="text-heading" style={{ fontSize: 'var(--font-size-3xl)', marginBottom: 'var(--space-3)' }}>
                       {entry.title}
                     </h3>
                     <p className="text-body" style={{ color: 'var(--color-text-secondary)', maxWidth: '90%' }}>
@@ -92,6 +92,25 @@ export const TimelineSection: React.FC = () => {
           margin: 0;
           display: flex;
           flex-direction: column;
+          position: relative;
+        }
+
+        /* Connecting vertical line */
+        .timeline-list::before {
+          content: '';
+          position: absolute;
+          top: 0;
+          bottom: 0;
+          left: 0;
+          width: 1px;
+          background-color: var(--color-border-subtle);
+          z-index: 0;
+        }
+
+        @media (min-width: 769px) {
+          .timeline-list::before {
+            left: calc(25% - 0.5px); /* Matches the 3-column start for the timeline-content */
+          }
         }
 
         .timeline-grid {
@@ -105,10 +124,10 @@ export const TimelineSection: React.FC = () => {
 
         .timeline-content {
           grid-column: 4 / span 9;
-          border-left: 1px solid var(--color-border-subtle);
-          padding-left: var(--space-6);
-          padding-bottom: var(--space-10);
+          padding-left: var(--space-8);
+          padding-bottom: var(--space-12);
           position: relative;
+          z-index: 1;
         }
         
         .timeline-item.is-last .timeline-content {
@@ -119,19 +138,20 @@ export const TimelineSection: React.FC = () => {
         .timeline-content::before {
           content: '';
           position: absolute;
-          left: -4px; /* Centers the 7px dot on the 1px border */
-          top: calc(var(--space-2) + 6px); /* Align visually with text */
-          width: 7px;
-          height: 7px;
+          left: -4px; /* Centers the 7px dot on the 1px line */
+          top: 6px; /* Align visually with text */
+          width: 9px;
+          height: 9px;
           border-radius: 50%;
-          background-color: var(--color-border-strong);
-          transition: background-color var(--duration-micro) ease, transform var(--duration-micro) ease;
+          background-color: var(--color-surface-primary);
+          border: 2px solid var(--color-border-strong);
+          transition: border-color var(--duration-micro) ease, transform var(--duration-micro) ease;
         }
 
         /* Hover Interaction */
         .timeline-item:hover .timeline-content::before {
-          background-color: var(--color-accent);
-          transform: scale(1.5);
+          border-color: var(--color-accent);
+          transform: scale(1.2);
         }
         
         @media (max-width: 992px) {
@@ -140,6 +160,9 @@ export const TimelineSection: React.FC = () => {
           }
           .timeline-content {
             grid-column: 5 / span 8;
+          }
+          .timeline-list::before {
+            left: calc(33.333% - 0.5px); /* Matches 4-column span */
           }
         }
 
@@ -152,12 +175,15 @@ export const TimelineSection: React.FC = () => {
             margin-bottom: var(--space-4);
           }
           .timeline-content {
-            border-left: none;
-            padding-left: 0;
+            padding-left: var(--space-6);
             padding-bottom: var(--space-8);
           }
+          .timeline-list::before {
+            left: 0;
+          }
           .timeline-content::before {
-            display: none;
+            left: -4.5px;
+            top: 6px;
           }
         }
       `}</style>

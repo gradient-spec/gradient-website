@@ -61,15 +61,24 @@ export const WhatIsGradientSection: React.FC = () => {
                 padding-top: var(--space-4);
               }
               .mission-vision-grid {
+                display: flex;
+                flex-direction: column;
+                gap: var(--space-8);
+              }
+              .mission-vision-row {
                 display: grid;
-                grid-template-columns: 1fr 1fr;
+                grid-template-columns: repeat(8, 1fr);
                 gap: var(--grid-gutter);
               }
+              .mission-vision-label { grid-column: 1 / span 3; }
+              .mission-vision-text { grid-column: 4 / span 5; }
+              
               /* CANDIDATE breakpoint: Tablet */
               @media (max-width: 992px) {
                 .what-is-left-margin { grid-column: 1 / span 3; }
                 .what-is-right-content { grid-column: 4 / span 9; }
-                .mission-vision-grid { grid-template-columns: 1fr; }
+                .mission-vision-label { grid-column: 1 / span 3; }
+                .mission-vision-text { grid-column: 4 / span 5; }
               }
               /* CANDIDATE breakpoint: Mobile */
               @media (max-width: 768px) {
@@ -81,6 +90,7 @@ export const WhatIsGradientSection: React.FC = () => {
                   margin-bottom: var(--space-5);
                   height: auto;
                 }
+                .mission-vision-label, .mission-vision-text { grid-column: 1 / -1 !important; }
               }
             `}</style>
             
@@ -101,21 +111,21 @@ export const WhatIsGradientSection: React.FC = () => {
 
             <div className="mission-vision-grid">
               {/* Mission Block */}
-              <motion.div variants={itemVariants}>
-                <h3 className="text-label" style={{ color: 'var(--color-text-primary)', marginBottom: 'var(--space-3)' }}>
-                  Mission
+              <motion.div variants={itemVariants} className="mission-vision-row">
+                <h3 className="text-label mission-vision-label" style={{ color: 'var(--color-text-secondary)' }}>
+                  01 / Mission
                 </h3>
-                <p className="text-body" style={{ color: 'var(--color-text-secondary)' }}>
+                <p className="text-heading mission-vision-text" style={{ color: 'var(--color-text-primary)', fontSize: 'var(--font-size-3xl)', lineHeight: '1.2' }}>
                   Ideas, made real.
                 </p>
               </motion.div>
 
               {/* Vision Block */}
-              <motion.div variants={itemVariants}>
-                <h3 className="text-label" style={{ color: 'var(--color-text-primary)', marginBottom: 'var(--space-3)' }}>
-                  Vision
+              <motion.div variants={itemVariants} className="mission-vision-row">
+                <h3 className="text-label mission-vision-label" style={{ color: 'var(--color-text-secondary)' }}>
+                  02 / Vision
                 </h3>
-                <p className="text-body" style={{ color: 'var(--color-text-secondary)' }}>
+                <p className="text-heading mission-vision-text" style={{ color: 'var(--color-text-primary)', fontSize: 'var(--font-size-3xl)', lineHeight: '1.2' }}>
                   A platform that reaches beyond the campus.
                 </p>
               </motion.div>
