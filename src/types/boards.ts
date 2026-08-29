@@ -35,7 +35,7 @@ export interface SocialLink {
 
 export interface BoardYear {
   /** Academic year or term identifier (e.g., '2024-2025') */
-  year: string;
+  year?: string;
   /** Whether this is the current active board */
   isCurrent: boolean;
   /** Board members for this year */

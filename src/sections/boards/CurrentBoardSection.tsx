@@ -6,29 +6,30 @@ export const CurrentBoardSection: React.FC = () => {
   const prefersReducedMotion = useReducedMotion();
   const currentBoardYear = boards.find(b => b.isCurrent);
 
-  // Per specification: gracefully handle the empty data source.
-  // If no verified current board members exist, return null.
   if (!currentBoardYear || currentBoardYear.members.length === 0) {
     return null;
   }
+
+  const mainBoard = currentBoardYear.members.filter(m => m.team === 'Main Board' || !m.team);
+  const coreTeam = currentBoardYear.members.filter(m => m.team === 'Core Team');
 
   const containerVariants: Variants = {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
       transition: {
-        staggerChildren: prefersReducedMotion ? 0 : 0.1,
+        staggerChildren: prefersReducedMotion ? 0 : 0.08,
       },
     },
   };
 
   const itemVariants: Variants = {
-    hidden: { opacity: 0, y: prefersReducedMotion ? 0 : 15 },
+    hidden: { opacity: 0, y: prefersReducedMotion ? 0 : 12 },
     visible: {
       opacity: 1,
       y: 0,
       transition: {
-        duration: 0.6,
+        duration: 0.5,
         ease: 'easeOut',
       },
     },
@@ -45,110 +46,134 @@ export const CurrentBoardSection: React.FC = () => {
       }}
     >
       <div className="container">
+        <style>{`
+          .board-section-grid {
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            gap: var(--grid-gutter);
+            padding: var(--space-6) 0;
+            margin-bottom: var(--space-10);
+          }
+          .board-section-title {
+            grid-column: 1 / span 3;
+          }
+          .board-section-content {
+            grid-column: 4 / span 9;
+            display: flex;
+            flex-direction: column;
+            gap: 0;
+          }
+          .board-member-entry {
+            display: flex;
+            flex-direction: row;
+            align-items: baseline;
+            gap: var(--space-5);
+            padding: var(--space-4) 0;
+            border-bottom: 1px solid var(--color-border-subtle);
+          }
+          .board-member-entry:first-child {
+            border-top: 1px solid var(--color-border-subtle);
+          }
+          .board-member-number {
+            font-family: var(--font-mono);
+            font-size: var(--font-size-sm);
+            color: var(--color-text-muted);
+            font-variant-numeric: tabular-nums;
+            width: 2rem;
+            flex-shrink: 0;
+            text-align: right;
+          }
+          .board-member-name {
+            flex: 1;
+          }
+          .board-member-role {
+            font-family: var(--font-mono);
+            font-size: var(--font-size-xs);
+            color: var(--color-text-tertiary);
+            text-transform: uppercase;
+            letter-spacing: var(--letter-spacing-wide);
+          }
+          @media (max-width: 992px) {
+            .board-section-title { grid-column: 1 / span 12; margin-bottom: var(--space-4); }
+            .board-section-content { grid-column: 1 / span 12; }
+          }
+          @media (max-width: 768px) {
+            .board-member-entry {
+              flex-direction: column;
+              gap: var(--space-1);
+            }
+            .board-member-number {
+              text-align: left;
+              width: auto;
+            }
+          }
+        `}</style>
+
         <motion.div 
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: '-50px' }}
           variants={containerVariants}
         >
-          <motion.h2 
-            id="current-board-heading" 
-            variants={itemVariants} 
-            className="text-heading" 
-            style={{ marginBottom: 'var(--space-10)' }}
-          >
-            Current Board
-          </motion.h2>
-
-          <div 
-            className="grid"
-            style={{ 
-              rowGap: 'var(--space-10)'
-            }}
-          >
-            {currentBoardYear.members.map((member) => (
-              <motion.article 
-                key={member.id} 
-                variants={itemVariants}
-                style={{
-                  gridColumn: 'span 4',
-                  display: 'flex',
-                  flexDirection: 'column'
-                }}
-              >
-                {/* Member Photo Frame */}
-                <div 
-                  style={{
-                    width: '100%',
-                    aspectRatio: '4/5',
-                    backgroundColor: 'var(--color-surface-secondary)',
-                    border: '1px solid var(--color-border-subtle)',
-                    marginBottom: 'var(--space-5)',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    overflow: 'hidden'
-                  }}
+          {/* Main Board */}
+          {mainBoard.length > 0 && (
+            <div className="board-section-grid">
+              <div className="board-section-title">
+                <motion.h2 
+                  id="current-board-heading" 
+                  variants={itemVariants} 
+                  className="text-metadata" 
+                  style={{ color: 'var(--color-text-tertiary)', textTransform: 'uppercase' }}
                 >
-                  {member.image ? (
-                    <img 
-                      src={member.image} 
-                      alt={member.imageAlt || member.name} 
-                      style={{ width: '100%', height: '100%', objectFit: 'cover' }}
-                    />
-                  ) : (
-                    <span className="text-metadata" style={{ color: 'var(--color-text-muted)' }}>
-                      Photo
-                    </span>
-                  )}
-                </div>
+                  Main Board
+                </motion.h2>
+              </div>
+              <div className="board-section-content">
+                {mainBoard.map((member, index) => (
+                  <motion.div key={member.id} variants={itemVariants} className="board-member-entry">
+                    <div className="board-member-number">
+                      {String(index + 1).padStart(2, '0')}
+                    </div>
+                    <h3 className="text-display board-member-name" style={{ fontSize: 'clamp(1.5rem, 3vw, 2.5rem)', lineHeight: '1.2' }}>
+                      {member.name}
+                    </h3>
+                    <div className="board-member-role">
+                      {member.role}
+                    </div>
+                  </motion.div>
+                ))}
+              </div>
+            </div>
+          )}
 
-                <h3 className="text-subheading" style={{ marginBottom: 'var(--space-2)' }}>
-                  {member.name}
-                </h3>
-                
-                <div className="text-metadata" style={{ color: 'var(--color-text-secondary)', marginBottom: 'var(--space-3)' }}>
-                  {member.role}
-                  {member.team && ` · ${member.team}`}
-                </div>
-
-                {member.socials && member.socials.length > 0 && (
-                  <div style={{ display: 'flex', gap: 'var(--space-4)', marginTop: 'auto' }}>
-                    {member.socials.map((social) => (
-                      <a 
-                        key={social.platform}
-                        href={social.url}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="text-metadata"
-                        style={{
-                          color: 'var(--color-accent)',
-                          textDecoration: 'none'
-                        }}
-                      >
-                        {social.label || social.platform}
-                      </a>
-                    ))}
-                  </div>
-                )}
-              </motion.article>
-            ))}
-          </div>
+          {/* Core Team */}
+          {coreTeam.length > 0 && (
+            <div className="board-section-grid" style={{ opacity: 0.5 }}>
+              <div className="board-section-title">
+                <motion.h2 
+                  variants={itemVariants} 
+                  className="text-metadata" 
+                  style={{ color: 'var(--color-text-muted)', textTransform: 'uppercase' }}
+                >
+                  Core Team
+                </motion.h2>
+              </div>
+              <div className="board-section-content">
+                {coreTeam.map((member) => (
+                  <motion.div key={member.id} variants={itemVariants} className="board-member-entry">
+                    <h3 className="text-display board-member-name" style={{ fontSize: 'clamp(1.25rem, 2.5vw, 1.75rem)', lineHeight: '1.2' }}>
+                      {member.name}
+                    </h3>
+                    <div className="board-member-role">
+                      {member.role}
+                    </div>
+                  </motion.div>
+                ))}
+              </div>
+            </div>
+          )}
         </motion.div>
       </div>
-
-      <style>{`
-        @media (max-width: 992px) {
-          .grid > article {
-            grid-column: span 6 !important;
-          }
-        }
-        @media (max-width: 768px) {
-          .grid > article {
-            grid-column: span 12 !important;
-          }
-        }
-      `}</style>
     </section>
   );
 };

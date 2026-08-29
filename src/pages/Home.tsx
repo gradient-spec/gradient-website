@@ -7,7 +7,6 @@
 
 import { HeroSection } from '@/sections/home/HeroSection';
 import { WhatIsGradientSection } from '@/sections/home/WhatIsGradientSection';
-import { CurrentBoardSection } from '@/sections/home/CurrentBoardSection';
 import { FeaturedEventSection } from '@/sections/home/FeaturedEventSection';
 import { HomeCTASection } from '@/sections/home/HomeCTASection';
 
@@ -16,7 +15,6 @@ const HomePage = () => {
     <main id="main-content">
       <HeroSection />
       <WhatIsGradientSection />
-      <CurrentBoardSection />
       <FeaturedEventSection />
       <HomeCTASection />
     </main>

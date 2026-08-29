@@ -27,8 +27,8 @@ export const EditorialClosingSection: React.FC = () => {
   };
 
   return (
-    <section 
-      className="section" 
+    <section
+      className="section bg-atmospheric bg-glow-bottom-left"
       aria-labelledby="page-heading"
       style={{
         paddingTop: 'var(--space-12)',
@@ -40,8 +40,8 @@ export const EditorialClosingSection: React.FC = () => {
         overflow: 'hidden'
       }}
     >
-      <div 
-        aria-hidden="true" 
+      <div
+        aria-hidden="true"
         style={{
           position: 'absolute',
           top: 0,
@@ -51,11 +51,11 @@ export const EditorialClosingSection: React.FC = () => {
           background: 'radial-gradient(circle at 100% 50%, var(--color-surface-secondary) 0%, transparent 60%)',
           opacity: 0.3,
           zIndex: -1
-        }} 
+        }}
       />
       <div className="container" style={{ width: '100%', position: 'relative', zIndex: 1 }}>
-        <motion.div 
-          className="grid" 
+        <motion.div
+          className="grid"
           initial="hidden"
           animate="visible"
           variants={containerVariants}
@@ -66,17 +66,17 @@ export const EditorialClosingSection: React.FC = () => {
                 [ INQUIRIES ]
               </span>
             </motion.div>
-            
-            <motion.h1 
-              id="page-heading" 
-              variants={itemVariants} 
-              className="text-display" 
+
+            <motion.h1
+              id="page-heading"
+              variants={itemVariants}
+              className="text-display"
               style={{ marginBottom: 'var(--space-5)', outline: 'none', fontSize: 'clamp(4.5rem, 9vw, 7rem)', lineHeight: '1.05', letterSpacing: '-0.02em' }}
               tabIndex={-1}
             >
               Contact
             </motion.h1>
-            
+
             {/* The rest of the Editorial Closing copy is unverified and thus omitted */}
           </div>
         </motion.div>

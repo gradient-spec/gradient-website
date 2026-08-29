@@ -37,12 +37,14 @@ export const ActiveEventsSection: React.FC = () => {
   
   return (
     <section 
-      className="section" 
+      className="section bg-glow-top-right" 
       aria-labelledby="active-events-heading"
       style={{
         paddingTop: 'var(--space-10)',
         paddingBottom: 'var(--space-10)',
         backgroundColor: 'var(--color-surface-primary)',
+        position: 'relative',
+        overflow: 'hidden'
       }}
     >
       <div className="container">
@@ -61,48 +63,172 @@ export const ActiveEventsSection: React.FC = () => {
             Active
           </motion.h2>
 
-          <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-8)' }}>
+        <style>{`
+          .active-event-link:hover { border-bottom-color: var(--color-accent) !important; }
+          .active-event-link:focus-visible { outline: var(--focus-ring-width) solid var(--color-accent); outline-offset: var(--focus-ring-offset); border-radius: var(--radius-sm); }
+          .active-event-link .cta-arrow { display: inline-block; transition: transform 250ms cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+          .active-event-link:hover .cta-arrow, .active-event-link:focus-visible .cta-arrow { transform: translateX(4px); }
+          
+          .event-metadata-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: var(--space-6);
+            margin-top: var(--space-8);
+            margin-bottom: var(--space-10);
+            padding-top: var(--space-6);
+            border-top: 1px solid var(--color-border-subtle);
+          }
+
+          .domains-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: var(--space-3) var(--space-6);
+            margin-top: var(--space-6);
+            margin-bottom: var(--space-10);
+          }
+
+          @media (max-width: 768px) {
+            .grid > div {
+              grid-column: span 12 !important;
+              margin-bottom: var(--space-4);
+            }
+            .event-metadata-grid, .domains-grid {
+              grid-template-columns: 1fr;
+            }
+            .event-right-col {
+              border-left: none !important;
+              padding-left: 0 !important;
+              padding-top: var(--space-4);
+              border-top: 2px solid var(--color-border-subtle);
+            }
+          }
+        `}</style>
+
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-12)' }}>
             {activeEvents.map((event) => (
                 <motion.article 
                   key={event.id}
                   variants={itemVariants}
                   style={{ 
                     borderTop: '1px solid var(--color-border-subtle)',
-                    paddingTop: 'var(--space-6)'
+                    paddingTop: 'var(--space-8)'
                   }}
                 >
                   <div className="grid">
-                    {/* Left: Date & Metadata (Span 3) */}
+                    {/* Left: Status (Span 3) */}
                     <div style={{ gridColumn: 'span 3' }}>
-                      <div className="text-metadata" style={{ color: 'var(--color-text-primary)', marginBottom: 'var(--space-3)', fontWeight: 'var(--font-weight-medium)' }}>
-                        {event.date}
-                        {event.endDate && ` - ${event.endDate}`}
-                      </div>
-                      <div className="text-metadata" style={{ color: 'var(--color-text-primary)', display: 'flex', alignItems: 'center', gap: 'var(--space-3)', fontSize: 'var(--font-size-sm)', fontWeight: 'var(--font-weight-medium)' }}>
+                      <div className="text-metadata" style={{ color: 'var(--color-text-primary)', display: 'flex', alignItems: 'center', gap: 'var(--space-3)', fontSize: 'var(--font-size-sm)', fontWeight: 'var(--font-weight-medium)', marginBottom: 'var(--space-4)' }}>
                         <span style={{ display: 'block', width: '6px', height: '6px', borderRadius: '50%', backgroundColor: 'var(--color-accent)' }} />
                         <span style={{ textTransform: 'uppercase', letterSpacing: '0.15em' }}>
                           {event.status === 'ongoing' ? 'Ongoing Event' : 'Upcoming Event'}
                         </span>
                       </div>
-                      {event.location && (
-                        <div className="text-metadata" style={{ color: 'var(--color-text-secondary)', marginTop: 'var(--space-2)' }}>
-                          {event.location}
+                      
+                      {event.registrationStatus === 'closed' && (
+                        <div className="text-metadata" style={{ color: 'var(--color-text-tertiary)', letterSpacing: '0.15em', fontSize: 'var(--font-size-xs)' }}>
+                          [ REGISTRATION CLOSED ]
                         </div>
                       )}
                     </div>
                     
-                    {/* Right: Title, Description & Link (Span 9) */}
-                    <div style={{ gridColumn: 'span 9', borderLeft: '2px solid var(--color-border-subtle)', paddingLeft: 'var(--space-4)' }}>
-                      <h3 className="text-heading" style={{ fontSize: 'var(--font-size-3xl)', marginBottom: 'var(--space-3)', lineHeight: '1.2' }}>
+                    {/* Right: Full Content (Span 9) */}
+                    <div className="event-right-col" style={{ gridColumn: 'span 9', borderLeft: '2px solid var(--color-border-subtle)', paddingLeft: 'var(--space-6)' }}>
+                      <h3 className="text-display" style={{ fontSize: 'clamp(2.5rem, 5vw, 4.5rem)', marginBottom: 'var(--space-4)', lineHeight: '1.1' }}>
                         {event.title}
                       </h3>
+                      
+                      <div className="text-body" style={{ color: 'var(--color-text-primary)', marginBottom: 'var(--space-6)', fontWeight: 'var(--font-weight-medium)', display: 'flex', flexWrap: 'wrap', gap: 'var(--space-4)' }}>
+                        <span>{event.date}</span>
+                        {(event.duration || event.type) && (
+                          <span style={{ color: 'var(--color-text-secondary)' }}>
+                            // {event.duration} {event.type}
+                          </span>
+                        )}
+                        {event.location && (
+                          <span style={{ color: 'var(--color-text-tertiary)' }}>
+                            // {event.location}
+                          </span>
+                        )}
+                      </div>
+
+                      {event.posterCopy && event.posterCopy.length > 0 && (
+                        <div style={{ marginBottom: 'var(--space-6)' }}>
+                          {event.posterCopy.map((copy, i) => (
+                            <p key={i} className="text-heading" style={{ fontSize: 'clamp(1.25rem, 2.5vw, 2rem)', color: 'var(--color-text-primary)', marginBottom: 'var(--space-2)' }}>
+                              {copy}
+                            </p>
+                          ))}
+                        </div>
+                      )}
+
                       {event.description && (
-                        <p className="text-body" style={{ color: 'var(--color-text-secondary)', marginBottom: 'var(--space-4)', maxWidth: '80%' }}>
+                        <p className="text-body" style={{ color: 'var(--color-text-secondary)', marginBottom: 'var(--space-6)', maxWidth: '85%', lineHeight: '1.6' }}>
                           {event.description}
                         </p>
                       )}
+
+                      {/* Event Details Grid */}
+                      {(event.eligibility || event.teamSize || event.prize || event.organizingDepartment) && (
+                        <div className="event-metadata-grid">
+                          {event.eligibility && (
+                            <div>
+                              <span className="text-metadata" style={{ display: 'block', color: 'var(--color-text-tertiary)', letterSpacing: '0.1em', marginBottom: 'var(--space-2)' }}>ELIGIBILITY</span>
+                              <span className="text-display" style={{ fontSize: 'clamp(1.25rem, 2vw, 1.75rem)', color: 'var(--color-text-primary)' }}>{event.eligibility}</span>
+                            </div>
+                          )}
+                          {event.teamSize && (
+                            <div>
+                              <span className="text-metadata" style={{ display: 'block', color: 'var(--color-text-tertiary)', letterSpacing: '0.1em', marginBottom: 'var(--space-2)' }}>TEAM SIZE</span>
+                              <span className="text-display" style={{ fontSize: 'clamp(1.25rem, 2vw, 1.75rem)', color: 'var(--color-text-primary)' }}>{event.teamSize}</span>
+                            </div>
+                          )}
+                          {event.prize && (
+                            <div>
+                              <span className="text-metadata" style={{ display: 'block', color: 'var(--color-text-tertiary)', letterSpacing: '0.1em', marginBottom: 'var(--space-2)' }}>PRIZE</span>
+                              <span className="text-display" style={{ fontSize: 'clamp(1.25rem, 2vw, 1.75rem)', color: 'var(--color-text-primary)' }}>{event.prize}</span>
+                            </div>
+                          )}
+                          {event.organizingDepartment && (
+                            <div>
+                              <span className="text-metadata" style={{ display: 'block', color: 'var(--color-text-tertiary)', letterSpacing: '0.1em', marginBottom: 'var(--space-2)' }}>DEPARTMENT</span>
+                              <span className="text-display" style={{ fontSize: 'clamp(1.25rem, 2vw, 1.75rem)', color: 'var(--color-text-primary)' }}>{event.organizingDepartment}</span>
+                            </div>
+                          )}
+                        </div>
+                      )}
+
+                      {/* Domains */}
+                      {event.domains && event.domains.length > 0 && (
+                        <div style={{ marginBottom: 'var(--space-10)' }}>
+                          <span className="text-metadata" style={{ display: 'block', color: 'var(--color-text-tertiary)', letterSpacing: '0.15em', marginBottom: 'var(--space-4)', borderBottom: '1px solid var(--color-border-subtle)', paddingBottom: 'var(--space-2)' }}>
+                            DOMAINS
+                          </span>
+                          <div className="domains-grid">
+                            {event.domains.map((domain, index) => (
+                              <div 
+                                key={index} 
+                                className="text-body" 
+                                style={{ 
+                                  color: 'var(--color-text-secondary)', 
+                                  display: 'flex', 
+                                  alignItems: 'baseline',
+                                  gap: 'var(--space-4)',
+                                  borderBottom: '1px solid var(--color-border-subtle)',
+                                  paddingBottom: 'var(--space-3)'
+                                }}
+                              >
+                                <span className="text-subheading" style={{ color: 'var(--color-border-strong)', opacity: 0.5, fontVariantNumeric: 'tabular-nums' }}>
+                                  {String(index + 1).padStart(2, '0')}
+                                </span>
+                                <span style={{ color: 'var(--color-text-primary)' }}>{domain}</span>
+                              </div>
+                            ))}
+                          </div>
+                        </div>
+                      )}
+
                       {event.externalUrl && (
-                        <div style={{ marginTop: 'var(--space-2)' }}>
+                        <div>
                           <a 
                             href={event.externalUrl}
                             target="_blank"
@@ -119,7 +245,7 @@ export const ActiveEventsSection: React.FC = () => {
                               transition: 'border-color var(--duration-micro) var(--easing-default)'
                             }}
                           >
-                            View Details <motion.span aria-hidden="true" className="cta-arrow" transition={{ type: 'spring', stiffness: 300, damping: 20 }}>&rarr;</motion.span>
+                            Visit {event.title} <motion.span aria-hidden="true" className="cta-arrow" transition={{ type: 'spring', stiffness: 300, damping: 20 }}>&rarr;</motion.span>
                           </a>
                         </div>
                       )}
@@ -130,20 +256,6 @@ export const ActiveEventsSection: React.FC = () => {
             </div>
           </motion.div>
         </div>
-
-        <style>{`
-          .active-event-link:hover { border-bottom-color: var(--color-accent) !important; }
-          .active-event-link:focus-visible { outline: var(--focus-ring-width) solid var(--color-accent); outline-offset: var(--focus-ring-offset); border-radius: var(--radius-sm); }
-          .active-event-link .cta-arrow { display: inline-block; transition: transform 250ms cubic-bezier(0.175, 0.885, 0.32, 1.275); }
-          .active-event-link:hover .cta-arrow, .active-event-link:focus-visible .cta-arrow { transform: translateX(4px); }
-          
-          @media (max-width: 768px) {
-            .grid > div {
-              grid-column: span 12 !important;
-              margin-bottom: var(--space-4);
-            }
-          }
-        `}</style>
       </section>
     );
   };

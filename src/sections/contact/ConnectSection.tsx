@@ -32,26 +32,43 @@ export const ConnectSection: React.FC = () => {
   } : itemVariants;
 
   return (
-    <section 
-      className="section" 
+    <section
+      className="section"
       aria-labelledby="connect-heading"
       style={{
         paddingTop: 'var(--space-8)',
         paddingBottom: 'var(--space-12)',
         backgroundColor: 'var(--color-surface-primary)',
+        position: 'relative',
+        overflow: 'hidden'
       }}
     >
-      <div className="container">
-        <motion.div 
+      {/* Intimate atmospheric endpoint gradient */}
+      <div 
+        aria-hidden="true"
+        style={{
+          position: 'absolute',
+          top: '50%',
+          left: '50%',
+          transform: 'translate(-50%, -50%)',
+          width: '100%',
+          height: '100%',
+          background: 'radial-gradient(circle at center, rgba(150, 14, 41, 0.03) 0%, transparent 60%)',
+          pointerEvents: 'none',
+          zIndex: 0
+        }}
+      />
+      <div className="container" style={{ position: 'relative', zIndex: 1 }}>
+        <motion.div
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: '-50px' }}
           variants={containerVariants}
         >
-          <motion.h2 
-            id="connect-heading" 
-            variants={adjustedItemVariants} 
-            className="text-heading sr-only" 
+          <motion.h2
+            id="connect-heading"
+            variants={adjustedItemVariants}
+            className="text-heading sr-only"
           >
             Connect
           </motion.h2>
@@ -63,11 +80,11 @@ export const ConnectSection: React.FC = () => {
                 01 / DIRECT
               </motion.div>
             </div>
-            
+
             <div className="editorial-right">
               <motion.div variants={adjustedItemVariants} style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-2)' }}>
-                <a 
-                  href="mailto:gradient@stpetershyd.com" 
+                <a
+                  href="mailto:gradient@stpetershyd.com"
                   className="text-display email-link"
                   aria-label="Email gradient@stpetershyd.com"
                   style={{ fontSize: 'clamp(2.5rem, 6vw, 4.5rem)', lineHeight: '1.1', wordBreak: 'break-word' }}
@@ -85,13 +102,13 @@ export const ConnectSection: React.FC = () => {
                 02 / SOCIAL
               </motion.div>
             </div>
-            
+
             <div className="editorial-right social-right">
               <motion.div variants={adjustedItemVariants}>
-                <a 
-                  href="https://www.instagram.com/gradient_spec/" 
-                  target="_blank" 
-                  rel="noopener noreferrer" 
+                <a
+                  href="https://www.instagram.com/gradient_spec/"
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="text-heading social-link"
                   aria-label="Visit official Instagram profile"
                   style={{ fontSize: 'clamp(1.75rem, 4vw, 2.5rem)', lineHeight: '1.2' }}
@@ -99,12 +116,12 @@ export const ConnectSection: React.FC = () => {
                   Instagram <span aria-hidden="true" className="cta-arrow">&rarr;</span>
                 </a>
               </motion.div>
-              
+
               <motion.div variants={adjustedItemVariants}>
-                <a 
-                  href="https://www.linkedin.com/company/spec-gradient-club" 
-                  target="_blank" 
-                  rel="noopener noreferrer" 
+                <a
+                  href="https://www.linkedin.com/company/spec-gradient-club"
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="text-heading social-link"
                   aria-label="Visit official LinkedIn company page"
                   style={{ fontSize: 'clamp(1.75rem, 4vw, 2.5rem)', lineHeight: '1.2' }}

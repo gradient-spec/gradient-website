@@ -26,17 +26,19 @@ const itemVariants: Variants = {
 
 export const EventsHeroSection: React.FC = () => {
   return (
-    <section 
-      className="section" 
+    <section
+      className="section bg-atmospheric bg-glow-bottom-left"
       aria-labelledby="events-hero-heading"
       style={{
         paddingTop: 'var(--space-12)',
         paddingBottom: 'var(--space-10)',
+        position: 'relative',
+        overflow: 'hidden'
       }}
     >
       <div className="container">
-        <motion.div 
-          className="grid" 
+        <motion.div
+          className="grid"
           initial="hidden"
           animate="visible"
           variants={containerVariants}
@@ -48,21 +50,21 @@ export const EventsHeroSection: React.FC = () => {
                 [ AGENDA ]
               </span>
             </motion.div>
-            
-            <motion.h1 
-              id="page-heading" 
-              variants={itemVariants} 
-              className="text-display" 
+
+            <motion.h1
+              id="page-heading"
+              variants={itemVariants}
+              className="text-display"
               style={{ marginBottom: 'var(--space-5)', outline: 'none', fontSize: 'clamp(4rem, 8vw, 6rem)', lineHeight: '1.1' }}
               tabIndex={-1}
             >
               Events
             </motion.h1>
           </div>
-          
+
           <div style={{ gridColumn: 'span 7' }}>
             {/* Structural placeholder for missing authentic imagery */}
-            <motion.div 
+            <motion.div
               variants={itemVariants}
               className="image-placeholder-frame"
               style={{
@@ -78,16 +80,16 @@ export const EventsHeroSection: React.FC = () => {
                 overflow: 'hidden'
               }}
             >
-              <div 
-                style={{ 
-                  position: 'absolute', 
-                  top: 0, 
-                  left: 0, 
-                  right: 0, 
-                  bottom: 0, 
+              <div
+                style={{
+                  position: 'absolute',
+                  top: 0,
+                  left: 0,
+                  right: 0,
+                  bottom: 0,
                   background: 'linear-gradient(145deg, rgba(255,255,255,0.02) 0%, rgba(0,0,0,0.02) 100%)',
                   pointerEvents: 'none'
-                }} 
+                }}
               />
               <span className="text-technical" style={{ color: 'var(--color-text-muted)', letterSpacing: '0.05em' }}>
                 IMAGE PLACEHOLDER

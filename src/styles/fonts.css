@@ -1,21 +1,17 @@
 /**
  * ============================================================
- * GRADIENT FONT LOADING
+ * GRADIENT FONT LOADING — PHASE 22
  * ============================================================
  *
  * Fonts loaded via Google Fonts:
- * - Playfair Display (display/titles) — LOCKED
- * - Source Sans 3 (body/interface) — LOCKED
- * - Geist Mono (technical/metadata) — LOCKED
- *
- * Only necessary weights are loaded to minimize payload.
- * Exact weights for each context are DEFERRED; loading
- * a reasonable subset for now.
+ * - Space Grotesk (display/titles) — geometric, technical
+ * - Source Sans 3 (body/interface) — readable neutral
+ * - Geist Mono (technical/metadata) — engineering system
  * ============================================================
  */
 
-/* Playfair Display: Regular 400, Bold 700, and Italic 400 */
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap');
+/* Space Grotesk: Medium 500, SemiBold 600, Bold 700 */
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&display=swap');
 
 /* Source Sans 3: Regular 400, Medium 500, SemiBold 600 */
 @import url('https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;500;600&display=swap');

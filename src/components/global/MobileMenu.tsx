@@ -10,12 +10,12 @@ interface MobileMenuProps {
 }
 
 const NAV_LINKS = [
-  { name: 'Home', path: '/' },
-  { name: 'About', path: '/about' },
-  { name: 'Events', path: '/events' },
-  { name: 'Projects', path: '/projects' },
-  { name: 'Boards', path: '/boards' },
-  { name: 'Contact', path: '/contact' },
+  { name: 'Home', path: '/', index: '01' },
+  { name: 'About', path: '/about', index: '02' },
+  { name: 'Events', path: '/events', index: '03' },
+  { name: 'Projects', path: '/projects', index: '04' },
+  { name: 'Boards', path: '/boards', index: '05' },
+  { name: 'Contact', path: '/contact', index: '06' },
 ];
 
 export const MobileMenu: React.FC<MobileMenuProps> = ({ isOpen, onClose, triggerRef }) => {
@@ -78,10 +78,10 @@ export const MobileMenu: React.FC<MobileMenuProps> = ({ isOpen, onClose, trigger
           }}
         >
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 'var(--space-8)' }}>
-            <span className="text-display" style={{ fontSize: 'var(--font-size-2xl)' }}>Gradient</span>
+            <span className="text-display" style={{ fontSize: 'var(--font-size-xl)', color: 'var(--color-text-primary)' }}>Gradient</span>
             <button
               onClick={onClose}
-              className="text-label mobile-close-btn"
+              className="text-metadata mobile-close-btn"
               aria-label="Close menu"
               style={{
                 display: 'flex',
@@ -91,29 +91,30 @@ export const MobileMenu: React.FC<MobileMenuProps> = ({ isOpen, onClose, trigger
                 minWidth: '44px',
                 padding: 'var(--space-2)',
                 backgroundColor: 'transparent',
-                border: 'none',
-                cursor: 'pointer'
+                border: '1px solid var(--color-border-default)',
+                cursor: 'pointer',
+                color: 'var(--color-text-secondary)',
+                borderRadius: 'var(--radius-sm)'
               }}
             >
-              <span aria-hidden="true" style={{ fontSize: '1.25rem' }}>✕</span>
+              <span aria-hidden="true" style={{ fontSize: '1rem', letterSpacing: 'var(--letter-spacing-wide)' }}>CLOSE</span>
             </button>
             <style>{`
               .mobile-close-btn {
-                color: var(--color-text-secondary);
-                transition: color var(--duration-micro) var(--easing-default);
+                transition: color var(--duration-micro) var(--easing-default), border-color var(--duration-micro) var(--easing-default);
               }
               .mobile-close-btn:hover, .mobile-close-btn:focus-visible {
                 color: var(--color-text-primary);
+                border-color: var(--color-border-strong);
               }
               .mobile-close-btn:focus-visible {
                 outline: var(--focus-ring-width) solid var(--color-accent);
                 outline-offset: var(--focus-ring-offset);
-                border-radius: var(--radius-sm);
               }
             `}</style>
           </div>
 
-          <nav style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-3)' }}>
+          <nav style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-2)' }}>
             {NAV_LINKS.map(link => (
               <motion.div key={link.path} variants={itemVariants}>
                 <NavLink
@@ -122,46 +123,35 @@ export const MobileMenu: React.FC<MobileMenuProps> = ({ isOpen, onClose, trigger
                   className={({ isActive }) => `text-display mobile-nav-link ${isActive ? 'active' : ''}`}
                   style={{
                     display: 'flex',
-                    alignItems: 'center',
+                    alignItems: 'baseline',
+                    gap: 'var(--space-4)',
                     minHeight: '44px',
                     textDecoration: 'none',
-                    fontSize: 'clamp(2rem, 8vh, 3rem)',
-                    paddingBottom: 'var(--space-1)',
-                    width: 'fit-content'
+                    fontSize: 'clamp(2rem, 8vh, 3.5rem)',
+                    paddingBottom: 'var(--space-2)',
+                    width: 'fit-content',
+                    borderBottom: '1px solid var(--color-border-subtle)'
                   }}
                 >
+                  <span className="text-metadata" style={{ color: 'var(--color-text-muted)', fontSize: 'var(--font-size-xs)' }}>{link.index}</span>
                   {link.name}
                 </NavLink>
               </motion.div>
             ))}
           </nav>
-          
+
           <style>{`
             .mobile-nav-link {
-              color: var(--color-text-primary);
+              color: var(--color-text-secondary);
               position: relative;
               transition: color var(--duration-micro) var(--easing-default);
             }
-            .mobile-nav-link.active, .mobile-nav-link:focus-visible {
-              color: var(--color-accent);
-              font-style: italic;
+            .mobile-nav-link.active {
+              color: var(--color-text-primary);
+            }
+            .mobile-nav-link:focus-visible {
+              color: var(--color-text-primary);
               outline: none;
-            }
-            .mobile-nav-link::after {
-              content: '';
-              position: absolute;
-              bottom: 0;
-              left: 0;
-              width: 100%;
-              height: 2px;
-              background-color: var(--color-accent);
-              transform: scaleX(0);
-              transform-origin: right;
-              transition: transform 300ms ease-out;
-            }
-            .mobile-nav-link.active::after, .mobile-nav-link:focus-visible::after {
-              transform: scaleX(1);
-              transform-origin: left;
             }
           `}</style>
         </motion.div>

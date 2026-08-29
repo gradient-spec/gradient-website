@@ -1,14 +1,16 @@
 /**
  * ============================================================
- * GRADIENT TYPOGRAPHY SYSTEM
+ * GRADIENT TYPOGRAPHY SYSTEM — PHASE 22
  * ============================================================
  *
- * Centralized typography utilities based on Gradient Design Spec.
- * Uses font variables defined in tokens.css.
+ * Three typographic voices:
+ * 1. Display (Space Grotesk) — oversized, confident, geometric
+ * 2. Body (Source Sans 3) — readable, neutral
+ * 3. Technical (Geist Mono) — metadata, coordinates, labels
  * ============================================================
  */
 
-/* Display Typography (Playfair Display) */
+/* Display Typography (Space Grotesk) */
 .text-display {
   font-family: var(--font-display);
   font-size: var(--font-size-4xl);
@@ -17,14 +19,7 @@
   letter-spacing: var(--letter-spacing-tight);
 }
 
-.text-display-italic {
-  font-family: var(--font-display);
-  font-size: inherit; /* Inherits from parent, typically .text-display */
-  font-style: italic;
-  font-weight: inherit;
-}
-
-/* Headings (Playfair Display) */
+/* Headings (Space Grotesk) */
 .text-heading {
   font-family: var(--font-display);
   font-size: var(--font-size-3xl);
@@ -75,7 +70,7 @@
   font-size: var(--font-size-xs);
   font-weight: var(--font-weight-regular);
   line-height: var(--line-height-tight);
-  letter-spacing: var(--letter-spacing-normal);
+  letter-spacing: var(--letter-spacing-wide);
 }
 
 .text-technical {
@@ -83,7 +78,26 @@
   font-size: var(--font-size-sm);
   font-weight: var(--font-weight-medium);
   line-height: var(--line-height-tight);
-  letter-spacing: var(--letter-spacing-tight);
+  letter-spacing: var(--letter-spacing-normal);
+}
+
+/* Route Label — the 01 / HOME identifier system */
+.text-route-label {
+  font-family: var(--font-mono);
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-regular);
+  letter-spacing: var(--letter-spacing-wide);
+  line-height: 1;
+  color: var(--color-text-tertiary);
+  text-transform: uppercase;
+}
+
+/* Display Italic (kept for flexibility) */
+.text-display-italic {
+  font-family: var(--font-display);
+  font-size: inherit;
+  font-style: italic;
+  font-weight: inherit;
 }
 
 /* Development Placeholder */

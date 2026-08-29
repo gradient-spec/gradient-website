@@ -1,199 +1,175 @@
 /**
  * ============================================================
- * GRADIENT DESIGN TOKENS
+ * GRADIENT DESIGN TOKENS — PHASE 22
  * ============================================================
  *
- * Centralized CSS custom properties for the Gradient design system.
- *
- * LOCKED values are finalized per the specification.
- * DEFERRED values are structured but use temporary/placeholder
- * values clearly marked with comments. These will be replaced
- * when design decisions are finalized.
- *
- * Do NOT invent permanent design decisions for deferred tokens.
+ * Dark cinematic palette.
+ * Gradient accent used as rare material accent (10-20% of surface).
+ * 80-90% neutral: dark graphite, black, warm white, muted gray.
  * ============================================================
  */
 
 :root {
   /* --------------------------------------------------------
-   * COLORS — LOCKED
+   * COLORS — PHASE 22
    * -------------------------------------------------------- */
 
-  /* Brand accent — LOCKED */
-  --color-accent: #960E29;
+  /* Brand accent — gradient system (restrained use) */
+  --color-accent: #2878FF;
+  --color-accent-hover: #4090FF;
+  --color-accent-pressed: #1860DD;
+  --color-accent-focus: #2878FF;
+  --color-accent-disabled: #2878FF44;
 
-  /* Accent state tokens — DEFERRED
-   * Temporary values provided only to prevent build errors.
-   * Final hover/pressed/focus/disabled tokens not yet decided. */
-  --color-accent-hover: #7a0b22;       /* TEMPORARY */
-  --color-accent-pressed: #5e0819;     /* TEMPORARY */
-  --color-accent-focus: #960E29;       /* TEMPORARY */
-  --color-accent-disabled: #c4a0a8;    /* TEMPORARY */
+  /* Gradient accent — signature material (rare, focal use only) */
+  --color-gradient-start: #00D9FF;
+  --color-gradient-mid: #2878FF;
+  --color-gradient-end: #A855F7;
+  --gradient-brand: linear-gradient(135deg, var(--color-gradient-start), var(--color-gradient-mid), var(--color-gradient-end));
 
-  /* Surface colors — DEFERRED
-   * Direction: light-side, premium, restrained.
-   * Exact values not yet finalized. */
-  --color-surface-primary: #ffffff;    /* TEMPORARY */
-  --color-surface-secondary: #f6f6f6;  /* TEMPORARY */
-  --color-surface-elevated: #ffffff;   /* TEMPORARY */
+  /* Legacy accent — preserved for specific elements */
+  --color-accent-legacy: #960E29;
 
-  /* Text colors — DEFERRED
-   * Exact palette not yet finalized. */
-  --color-text-primary: #1a1a1a;       /* TEMPORARY */
-  --color-text-secondary: #555555;     /* TEMPORARY */
-  --color-text-tertiary: #888888;      /* TEMPORARY */
-  --color-text-muted: #a3a3a3;         /* TEMPORARY */
-  --color-text-inverse: #ffffff;       /* TEMPORARY */
+  /* Surface colors — dark cinematic */
+  --color-surface-primary: #07080A;
+  --color-surface-secondary: #101216;
+  --color-surface-elevated: #171A20;
+
+  /* Warm light surfaces (for tonal contrast sections) */
+  --color-surface-warm: #F2F1EC;
+  --color-surface-warm-secondary: #E8E7E2;
+  --color-text-on-warm: #1a1a1a;
+  --color-text-on-warm-secondary: #555555;
+  --color-border-on-warm: rgba(26, 26, 26, 0.12);
+
+  /* Text colors — warm white on dark */
+  --color-text-primary: #F2F1EC;
+  --color-text-secondary: #A6A8AE;
+  --color-text-tertiary: #6B6D73;
+  --color-text-muted: #42444A;
+  --color-text-inverse: #07080A;
   --color-text-accent: var(--color-accent);
 
-  /* Status colors — DEFERRED
-   * Exact palette not yet finalized. */
-  --color-success: #059669;            /* TEMPORARY */
-  --color-warning: #d97706;            /* TEMPORARY */
-  --color-error: #dc2626;              /* TEMPORARY */
+  /* Status colors */
+  --color-success: #34D399;
+  --color-warning: #FBBF24;
+  --color-error: #F87171;
 
-  /* Border colors — DEFERRED */
-  --color-border-subtle: #ebebeb;      /* TEMPORARY */
-  --color-border-default: #d9d9d9;     /* TEMPORARY */
-  --color-border-strong: #999999;      /* TEMPORARY */
+  /* Border colors — translucent warm white */
+  --color-border-subtle: rgba(242, 241, 236, 0.08);
+  --color-border-default: rgba(242, 241, 236, 0.15);
+  --color-border-strong: rgba(242, 241, 236, 0.25);
 
   /* --------------------------------------------------------
-   * TYPOGRAPHY — LOCKED (families only)
-   * --------------------------------------------------------
-   * Exact sizes, weights, line-heights, letter-spacing
-   * are DEFERRED.
+   * TYPOGRAPHY — PHASE 22
    * -------------------------------------------------------- */
 
-  /* Font families — LOCKED */
-  --font-display: 'Playfair Display', serif;
+  /* Font families */
+  --font-display: 'Space Grotesk', sans-serif;
   --font-body: 'Source Sans 3', sans-serif;
   --font-mono: 'Geist Mono', monospace;
 
-  /* Font sizes — DEFERRED
-   * Temporary values for structural scaffolding only. */
-  --font-size-xs: 0.75rem;            /* TEMPORARY */
-  --font-size-sm: 0.875rem;           /* TEMPORARY */
-  --font-size-base: 1rem;             /* TEMPORARY */
-  --font-size-md: 1.125rem;           /* TEMPORARY */
-  --font-size-lg: 1.25rem;            /* TEMPORARY */
-  --font-size-xl: 1.5rem;             /* TEMPORARY */
-  --font-size-2xl: 2rem;              /* TEMPORARY */
-  --font-size-3xl: 2.5rem;            /* TEMPORARY */
-  --font-size-4xl: 3rem;              /* TEMPORARY */
+  /* Font sizes */
+  --font-size-xs: 0.75rem;
+  --font-size-sm: 0.875rem;
+  --font-size-base: 1rem;
+  --font-size-md: 1.125rem;
+  --font-size-lg: 1.25rem;
+  --font-size-xl: 1.5rem;
+  --font-size-2xl: 2rem;
+  --font-size-3xl: 2.5rem;
+  --font-size-4xl: 3rem;
 
-  /* Font weights — DEFERRED */
-  --font-weight-regular: 400;         /* TEMPORARY */
-  --font-weight-medium: 500;          /* TEMPORARY */
-  --font-weight-semibold: 600;        /* TEMPORARY */
-  --font-weight-bold: 700;            /* TEMPORARY */
+  /* Font weights */
+  --font-weight-regular: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
 
-  /* Line heights — DEFERRED */
-  --line-height-tight: 1.2;           /* TEMPORARY */
-  --line-height-base: 1.5;            /* TEMPORARY */
-  --line-height-relaxed: 1.75;        /* TEMPORARY */
+  /* Line heights */
+  --line-height-tight: 1.1;
+  --line-height-base: 1.5;
+  --line-height-relaxed: 1.75;
 
-  /* Letter spacing — DEFERRED */
-  --letter-spacing-tight: -0.02em;    /* TEMPORARY */
-  --letter-spacing-normal: 0;         /* TEMPORARY */
-  --letter-spacing-wide: 0.05em;      /* TEMPORARY */
+  /* Letter spacing */
+  --letter-spacing-tight: -0.02em;
+  --letter-spacing-normal: 0;
+  --letter-spacing-wide: 0.08em;
 
   /* --------------------------------------------------------
-   * SPACING — DEFERRED
-   * --------------------------------------------------------
-   * Golden Ratio (φ ≈ 1.618) is a compositional principle,
-   * not a requirement that every value be derived from it.
-   * Exact spacing scale not yet finalized.
+   * SPACING
    * -------------------------------------------------------- */
 
-  --space-1: 0.25rem;                 /* TEMPORARY — 4px */
-  --space-2: 0.5rem;                  /* TEMPORARY — 8px */
-  --space-3: 0.75rem;                 /* TEMPORARY — 12px */
-  --space-4: 1rem;                    /* TEMPORARY — 16px */
-  --space-5: 1.5rem;                  /* TEMPORARY — 24px */
-  --space-6: 2rem;                    /* TEMPORARY — 32px */
-  --space-7: 3rem;                    /* TEMPORARY — 48px */
-  --space-8: 4rem;                    /* TEMPORARY — 64px */
-  --space-9: 6rem;                    /* TEMPORARY — 96px */
-  --space-10: 8rem;                   /* TEMPORARY — 128px */
-  --space-12: 12rem;                  /* TEMPORARY — 192px */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.5rem;
+  --space-6: 2rem;
+  --space-7: 3rem;
+  --space-8: 4rem;
+  --space-9: 6rem;
+  --space-10: 8rem;
+  --space-12: 12rem;
 
   /* --------------------------------------------------------
    * LAYOUT — LOCKED
    * -------------------------------------------------------- */
 
-  /* Grid — LOCKED */
   --grid-columns: 12;
-  --grid-max-width-min: 1200px;       /* LOCKED */
-  --grid-max-width-max: 1400px;       /* LOCKED */
-  --grid-max-width: 1400px;           /* Using upper bound as default */
+  --grid-max-width-min: 1200px;
+  --grid-max-width-max: 1400px;
+  --grid-max-width: 1400px;
+  --grid-gutter: 1.5rem;
 
-  /* Grid gutters — DEFERRED */
-  --grid-gutter: 1.5rem;              /* TEMPORARY */
+  --section-padding-min: 96px;
+  --section-padding-max: 128px;
+  --section-padding-y: 6rem;
 
-  /* Section padding — LOCKED (range) */
-  --section-padding-min: 96px;        /* LOCKED — lower bound */
-  --section-padding-max: 128px;       /* LOCKED — upper bound */
-  --section-padding-y: 6rem;          /* TEMPORARY — 96px */
+  --card-gap-min: 24px;
+  --card-gap-max: 32px;
+  --card-gap: 1.5rem;
 
-  /* Card gaps — LOCKED (range) */
-  --card-gap-min: 24px;               /* LOCKED — lower bound */
-  --card-gap-max: 32px;               /* LOCKED — upper bound */
-  --card-gap: 1.5rem;                 /* TEMPORARY — 24px */
-
-  /* Golden Ratio — LOCKED (compositional reference) */
   --golden-ratio: 1.618;
 
   /* --------------------------------------------------------
-   * BORDERS — DEFERRED
+   * BORDERS
    * -------------------------------------------------------- */
 
-  --radius-sm: 2px;                   /* CANDIDATE */
-  --radius-md: 4px;                   /* CANDIDATE */
-  --radius-lg: 8px;                   /* CANDIDATE */
-  --radius-full: 9999px;              /* Full pill shape */
+  --radius-sm: 2px;
+  --radius-md: 4px;
+  --radius-lg: 8px;
+  --radius-full: 9999px;
 
   --border-width-default: 1px;
   --border-width-thick: 2px;
 
   /* --------------------------------------------------------
-   * SHADOWS — DEFERRED
-   * --------------------------------------------------------
-   * Spec defines three conceptual levels: small, medium, large.
-   * Exact values not yet finalized.
+   * SHADOWS — dark-appropriate
    * -------------------------------------------------------- */
 
-  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.03);   /* CANDIDATE */
-  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.05);  /* CANDIDATE */
-  --shadow-lg: 0 12px 32px rgba(0, 0, 0, 0.08); /* CANDIDATE */
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.4);
+  --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.5);
+  --shadow-lg: 0 12px 40px rgba(0, 0, 0, 0.6);
 
   /* --------------------------------------------------------
-   * HERO FRAME — DEFERRED (Candidate)
-   * --------------------------------------------------------
-   * Responsive frame heights for the hero image to prevent
-   * hardcoded pixel minimums.
+   * HERO FRAME
    * -------------------------------------------------------- */
-  --hero-frame-height-desktop: 70vh;  /* CANDIDATE */
-  --hero-frame-height-tablet: 50vh;   /* CANDIDATE */
-  --hero-frame-height-mobile: 40vh;   /* CANDIDATE */
+  --hero-frame-height-desktop: 55vh;
+  --hero-frame-height-tablet: 50vh;
+  --hero-frame-height-mobile: 40vh;
 
   /* --------------------------------------------------------
-   * MOTION — DEFERRED
-   * --------------------------------------------------------
-   * Three-level hierarchy:
-   * 1. Micro motion
-   * 2. Content motion
-   * 3. Transformational motion
-   *
-   * Exact durations, easing, and choreography not yet finalized.
+   * MOTION
    * -------------------------------------------------------- */
 
-  --duration-micro: 150ms;            /* TEMPORARY */
-  --duration-content: 300ms;          /* TEMPORARY */
-  --duration-transform: 600ms;        /* TEMPORARY */
+  --duration-micro: 150ms;
+  --duration-content: 300ms;
+  --duration-transform: 600ms;
 
-  --easing-default: ease-out;         /* TEMPORARY */
-  --easing-entrance: ease-out;        /* TEMPORARY */
-  --easing-exit: ease-in;             /* TEMPORARY */
+  --easing-default: ease-out;
+  --easing-entrance: ease-out;
+  --easing-exit: ease-in;
 
   /* --------------------------------------------------------
    * Z-INDEX SCALE
@@ -216,9 +192,6 @@
 
 /* --------------------------------------------------------
  * REDUCED MOTION
- * --------------------------------------------------------
- * Reduced-motion users retain the same structure and content
- * with simpler motion.
  * -------------------------------------------------------- */
 
 @media (prefers-reduced-motion: reduce) {

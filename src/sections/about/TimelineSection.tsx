@@ -30,8 +30,8 @@ export const TimelineSection: React.FC = () => {
 
 
   return (
-    <section 
-      className="section" 
+    <section
+      className="section"
       aria-labelledby="timeline-heading"
       style={{
         paddingTop: 'var(--space-12)',
@@ -39,16 +39,16 @@ export const TimelineSection: React.FC = () => {
       }}
     >
       <div className="container">
-        <motion.div 
+        <motion.div
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: '-50px' }}
           variants={containerVariants}
         >
-          <motion.h2 
-            id="timeline-heading" 
-            variants={itemVariants} 
-            className="text-heading" 
+          <motion.h2
+            id="timeline-heading"
+            variants={itemVariants}
+            className="text-heading"
             style={{ marginBottom: 'var(--space-10)' }}
           >
             Chronology
@@ -56,8 +56,8 @@ export const TimelineSection: React.FC = () => {
 
           <ol className="timeline-list">
             {timelineEntries.map((entry, index) => (
-              <motion.li 
-                key={entry.id} 
+              <motion.li
+                key={entry.id}
                 variants={itemVariants}
                 className={`timeline-item ${index === timelineEntries.length - 1 ? 'is-last' : ''}`}
               >
@@ -68,7 +68,7 @@ export const TimelineSection: React.FC = () => {
                       {entry.date}
                     </div>
                   </div>
-                  
+
                   {/* Right: Title & Description (Span 9) */}
                   <div className="timeline-content">
                     <h3 className="text-heading" style={{ fontSize: 'var(--font-size-3xl)', marginBottom: 'var(--space-3)' }}>

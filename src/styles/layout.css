@@ -63,3 +63,72 @@
     padding-inline: var(--space-3);
   }
 }
+
+/**
+ * ============================================================
+ * ATMOSPHERIC PRIMITIVES
+ * ============================================================
+ * Subtle technical depth and architectural geometry.
+ */
+
+.bg-atmospheric {
+  position: relative;
+  z-index: 0;
+}
+
+.bg-atmospheric::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background-image: 
+    repeating-linear-gradient(to right, rgba(242, 241, 236, 0.03) 0, rgba(242, 241, 236, 0.03) 1px, transparent 1px, transparent 60px),
+    repeating-linear-gradient(to bottom, rgba(242, 241, 236, 0.03) 0, rgba(242, 241, 236, 0.03) 1px, transparent 1px, transparent 60px);
+  mask-image: radial-gradient(circle at center, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0) 55%);
+  -webkit-mask-image: radial-gradient(circle at center, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0) 55%);
+  opacity: 1;
+  z-index: -1;
+  pointer-events: none;
+  animation: atmospheric-drift 120s linear infinite;
+}
+
+@keyframes atmospheric-drift {
+  0% { transform: rotate(0deg) translate(0, 0); }
+  100% { transform: rotate(3deg) translate(-2%, -2%); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .bg-atmospheric::before {
+    animation: none;
+    transform: none;
+  }
+}
+
+/* Ambient gradient glow orbs — cinematic depth */
+.bg-glow-top-right::after {
+  content: '';
+  position: absolute;
+  top: -20%;
+  right: -10%;
+  width: 500px;
+  height: 500px;
+  background: radial-gradient(circle, rgba(40, 120, 255, 0.06) 0%, rgba(168, 85, 247, 0.03) 40%, transparent 70%);
+  pointer-events: none;
+  z-index: -1;
+  border-radius: 50%;
+}
+
+.bg-glow-bottom-left::after {
+  content: '';
+  position: absolute;
+  bottom: -15%;
+  left: -10%;
+  width: 450px;
+  height: 450px;
+  background: radial-gradient(circle, rgba(0, 217, 255, 0.05) 0%, rgba(40, 120, 255, 0.02) 40%, transparent 70%);
+  pointer-events: none;
+  z-index: -1;
+  border-radius: 50%;
+}

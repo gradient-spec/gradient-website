@@ -37,51 +37,73 @@ export const ProjectCollectionSection: React.FC = () => {
   }
 
   return (
-    <section 
-      className="section" 
+    <section
+      className="section"
       aria-labelledby="project-collection-heading"
       style={{
         paddingTop: 'var(--space-12)',
         paddingBottom: 'var(--space-12)',
+        backgroundColor: 'var(--color-surface-primary)',
       }}
     >
       <div className="container">
-        <motion.div 
+        <motion.div
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: '-50px' }}
           variants={containerVariants}
         >
-          <motion.h2 
-            id="project-collection-heading" 
-            variants={itemVariants} 
-            className="text-heading" 
+          <motion.h2
+            id="project-collection-heading"
+            variants={itemVariants}
+            className="text-heading"
             style={{ marginBottom: 'var(--space-10)' }}
           >
             All Projects
           </motion.h2>
 
-          <div 
+          <div
             className="grid"
-            style={{ 
+            style={{
               rowGap: 'var(--space-10)',
               // CANDIDATE: Structural layout relying on CSS Grid. 
               // Final composition selected based on actual content once available.
             }}
           >
             {collectionProjects.map((project) => (
-              <motion.article 
-                key={project.id} 
+              <motion.article
+                key={project.id}
                 variants={itemVariants}
                 style={{
                   gridColumn: 'span 4', // CANDIDATE: 3-column desktop layout
                   display: 'flex',
                   flexDirection: 'column',
                   borderTop: '1px solid var(--color-border-subtle)',
-                  paddingTop: 'var(--space-6)'
+                  paddingTop: 'var(--space-6)',
+                  position: 'relative'
                 }}
               >
-                <h3 className="text-subheading" style={{ marginBottom: 'var(--space-3)' }}>
+                {/* Background Number Watermark */}
+                <div
+                  aria-hidden="true"
+                  className="text-display"
+                  style={{
+                    position: 'absolute',
+                    top: 'var(--space-6)',
+                    right: 0,
+                    fontSize: '6rem',
+                    lineHeight: 0.8,
+                    color: 'var(--color-border-subtle)',
+                    opacity: 0.3,
+                    zIndex: -1,
+                    pointerEvents: 'none',
+                    userSelect: 'none'
+                  }}
+                >
+                  {String(project.id).padStart(2, '0')}
+                </div>
+                
+                <h3 className="text-subheading" style={{ marginBottom: 'var(--space-3)', position: 'relative', zIndex: 1 }}>
                   {project.title}
                 </h3>
 
@@ -96,7 +118,7 @@ export const ProjectCollectionSection: React.FC = () => {
                 </p>
 
                 {project.externalUrl && (
-                  <a 
+                  <a
                     href={project.externalUrl}
                     target="_blank"
                     rel="noopener noreferrer"

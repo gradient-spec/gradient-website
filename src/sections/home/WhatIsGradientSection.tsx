@@ -4,40 +4,40 @@ import { motion, useReducedMotion, type Variants } from 'framer-motion';
 export const WhatIsGradientSection: React.FC = () => {
   const prefersReducedMotion = useReducedMotion();
 
-  // CANDIDATE: Section-scoped motion values
-  // These represent deferred global motion design decisions.
-  const CANDIDATE_STAGGER_DELAY = 0.15;
-  const CANDIDATE_Y_TRANSLATION = 15;
-
-  // Subtle entrance motion for the section
   const sectionVariants: Variants = {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
-      transition: { 
-        staggerChildren: prefersReducedMotion ? 0 : CANDIDATE_STAGGER_DELAY,
+      transition: {
+        staggerChildren: prefersReducedMotion ? 0 : 0.15,
         delayChildren: 0.1
       }
     }
   };
 
   const itemVariants: Variants = {
-    hidden: { opacity: 0, y: prefersReducedMotion ? 0 : CANDIDATE_Y_TRANSLATION },
-    visible: { 
-      opacity: 1, 
+    hidden: { opacity: 0, y: prefersReducedMotion ? 0 : 20 },
+    visible: {
+      opacity: 1,
       y: 0,
-      transition: { duration: 0.6, ease: 'easeOut' }
+      transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] }
     }
   };
 
   return (
-    <section 
-      className="section" 
-      aria-labelledby="what-is-gradient-heading" 
-      style={{ overflow: 'hidden', paddingTop: 'var(--space-8)' }}
+    <section
+      className="section"
+      aria-labelledby="what-is-gradient-heading"
+      style={{ 
+        overflow: 'hidden', 
+        paddingTop: 'var(--space-12)',
+        paddingBottom: 'var(--space-12)',
+        backgroundColor: 'var(--color-surface-primary)', // Seamless from Hero
+        position: 'relative'
+      }}
     >
       <div className="container">
-        <motion.div 
+        <motion.div
           className="grid"
           initial="hidden"
           whileInView="visible"
@@ -45,91 +45,69 @@ export const WhatIsGradientSection: React.FC = () => {
           variants={sectionVariants}
           style={{ alignItems: 'start' }}
         >
-          {/* Left Margin (Span 4) */}
-          <div className="what-is-left-margin">
-            {/* Scoped style for responsive behavior without a new global CSS file */}
-            <style>{`
-              .what-is-left-margin { 
-                grid-column: 1 / span 4;
-                border-top: 2px solid var(--color-border-subtle);
-                padding-top: var(--space-4);
-                height: 100%;
-              }
-              .what-is-right-content { 
-                grid-column: 5 / span 8; 
-                border-top: 1px solid var(--color-border-subtle);
-                padding-top: var(--space-4);
-              }
-              .mission-vision-grid {
-                display: flex;
-                flex-direction: column;
-                gap: var(--space-8);
-              }
-              .mission-vision-row {
-                display: grid;
-                grid-template-columns: repeat(8, 1fr);
-                gap: var(--grid-gutter);
-              }
-              .mission-vision-label { grid-column: 1 / span 3; }
-              .mission-vision-text { grid-column: 4 / span 5; }
-              
-              /* CANDIDATE breakpoint: Tablet */
-              @media (max-width: 992px) {
-                .what-is-left-margin { grid-column: 1 / span 3; }
-                .what-is-right-content { grid-column: 4 / span 9; }
-                .mission-vision-label { grid-column: 1 / span 3; }
-                .mission-vision-text { grid-column: 4 / span 5; }
-              }
-              /* CANDIDATE breakpoint: Mobile */
-              @media (max-width: 768px) {
-                .what-is-left-margin, .what-is-right-content { grid-column: 1 / -1 !important; }
-                .what-is-left-margin { 
-                  border-top: 1px solid var(--color-border-subtle);
-                  padding-left: 0;
-                  padding-top: var(--space-4);
-                  margin-bottom: var(--space-5);
-                  height: auto;
-                }
-                .mission-vision-label, .mission-vision-text { grid-column: 1 / -1 !important; }
-              }
-            `}</style>
-            
+          <style>{`
+            .mission-block {
+              grid-column: 2 / span 5;
+            }
+            .vision-block {
+              grid-column: 7 / span 5;
+              padding-top: var(--space-12); /* offset to create tension */
+            }
+            .chapter-number {
+              display: block;
+              margin-bottom: var(--space-4);
+              color: var(--color-text-tertiary);
+              border-bottom: 1px solid var(--color-border-subtle);
+              padding-bottom: var(--space-2);
+            }
+            @media (max-width: 992px) {
+              .mission-block { grid-column: 1 / span 6; }
+              .vision-block { grid-column: 7 / span 6; padding-top: var(--space-8); }
+            }
+            @media (max-width: 768px) {
+              .mission-block, .vision-block { grid-column: 1 / -1 !important; padding-top: 0; }
+              .vision-block { margin-top: var(--space-8); }
+            }
+          `}</style>
+
+          {/* 01 / MISSION */}
+          <div className="mission-block">
             <motion.div variants={itemVariants}>
-              <span className="text-label" style={{ color: 'var(--color-accent)', display: 'block', marginBottom: 'var(--space-2)' }}>01</span>
-              <h2 
+              <span className="text-route-label chapter-number">
+                01 / MISSION
+              </span>
+              <h2
                 id="what-is-gradient-heading"
-                className="text-heading" 
-                style={{ fontSize: 'var(--font-size-xl)' }}
+                className="text-heading"
+                style={{ 
+                  fontSize: 'clamp(2.5rem, 5vw, 4rem)', 
+                  color: 'var(--color-text-primary)',
+                  lineHeight: '1.1',
+                  letterSpacing: '-0.02em'
+                }}
               >
-                About Gradient
+                Ideas, made real.
               </h2>
             </motion.div>
           </div>
 
-          {/* Right Content (Span 8) */}
-          <div className="what-is-right-content">
-
-            <div className="mission-vision-grid">
-              {/* Mission Block */}
-              <motion.div variants={itemVariants} className="mission-vision-row">
-                <h3 className="text-label mission-vision-label" style={{ color: 'var(--color-text-secondary)' }}>
-                  01 / Mission
-                </h3>
-                <p className="text-heading mission-vision-text" style={{ color: 'var(--color-text-primary)', fontSize: 'var(--font-size-3xl)', lineHeight: '1.2' }}>
-                  Ideas, made real.
-                </p>
-              </motion.div>
-
-              {/* Vision Block */}
-              <motion.div variants={itemVariants} className="mission-vision-row">
-                <h3 className="text-label mission-vision-label" style={{ color: 'var(--color-text-secondary)' }}>
-                  02 / Vision
-                </h3>
-                <p className="text-heading mission-vision-text" style={{ color: 'var(--color-text-primary)', fontSize: 'var(--font-size-3xl)', lineHeight: '1.2' }}>
-                  A platform that reaches beyond the campus.
-                </p>
-              </motion.div>
-            </div>
+          {/* 02 / VISION */}
+          <div className="vision-block">
+            <motion.div variants={itemVariants}>
+              <span className="text-route-label chapter-number">
+                02 / VISION
+              </span>
+              <p 
+                className="text-subheading" 
+                style={{ 
+                  fontSize: 'clamp(1.5rem, 3vw, 2rem)', 
+                  color: 'var(--color-text-secondary)',
+                  lineHeight: '1.4'
+                }}
+              >
+                A platform that reaches beyond the campus.
+              </p>
+            </motion.div>
           </div>
         </motion.div>
       </div>

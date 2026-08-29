@@ -26,8 +26,8 @@ const itemVariants: Variants = {
 
 export const MissionVisionSection: React.FC = () => {
   return (
-    <section 
-      className="section" 
+    <section
+      className="section"
       aria-labelledby="mission-heading"
       style={{
         paddingTop: 'var(--space-8)',
@@ -36,26 +36,47 @@ export const MissionVisionSection: React.FC = () => {
       }}
     >
       <div className="container">
-        <motion.div 
-          className="grid" 
+        <motion.div
+          className="grid"
+          style={{ position: 'relative' }}
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: '-100px' }}
           variants={containerVariants}
         >
+          {/* Editorial Spine Continuation */}
+          <div 
+            aria-hidden="true"
+            className="hide-on-mobile"
+            style={{
+              position: 'absolute',
+              top: '-var(--space-12)',
+              left: 0,
+              width: '1px',
+              height: 'calc(100% + var(--space-24))',
+              background: 'var(--color-border-subtle)',
+              zIndex: 0
+            }}
+          />
+          
           {/* Mission Row */}
-          <div className="editorial-row">
-            <div className="editorial-left">
-              <motion.div variants={itemVariants} className="text-label" style={{ color: 'var(--color-accent)', marginBottom: 'var(--space-3)' }}>
-                01 / MISSION
-              </motion.div>
+          <div className="editorial-row" style={{ position: 'relative', zIndex: 1, paddingLeft: 'var(--space-6)' }}>
+            {/* Background Numbering Anchor */}
+            <div aria-hidden="true" className="text-display" style={{ position: 'absolute', top: 0, right: 0, fontSize: 'clamp(8rem, 20vw, 15rem)', lineHeight: 0.8, color: 'var(--color-border-subtle)', opacity: 0.3, zIndex: -1, userSelect: 'none' }}>
+              01
             </div>
             
+            <div className="editorial-left">
+              <motion.div variants={itemVariants} className="text-label" style={{ color: 'var(--color-accent)', marginBottom: 'var(--space-3)' }}>
+                MISSION
+              </motion.div>
+            </div>
+
             <div className="editorial-right">
-              <motion.h2 
-                id="mission-heading" 
-                variants={itemVariants} 
-                className="text-display" 
+              <motion.h2
+                id="mission-heading"
+                variants={itemVariants}
+                className="text-display"
                 style={{ fontSize: 'clamp(2.5rem, 5vw, 4rem)', lineHeight: '1.2' }}
               >
                 Ideas, made real.
@@ -64,17 +85,22 @@ export const MissionVisionSection: React.FC = () => {
           </div>
 
           {/* Vision Row */}
-          <div className="editorial-row vision-row">
+          <div className="editorial-row vision-row" style={{ position: 'relative', zIndex: 1, paddingLeft: 'var(--space-6)' }}>
+            {/* Background Numbering Anchor */}
+            <div aria-hidden="true" className="text-display" style={{ position: 'absolute', top: 0, right: 0, fontSize: 'clamp(8rem, 20vw, 15rem)', lineHeight: 0.8, color: 'var(--color-border-subtle)', opacity: 0.3, zIndex: -1, userSelect: 'none' }}>
+              02
+            </div>
+
             <div className="editorial-left">
               <motion.div variants={itemVariants} className="text-label" style={{ color: 'var(--color-text-tertiary)', marginBottom: 'var(--space-3)' }}>
-                02 / VISION
+                VISION
               </motion.div>
             </div>
-            
+
             <div className="editorial-right">
-              <motion.h2 
-                variants={itemVariants} 
-                className="text-display" 
+              <motion.h2
+                variants={itemVariants}
+                className="text-display"
                 style={{ fontSize: 'clamp(2.5rem, 5vw, 4rem)', lineHeight: '1.2' }}
               >
                 A platform that reaches beyond the campus.
@@ -114,6 +140,14 @@ export const MissionVisionSection: React.FC = () => {
           }
           .editorial-right {
             grid-column: 1 / -1;
+          }
+        }
+        @media (max-width: 768px) {
+          .hide-on-mobile {
+            display: none !important;
+          }
+          .editorial-row {
+            padding-left: 0 !important;
           }
         }
       `}</style>

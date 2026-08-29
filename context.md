@@ -101,3 +101,47 @@ src/
 - **Phase 12E (About Page)**: The About page architecture consists of exactly four structures: About History / Opening, Mission, Vision, and Timeline (Mission and Vision share a unified `MissionVisionSection.tsx` component). All approved source-of-truth copy has been integrated.
 - **Timeline Architecture (Phase 12E)**: The Timeline uses a semantic `<ol>` structure powered by a dedicated `src/types/timeline.ts` and `src/data/timeline.ts`. The timeline contains *exactly* the two approved milestones (2020 — Gradient begins; 2020 onward — SPECATHON) with no fabricated entries.
 - **Image Dependency (Phase 12E)**: The About page is textually complete. The only remaining dependency is the supply of authentic Gradient photography to replace the structural development image frame in the History section.
+
+## Recent Changes & Milestones
+
+- **Phase 23A — Gradient Home Route Art Direction (29 Aug 2026):** Completely refactored the Home page components (`HeroSection`, `WhatIsGradientSection`, `FeaturedEventSection`, `HomeCTASection`) to shift from a standard interface to a strong "living brand experience." Established an IMPACT → BREATH → IMPACT → BREATH visual rhythm. Replaced bounded image placeholders with large, intersecting art-directed elements (massive SVG G geometry, scale-shock background typography for Specathon). Removed `CurrentBoardSection` from the Home route to strictly follow the narrative flow of Identity → Idea → Execution → Connection.
+- **Initial UI Polish (29 Aug 2026):** Applied a repeating "GRADIENT" watermark, film-grain noise texture, and ambient glow orbs across all pages via `base.css` and `layout.css`. Addressed CSS conflicts in `FeaturedEventSection` and improved placeholder images for `CurrentBoardSection`.
+- **Phase 2 — Specathon Launch Support (29 Aug 2026):** Integrated Specathon content into the `FeaturedEventSection`, added an Events page with tabs for Upcoming, Ongoing, and Past events, and set up dynamic routing for individual event pages. Replaced static text with data-driven components. Added detailed Specathon data to `src/data/events.ts`.
+- **Website Initial Setup (29 Aug 2026):** Initialized a React application using Vite with a custom CSS styling system (no UI library). Created basic routing (Home, About, Projects, Events, Boards, Contact). Configured a comprehensive theme via `tokens.css`, `layout.css`, and `typography.css`.
+
+## UI Polish Pass (Latest)
+Changes made to improve visual depth, fix alignment issues, and reduce emptiness across the site:
+
+### Global Background Enhancements (`base.css`)
+- **Watermark**: Added a subtle repeating diagonal "GRADIENT" text watermark via inline SVG `background-image` on `body`. Very faint (`opacity 0.022`) monospace text at `-35deg`.
+- **Noise Texture**: Added an `#app-root::before` pseudo-element with an SVG `feTurbulence` noise filter overlay (`opacity 0.035`, `mix-blend-mode: overlay`) for film-grain depth.
+
+### Ambient Glow System (`layout.css`)
+- Added `.bg-glow-top-right` and `.bg-glow-bottom-left` CSS classes — radial gradient orbs using the brand accent palette (blue/purple/cyan) at very low opacity. Applied to sections across all pages for cinematic depth.
+
+### Hero Section (`HeroSection.tsx`, `tokens.css`)
+- Reduced `--hero-frame-height-desktop` from `70vh` to `55vh` to reduce empty space in the placeholder SVG area.
+- Added `bg-glow-top-right` class for ambient glow behind the hero image block.
+
+### Featured Event Section (`FeaturedEventSection.tsx`) — CSS Bug Fix
+- **Fixed conflicting CSS**: `.event-layout-grid` was declared twice — once as a 12-column grid and once with `grid-column` positioning. Split into `.event-section-grid` (outer wrapper) and `.event-layout-grid` (inner content grid).
+- Added a left-margin label block (matching the editorial pattern of other sections) with "SPOTLIGHT" label and "Featured Event" heading.
+- Changed inner event title from `<h2>` to `<h3>` (the section heading is now on the left margin `<h2>`).
+
+### Current Board Section (`CurrentBoardSection.tsx`)
+- Changed board member placeholder frame border from `dashed` to `solid` for a more polished look.
+- Replaced plain "Image Placeholder" text with a subtle SVG avatar silhouette (head circle + shoulders arc + grid lines) plus member initials.
+- Added `bg-atmospheric` and `bg-glow-bottom-left` classes for visual depth.
+
+### CTA Section (`HomeCTASection.tsx`)
+- Added `bg-atmospheric` and `bg-glow-top-right` classes for ambient depth.
+
+### Other Pages (About, Events, Projects, Boards, Contact)
+- Applied `bg-atmospheric` and/or `bg-glow-*` classes to hero/main sections for consistent visual depth:
+  - `AboutHistorySection.tsx` → `bg-atmospheric bg-glow-top-right`
+  - `EventsHeroSection.tsx` → `bg-atmospheric bg-glow-bottom-left`
+  - `ActiveEventsSection.tsx` → `bg-glow-top-right`
+  - `ProjectsHeroSection.tsx` → `bg-glow-bottom-left` (already had `bg-atmospheric`)
+  - `BoardsHeroSection.tsx` → `bg-glow-top-right` (already had `bg-atmospheric`)
+  - `EditorialClosingSection.tsx` → `bg-atmospheric bg-glow-bottom-left`
+

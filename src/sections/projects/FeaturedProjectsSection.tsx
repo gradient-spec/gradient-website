@@ -14,7 +14,7 @@ const containerVariants: Variants = {
 };
 
 const itemVariants: Variants = {
-  hidden: { opacity: 0, y: 15 }, // CANDIDATE: 15px stagger
+  hidden: { opacity: 0, y: 15 },
   visible: {
     opacity: 1,
     y: 0,
@@ -28,41 +28,40 @@ const itemVariants: Variants = {
 export const FeaturedProjectsSection: React.FC = () => {
   const featuredProjects = projects.filter(p => p.featured);
 
-  // Per specification: Hide the section entirely when no verified data exists.
   if (featuredProjects.length === 0) {
     return null;
   }
 
   return (
-    <section 
-      className="section" 
+    <section
+      className="section"
       aria-labelledby="featured-projects-heading"
       style={{
         paddingTop: 'var(--space-12)',
         paddingBottom: 'var(--space-12)',
-        backgroundColor: 'var(--color-surface-primary)',
+        backgroundColor: 'var(--color-surface-secondary)',
       }}
     >
       <div className="container">
-        <motion.div 
+        <motion.div
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: '-50px' }}
           variants={containerVariants}
         >
-          <motion.h2 
-            id="featured-projects-heading" 
-            variants={itemVariants} 
-            className="text-heading" 
+          <motion.h2
+            id="featured-projects-heading"
+            variants={itemVariants}
+            className="text-heading"
             style={{ marginBottom: 'var(--space-10)' }}
           >
             Featured Work
           </motion.h2>
 
           <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-12)' }}>
-            {featuredProjects.map((project) => (
-              <motion.article 
-                key={project.id} 
+            {featuredProjects.map((project, idx) => (
+              <motion.article
+                key={project.id}
                 variants={itemVariants}
                 className="grid"
                 style={{
@@ -75,7 +74,7 @@ export const FeaturedProjectsSection: React.FC = () => {
                   <h3 className="text-subheading" style={{ marginBottom: 'var(--space-4)' }}>
                     {project.title}
                   </h3>
-                  
+
                   {project.technologies && project.technologies.length > 0 && (
                     <div className="text-metadata" style={{ color: 'var(--color-text-muted)', marginBottom: 'var(--space-4)' }}>
                       {project.technologies.join(' · ')}
@@ -87,7 +86,7 @@ export const FeaturedProjectsSection: React.FC = () => {
                   </p>
 
                   {project.externalUrl && (
-                    <a 
+                    <a
                       href={project.externalUrl}
                       target="_blank"
                       rel="noopener noreferrer"
@@ -106,29 +105,71 @@ export const FeaturedProjectsSection: React.FC = () => {
                 </div>
 
                 <div style={{ gridColumn: 'span 7' }}>
-                  {/* Image container: Structural block ready to accept unpredictable authentic aspect ratios later */}
-                  <div 
+                  {/* Art-directed project canvas */}
+                  <div
                     style={{
                       width: '100%',
-                      backgroundColor: 'var(--color-surface-secondary)',
+                      backgroundColor: 'var(--color-surface-elevated)',
                       border: '1px solid var(--color-border-subtle)',
-                      aspectRatio: '16/9', // CANDIDATE: Initial flexible ratio for structural planning
+                      aspectRatio: '16/9',
                       display: 'flex',
                       alignItems: 'center',
                       justifyContent: 'center',
-                      overflow: 'hidden'
+                      overflow: 'hidden',
+                      position: 'relative',
+                      borderRadius: 'var(--radius-md)'
                     }}
                   >
                     {project.image ? (
-                      <img 
-                        src={project.image} 
-                        alt={project.imageAlt || project.title} 
+                      <img
+                        src={project.image}
+                        alt={project.imageAlt || project.title}
                         style={{ width: '100%', height: '100%', objectFit: 'cover' }}
                       />
                     ) : (
-                      <span className="text-metadata" style={{ color: 'var(--color-text-muted)' }}>
-                        Image Placeholder
-                      </span>
+                      <div style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                        {/* Structural crosshairs */}
+                        <div style={{ position: 'absolute', top: '50%', left: 0, width: '100%', height: '1px', backgroundColor: 'rgba(242,241,236,0.04)' }} />
+                        <div style={{ position: 'absolute', top: 0, left: '50%', width: '1px', height: '100%', backgroundColor: 'rgba(242,241,236,0.04)' }} />
+                        
+                        {/* Oversized Numbering */}
+                        <div 
+                          className="text-display" 
+                          style={{ 
+                            fontSize: 'clamp(5rem, 12vw, 10rem)', 
+                            lineHeight: 1, 
+                            color: 'var(--color-text-muted)', 
+                            opacity: 0.4,
+                            userSelect: 'none'
+                          }}
+                        >
+                          {String(project.id).padStart(2, '0')}
+                        </div>
+                        
+                        {/* Gradient accent edge (rare — only on Project 01) */}
+                        {idx === 0 && (
+                          <div 
+                            aria-hidden="true"
+                            style={{ 
+                              position: 'absolute', 
+                              top: 0, 
+                              left: 0, 
+                              width: '2px', 
+                              height: '40%', 
+                              background: 'var(--gradient-brand)',
+                              opacity: 0.6
+                            }} 
+                          />
+                        )}
+                        
+                        {/* Corner bracket */}
+                        <div style={{ position: 'absolute', bottom: 'var(--space-4)', right: 'var(--space-4)', width: '20px', height: '20px', borderBottom: '1px solid var(--color-border-default)', borderRight: '1px solid var(--color-border-default)' }} />
+                        
+                        {/* Metadata Tag */}
+                        <div className="text-metadata" style={{ position: 'absolute', top: 'var(--space-4)', left: 'var(--space-4)', color: 'var(--color-text-muted)' }}>
+                          P—{String(project.id).padStart(2, '0')}
+                        </div>
+                      </div>
                     )}
                   </div>
                 </div>

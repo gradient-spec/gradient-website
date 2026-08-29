@@ -1,17 +1,19 @@
 /**
  * ============================================================
- * GRADIENT GLOBAL STYLESHEET
+ * GRADIENT GLOBAL STYLESHEET — PHASE 22
  * ============================================================
  *
  * Import order matters:
  * 1. Fonts (must come first for @import rules)
  * 2. Tokens (custom properties)
  * 3. Base/reset
- * 4. Layout utilities
+ * 4. Typography utilities
+ * 5. Layout utilities
  * ============================================================
  */
 
 @import './fonts.css';
 @import './tokens.css';
 @import './base.css';
+@import './typography.css';
 @import './layout.css';

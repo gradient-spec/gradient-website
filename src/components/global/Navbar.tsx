@@ -1,3 +1,5 @@
+
+
 import React, { useState, useRef } from 'react';
 import { NavLink } from 'react-router-dom';
 import { useScroll } from '@/hooks/useScroll';
@@ -25,22 +27,25 @@ export const Navbar: React.FC = () => {
           position: 'sticky',
           top: 0,
           zIndex: 'var(--z-nav)',
-          backgroundColor: 'var(--color-surface-primary)',
+          backgroundColor: isScrolled ? 'rgba(7, 8, 10, 0.85)' : 'transparent',
+          backdropFilter: isScrolled ? 'blur(12px)' : 'none',
+          WebkitBackdropFilter: isScrolled ? 'blur(12px)' : 'none',
           borderBottom: isScrolled ? '1px solid var(--color-border-subtle)' : '1px solid transparent',
-          boxShadow: isScrolled ? 'var(--shadow-sm)' : 'none',
           transition: 'all var(--duration-content) var(--easing-default)',
           padding: 'var(--space-4) 0'
         }}
       >
         <div className="container" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
           {/* Logo */}
-          <NavLink 
-            to="/" 
-            className="text-display" 
-            style={{ 
-              fontSize: 'var(--font-size-2xl)', 
-              textDecoration: 'none', 
-              color: 'var(--color-text-primary)' 
+          <NavLink
+            to="/"
+            className="text-display"
+            style={{
+              fontSize: 'var(--font-size-xl)',
+              textDecoration: 'none',
+              color: 'var(--color-text-primary)',
+              letterSpacing: '-0.02em',
+              fontWeight: 'var(--font-weight-bold)'
             }}
           >
             Gradient
@@ -48,12 +53,12 @@ export const Navbar: React.FC = () => {
 
           {/* Desktop Nav */}
           <nav aria-label="Primary Desktop Navigation" className="desktop-nav">
-            <ul style={{ display: 'flex', gap: 'var(--space-6)' }}>
+            <ul style={{ display: 'flex', gap: 'var(--space-6)', alignItems: 'center' }}>
               {NAV_LINKS.map(link => (
                 <li key={link.path}>
                   <NavLink
                     to={link.path}
-                    className="text-body nav-link-item"
+                    className="text-metadata nav-link-item"
                   >
                     {link.name}
                   </NavLink>
@@ -63,20 +68,20 @@ export const Navbar: React.FC = () => {
             <style>{`
               .nav-link-item {
                 position: relative;
-                color: var(--color-text-secondary);
+                color: var(--color-text-tertiary);
                 text-decoration: none;
-                font-weight: var(--font-weight-regular);
+                font-size: var(--font-size-xs);
+                letter-spacing: var(--letter-spacing-wide);
+                text-transform: uppercase;
                 padding-bottom: var(--space-1);
-                transition: color 200ms ease-out, opacity 200ms ease-out;
+                transition: color 200ms ease-out;
               }
               .nav-link-item:hover, .nav-link-item:focus-visible {
                 color: var(--color-text-primary);
-                opacity: 0.8;
                 outline: none;
               }
               .nav-link-item.active {
-                color: var(--color-accent);
-                font-weight: var(--font-weight-medium);
+                color: var(--color-text-primary);
               }
               .nav-link-item::after {
                 content: '';
@@ -85,7 +90,7 @@ export const Navbar: React.FC = () => {
                 left: 0;
                 width: 100%;
                 height: 1px;
-                background-color: var(--color-accent);
+                background: var(--gradient-brand);
                 transform: scaleX(0);
                 transform-origin: right;
                 transition: transform 300ms ease-out;
@@ -103,25 +108,28 @@ export const Navbar: React.FC = () => {
             aria-expanded={isMobileMenuOpen}
             aria-label="Open mobile menu"
             onClick={() => setIsMobileMenuOpen(true)}
-            className="mobile-trigger text-label"
+            className="mobile-trigger text-metadata"
             style={{
               padding: 'var(--space-2) var(--space-4)',
-              backgroundColor: 'var(--color-surface-secondary)',
-              border: '1px solid var(--color-border-subtle)',
+              backgroundColor: 'transparent',
+              border: '1px solid var(--color-border-default)',
               borderRadius: 'var(--radius-sm)',
               cursor: 'pointer',
-              color: 'var(--color-text-primary)'
+              color: 'var(--color-text-secondary)',
+              textTransform: 'uppercase',
+              letterSpacing: 'var(--letter-spacing-wide)',
+              fontSize: 'var(--font-size-xs)'
             }}
           >
             Menu
           </button>
         </div>
       </header>
-      
-      <MobileMenu 
-        isOpen={isMobileMenuOpen} 
-        onClose={() => setIsMobileMenuOpen(false)} 
-        triggerRef={mobileTriggerRef} 
+
+      <MobileMenu
+        isOpen={isMobileMenuOpen}
+        onClose={() => setIsMobileMenuOpen(false)}
+        triggerRef={mobileTriggerRef}
       />
     </>
   );

@@ -30,6 +30,24 @@ export interface EventData {
   gallery?: EventImage[];
   /** Optional external registration or details URL */
   externalUrl?: string;
+  /** Event duration */
+  duration?: string;
+  /** Event type */
+  type?: string;
+  /** Eligibility */
+  eligibility?: string;
+  /** Team size */
+  teamSize?: string;
+  /** Prize information */
+  prize?: string;
+  /** Organizing department */
+  organizingDepartment?: string;
+  /** Registration status */
+  registrationStatus?: 'open' | 'closed';
+  /** Domains */
+  domains?: string[];
+  /** Poster copy/subtitle */
+  posterCopy?: string[];
 }
 
 export interface EventImage {
