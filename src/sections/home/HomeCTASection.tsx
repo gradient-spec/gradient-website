@@ -24,8 +24,8 @@ export const HomeCTASection: React.FC = () => {
   };
 
   return (
-    <section 
-      className="section" 
+    <section
+      className="section"
       aria-labelledby="home-cta-heading"
       style={{
         paddingTop: 'var(--space-12)',
@@ -40,8 +40,8 @@ export const HomeCTASection: React.FC = () => {
         textAlign: 'center'
       }}
     >
-      <div className="container">
-        <motion.div 
+      <div className="container" style={{ position: 'relative', zIndex: 10 }}>
+        <motion.div
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: '-20% 0px' }}
@@ -49,9 +49,9 @@ export const HomeCTASection: React.FC = () => {
           style={{
             display: 'flex',
             flexDirection: 'column',
-            alignItems: 'center',
-            maxWidth: '600px',
-            margin: '0 auto'
+            alignItems: 'flex-start',
+            textAlign: 'left',
+            maxWidth: '800px',
           }}
         >
           <motion.div variants={itemVariants} style={{ marginBottom: 'var(--space-8)' }}>
@@ -59,25 +59,26 @@ export const HomeCTASection: React.FC = () => {
               04 / CONNECT
             </span>
           </motion.div>
-          
-          <motion.h2 
-            id="home-cta-heading" 
-            variants={itemVariants} 
-            className="text-display" 
-            style={{ 
-              fontSize: 'clamp(3rem, 6vw, 5rem)', 
-              lineHeight: '1.1', 
+
+          <motion.h2
+            id="home-cta-heading"
+            variants={itemVariants}
+            className="text-display"
+            style={{
+              fontSize: 'clamp(3rem, 7vw, 6rem)',
+              lineHeight: '1.1',
               marginBottom: 'var(--space-10)',
               color: 'var(--color-text-primary)',
-              letterSpacing: '-0.02em'
+              letterSpacing: '-0.02em',
+              maxWidth: '80%'
             }}
           >
             Ideas are automated.
           </motion.h2>
-          
+
           <motion.div variants={itemVariants}>
-            <NavLink 
-              to="/contact" 
+            <NavLink
+              to="/contact"
               className="text-label cta-link"
               style={{
                 display: 'inline-flex',
@@ -95,21 +96,6 @@ export const HomeCTASection: React.FC = () => {
           </motion.div>
         </motion.div>
       </div>
-
-      {/* Very subtle gradient trace disappearing into the bottom */}
-      <div 
-        aria-hidden="true"
-        style={{
-          position: 'absolute',
-          bottom: 0,
-          left: '50%',
-          transform: 'translateX(-50%)',
-          width: '1px',
-          height: '150px',
-          background: 'linear-gradient(to bottom, transparent, var(--color-accent))',
-          opacity: 0.3
-        }}
-      />
 
       <style>{`
         .cta-link:hover { border-bottom-color: var(--color-accent) !important; }

@@ -14,13 +14,14 @@ const containerVariants: Variants = {
 };
 
 const itemVariants: Variants = {
-  hidden: { opacity: 0, y: 15 },
+  hidden: { opacity: 0, y: 15, filter: 'blur(8px)' },
   visible: {
     opacity: 1,
     y: 0,
+    filter: 'blur(0px)',
     transition: {
-      duration: 0.7,
-      ease: 'easeOut',
+      duration: 1.0,
+      ease: [0.16, 1, 0.3, 1],
     },
   },
 };
@@ -42,7 +43,7 @@ export const FeaturedProjectsSection: React.FC = () => {
         backgroundColor: 'var(--color-surface-secondary)',
       }}
     >
-      <div className="container">
+      <div className="container" style={{ position: 'relative', zIndex: 10 }}>
         <motion.div
           initial="hidden"
           whileInView="visible"
@@ -69,9 +70,9 @@ export const FeaturedProjectsSection: React.FC = () => {
                   paddingTop: 'var(--space-8)'
                 }}
               >
-                {/* Asymmetric 5:7 split for featured projects */}
-                <div style={{ gridColumn: 'span 5' }}>
-                  <h3 className="text-subheading" style={{ marginBottom: 'var(--space-4)' }}>
+                {/* Asymmetric split for featured projects - Subordinate scaling for idx > 0 */}
+                <div style={{ gridColumn: idx === 0 ? 'span 5' : 'span 4', opacity: idx === 0 ? 1 : 0.6, display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
+                  <h3 className="text-subheading" style={{ marginBottom: 'var(--space-4)', fontSize: idx === 0 ? 'clamp(1.5rem, 3vw, 2.5rem)' : 'var(--font-size-xl)' }}>
                     {project.title}
                   </h3>
 
@@ -81,7 +82,7 @@ export const FeaturedProjectsSection: React.FC = () => {
                     </div>
                   )}
 
-                  <p className="text-body" style={{ color: 'var(--color-text-secondary)', marginBottom: 'var(--space-6)', maxWidth: '90%' }}>
+                  <p className="text-body" style={{ color: 'var(--color-text-secondary)', marginBottom: 'var(--space-6)', maxWidth: idx === 0 ? '90%' : '100%' }}>
                     {project.description}
                   </p>
 
@@ -94,7 +95,7 @@ export const FeaturedProjectsSection: React.FC = () => {
                       style={{
                         display: 'inline-flex',
                         alignItems: 'center',
-                        color: 'var(--color-accent)',
+                        color: idx === 0 ? 'var(--color-accent)' : 'var(--color-text-secondary)',
                         textDecoration: 'none',
                         textTransform: 'uppercase'
                       }}
@@ -104,9 +105,12 @@ export const FeaturedProjectsSection: React.FC = () => {
                   )}
                 </div>
 
-                <div style={{ gridColumn: 'span 7' }}>
+                <div style={{ gridColumn: idx === 0 ? 'span 7' : 'span 6', marginLeft: idx === 0 ? 0 : 'auto', opacity: idx === 0 ? 1 : 0.4 }}>
                   {/* Art-directed project canvas */}
-                  <div
+                  <motion.div
+                    className="project-canvas"
+                    whileHover={{ scale: 1.02 }}
+                    transition={{ type: 'spring', stiffness: 300, damping: 20 }}
                     style={{
                       width: '100%',
                       backgroundColor: 'var(--color-surface-elevated)',
@@ -127,20 +131,21 @@ export const FeaturedProjectsSection: React.FC = () => {
                         style={{ width: '100%', height: '100%', objectFit: 'cover' }}
                       />
                     ) : (
-                      <div style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                      <div className="project-placeholder-inner" style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', transition: 'background-color 0.4s ease' }}>
                         {/* Structural crosshairs */}
-                        <div style={{ position: 'absolute', top: '50%', left: 0, width: '100%', height: '1px', backgroundColor: 'rgba(242,241,236,0.04)' }} />
-                        <div style={{ position: 'absolute', top: 0, left: '50%', width: '1px', height: '100%', backgroundColor: 'rgba(242,241,236,0.04)' }} />
+                        <div className="crosshair-h" style={{ position: 'absolute', top: '50%', left: 0, width: '100%', height: '1px', backgroundColor: 'rgba(242,241,236,0.04)', transition: 'transform 0.4s ease' }} />
+                        <div className="crosshair-v" style={{ position: 'absolute', top: 0, left: '50%', width: '1px', height: '100%', backgroundColor: 'rgba(242,241,236,0.04)', transition: 'transform 0.4s ease' }} />
                         
                         {/* Oversized Numbering */}
                         <div 
-                          className="text-display" 
+                          className="text-display project-number" 
                           style={{ 
                             fontSize: 'clamp(5rem, 12vw, 10rem)', 
                             lineHeight: 1, 
                             color: 'var(--color-text-muted)', 
                             opacity: 0.4,
-                            userSelect: 'none'
+                            userSelect: 'none',
+                            transition: 'transform 0.4s ease, opacity 0.4s ease'
                           }}
                         >
                           {String(project.id).padStart(2, '0')}
@@ -171,7 +176,7 @@ export const FeaturedProjectsSection: React.FC = () => {
                         </div>
                       </div>
                     )}
-                  </div>
+                  </motion.div>
                 </div>
               </motion.article>
             ))}
@@ -185,6 +190,19 @@ export const FeaturedProjectsSection: React.FC = () => {
             grid-column: span 12 !important;
             margin-bottom: var(--space-6);
           }
+        }
+        .project-canvas:hover .project-placeholder-inner {
+          background-color: rgba(255, 255, 255, 0.02);
+        }
+        .project-canvas:hover .project-number {
+          transform: scale(1.05);
+          opacity: 0.6 !important;
+        }
+        .project-canvas:hover .crosshair-h {
+          transform: scaleX(1.05);
+        }
+        .project-canvas:hover .crosshair-v {
+          transform: scaleY(1.05);
         }
       `}</style>
     </section>

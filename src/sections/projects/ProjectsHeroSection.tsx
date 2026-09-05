@@ -40,6 +40,24 @@ export const ProjectsHeroSection: React.FC = () => {
         backgroundColor: 'var(--color-surface-primary)'
       }}
     >
+      {/* Laboratory Background Structure */}
+      <div
+        aria-hidden="true"
+        style={{
+          position: 'absolute',
+          top: 'var(--space-12)',
+          left: 'var(--space-6)',
+          right: 'var(--space-6)',
+          bottom: 'var(--space-12)',
+          border: '1px solid var(--color-border-subtle)',
+          opacity: 0.5,
+          pointerEvents: 'none'
+        }}
+      />
+      
+      {/* Faint Grid Marks */}
+      <div style={{ position: 'absolute', top: 'var(--space-12)', left: '50%', width: '1px', height: 'var(--space-4)', backgroundColor: 'var(--color-text-muted)' }} />
+      <div style={{ position: 'absolute', bottom: 'var(--space-12)', left: '50%', width: '1px', height: 'var(--space-4)', backgroundColor: 'var(--color-text-muted)' }} />
       <div className="container" style={{ width: '100%', position: 'relative', zIndex: 1 }}>
         <motion.div
           className="grid"
@@ -48,9 +66,9 @@ export const ProjectsHeroSection: React.FC = () => {
           variants={containerVariants}
         >
           <div style={{ gridColumn: 'span 7' }}>
-            <motion.div variants={itemVariants} style={{ marginBottom: 'var(--space-6)' }}>
-              <span className="text-route-label">
-                04 / PROJECTS
+            <motion.div variants={itemVariants} style={{ marginBottom: 'var(--space-6)', position: 'relative' }}>
+              <span className="text-metadata" style={{ color: 'var(--color-text-tertiary)', letterSpacing: '0.15em' }}>
+                EXP / 04
               </span>
             </motion.div>
 

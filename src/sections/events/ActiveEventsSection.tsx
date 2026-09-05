@@ -15,13 +15,14 @@ const containerVariants: Variants = {
 };
 
 const itemVariants: Variants = {
-  hidden: { opacity: 0, y: 15 },
+  hidden: { opacity: 0, y: 20, filter: 'blur(10px)' },
   visible: {
     opacity: 1,
     y: 0,
+    filter: 'blur(0px)',
     transition: {
-      duration: 0.5,
-      ease: 'easeOut',
+      duration: 1.0,
+      ease: [0.16, 1, 0.3, 1],
     },
   },
 };
@@ -133,11 +134,11 @@ export const ActiveEventsSection: React.FC = () => {
                     
                     {/* Right: Full Content (Span 9) */}
                     <div className="event-right-col" style={{ gridColumn: 'span 9', borderLeft: '2px solid var(--color-border-subtle)', paddingLeft: 'var(--space-6)' }}>
-                      <h3 className="text-display" style={{ fontSize: 'clamp(2.5rem, 5vw, 4.5rem)', marginBottom: 'var(--space-4)', lineHeight: '1.1' }}>
+                      <h3 className="text-display" style={{ fontSize: 'clamp(4rem, 10vw, 8rem)', marginBottom: 'var(--space-4)', lineHeight: '0.9', letterSpacing: '-0.03em' }}>
                         {event.title}
                       </h3>
                       
-                      <div className="text-body" style={{ color: 'var(--color-text-primary)', marginBottom: 'var(--space-6)', fontWeight: 'var(--font-weight-medium)', display: 'flex', flexWrap: 'wrap', gap: 'var(--space-4)' }}>
+                      <div className="text-display" style={{ color: 'var(--color-text-primary)', marginBottom: 'var(--space-8)', fontSize: 'clamp(2rem, 4vw, 3rem)', display: 'flex', flexWrap: 'wrap', gap: 'var(--space-6)' }}>
                         <span>{event.date}</span>
                         {(event.duration || event.type) && (
                           <span style={{ color: 'var(--color-text-secondary)' }}>
@@ -173,25 +174,25 @@ export const ActiveEventsSection: React.FC = () => {
                           {event.eligibility && (
                             <div>
                               <span className="text-metadata" style={{ display: 'block', color: 'var(--color-text-tertiary)', letterSpacing: '0.1em', marginBottom: 'var(--space-2)' }}>ELIGIBILITY</span>
-                              <span className="text-display" style={{ fontSize: 'clamp(1.25rem, 2vw, 1.75rem)', color: 'var(--color-text-primary)' }}>{event.eligibility}</span>
+                              <span className="text-display" style={{ fontSize: 'clamp(1.5rem, 3vw, 2.5rem)', color: 'var(--color-text-primary)' }}>{event.eligibility}</span>
                             </div>
                           )}
                           {event.teamSize && (
                             <div>
                               <span className="text-metadata" style={{ display: 'block', color: 'var(--color-text-tertiary)', letterSpacing: '0.1em', marginBottom: 'var(--space-2)' }}>TEAM SIZE</span>
-                              <span className="text-display" style={{ fontSize: 'clamp(1.25rem, 2vw, 1.75rem)', color: 'var(--color-text-primary)' }}>{event.teamSize}</span>
+                              <span className="text-display" style={{ fontSize: 'clamp(1.5rem, 3vw, 2.5rem)', color: 'var(--color-text-primary)' }}>{event.teamSize}</span>
                             </div>
                           )}
                           {event.prize && (
                             <div>
                               <span className="text-metadata" style={{ display: 'block', color: 'var(--color-text-tertiary)', letterSpacing: '0.1em', marginBottom: 'var(--space-2)' }}>PRIZE</span>
-                              <span className="text-display" style={{ fontSize: 'clamp(1.25rem, 2vw, 1.75rem)', color: 'var(--color-text-primary)' }}>{event.prize}</span>
+                              <span className="text-display" style={{ fontSize: 'clamp(1.5rem, 3vw, 2.5rem)', color: 'var(--color-text-primary)' }}>{event.prize}</span>
                             </div>
                           )}
                           {event.organizingDepartment && (
                             <div>
                               <span className="text-metadata" style={{ display: 'block', color: 'var(--color-text-tertiary)', letterSpacing: '0.1em', marginBottom: 'var(--space-2)' }}>DEPARTMENT</span>
-                              <span className="text-display" style={{ fontSize: 'clamp(1.25rem, 2vw, 1.75rem)', color: 'var(--color-text-primary)' }}>{event.organizingDepartment}</span>
+                              <span className="text-display" style={{ fontSize: 'clamp(1.5rem, 3vw, 2.5rem)', color: 'var(--color-text-primary)' }}>{event.organizingDepartment}</span>
                             </div>
                           )}
                         </div>
@@ -217,10 +218,9 @@ export const ActiveEventsSection: React.FC = () => {
                                   paddingBottom: 'var(--space-3)'
                                 }}
                               >
-                                <span className="text-subheading" style={{ color: 'var(--color-border-strong)', opacity: 0.5, fontVariantNumeric: 'tabular-nums' }}>
-                                  {String(index + 1).padStart(2, '0')}
+                                <span className="text-metadata" style={{ color: 'var(--color-text-primary)', textTransform: 'uppercase', letterSpacing: '0.05em', fontSize: 'var(--font-size-lg)' }}>
+                                  <span style={{ color: 'var(--color-text-muted)', marginRight: 'var(--space-2)' }}>{String(index + 1).padStart(2, '0')} &mdash;</span> {domain}
                                 </span>
-                                <span style={{ color: 'var(--color-text-primary)' }}>{domain}</span>
                               </div>
                             ))}
                           </div>

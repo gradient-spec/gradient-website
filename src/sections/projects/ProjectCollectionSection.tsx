@@ -74,8 +74,9 @@ export const ProjectCollectionSection: React.FC = () => {
               <motion.article
                 key={project.id}
                 variants={itemVariants}
+                className="project-collection-card"
                 style={{
-                  gridColumn: 'span 4', // CANDIDATE: 3-column desktop layout
+                  gridColumn: 'span 4',
                   display: 'flex',
                   flexDirection: 'column',
                   borderTop: '1px solid var(--color-border-subtle)',
@@ -142,14 +143,27 @@ export const ProjectCollectionSection: React.FC = () => {
       </div>
 
       <style>{`
+        .project-collection-card {
+          transition: transform 300ms cubic-bezier(0.16, 1, 0.3, 1), opacity 300ms ease;
+        }
+        
+        .project-collection-card:hover {
+          transform: translateY(-4px);
+        }
+        
+        /* Dim other cards */
+        .grid:hover .project-collection-card:not(:hover) {
+          opacity: 0.5;
+        }
+
         @media (max-width: 992px) {
           .grid > article {
-            grid-column: span 6 !important; /* CANDIDATE: 2-column tablet layout */
+            grid-column: span 6 !important; 
           }
         }
         @media (max-width: 768px) {
           .grid > article {
-            grid-column: span 12 !important; /* CANDIDATE: 1-column mobile layout */
+            grid-column: span 12 !important;
           }
         }
       `}</style>

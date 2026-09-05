@@ -40,19 +40,7 @@ export const EditorialClosingSection: React.FC = () => {
         overflow: 'hidden'
       }}
     >
-      <div
-        aria-hidden="true"
-        style={{
-          position: 'absolute',
-          top: 0,
-          right: 0,
-          width: '50%',
-          height: '100%',
-          background: 'radial-gradient(circle at 100% 50%, var(--color-surface-secondary) 0%, transparent 60%)',
-          opacity: 0.3,
-          zIndex: -1
-        }}
-      />
+
       <div className="container" style={{ width: '100%', position: 'relative', zIndex: 1 }}>
         <motion.div
           className="grid"

@@ -63,7 +63,6 @@ export const EventsHeroSection: React.FC = () => {
           </div>
 
           <div style={{ gridColumn: 'span 7' }}>
-            {/* Structural placeholder for missing authentic imagery */}
             <motion.div
               variants={itemVariants}
               className="image-placeholder-frame"
@@ -72,14 +71,14 @@ export const EventsHeroSection: React.FC = () => {
                 height: '100%',
                 position: 'relative',
                 border: '1px solid var(--color-border-subtle)',
-                backgroundColor: 'var(--color-surface-secondary)',
-                borderRadius: 'var(--radius-md)',
+                backgroundColor: 'rgba(255,255,255,0.01)',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
                 overflow: 'hidden'
               }}
             >
+              {/* Technical Grid Background */}
               <div
                 style={{
                   position: 'absolute',
@@ -87,13 +86,34 @@ export const EventsHeroSection: React.FC = () => {
                   left: 0,
                   right: 0,
                   bottom: 0,
-                  background: 'linear-gradient(145deg, rgba(255,255,255,0.02) 0%, rgba(0,0,0,0.02) 100%)',
+                  backgroundImage: 'linear-gradient(var(--color-border-subtle) 1px, transparent 1px), linear-gradient(90deg, var(--color-border-subtle) 1px, transparent 1px)',
+                  backgroundSize: '40px 40px',
+                  backgroundPosition: 'center center',
+                  opacity: 0.1,
                   pointerEvents: 'none'
                 }}
               />
-              <span className="text-technical" style={{ color: 'var(--color-text-muted)', letterSpacing: '0.05em' }}>
-                IMAGE PLACEHOLDER
-              </span>
+              
+              {/* Center Crosshair Target */}
+              <div style={{ position: 'relative', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                <div style={{ position: 'absolute', width: '60px', height: '1px', backgroundColor: 'var(--color-text-muted)' }} />
+                <div style={{ position: 'absolute', width: '1px', height: '60px', backgroundColor: 'var(--color-text-muted)' }} />
+                <div style={{ width: '12px', height: '12px', border: '1px solid var(--color-text-primary)', borderRadius: '50%' }} />
+              </div>
+
+              {/* Corner Coordinate Metadata */}
+              <div className="text-metadata" style={{ position: 'absolute', top: 'var(--space-4)', left: 'var(--space-4)', color: 'var(--color-text-muted)' }}>
+                LAT: 17.5451° N
+              </div>
+              <div className="text-metadata" style={{ position: 'absolute', top: 'var(--space-4)', right: 'var(--space-4)', color: 'var(--color-text-muted)' }}>
+                LONG: 78.4352° E
+              </div>
+              <div className="text-metadata" style={{ position: 'absolute', bottom: 'var(--space-4)', left: 'var(--space-4)', color: 'var(--color-text-muted)' }}>
+                SECTOR 02
+              </div>
+              <div className="text-metadata" style={{ position: 'absolute', bottom: 'var(--space-4)', right: 'var(--space-4)', color: 'var(--color-text-muted)' }}>
+                SYS.RDY
+              </div>
             </motion.div>
           </div>
         </motion.div>

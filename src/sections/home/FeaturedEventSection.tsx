@@ -20,21 +20,22 @@ export const FeaturedEventSection: React.FC = () => {
   };
 
   const itemVariants: Variants = {
-    hidden: { opacity: 0, y: prefersReducedMotion ? 0 : 30 },
+    hidden: { opacity: 0, y: prefersReducedMotion ? 0 : 30, filter: prefersReducedMotion ? 'blur(0px)' : 'blur(12px)' },
     visible: {
       opacity: 1,
       y: 0,
-      transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] }
+      filter: 'blur(0px)',
+      transition: { duration: 1.0, ease: [0.16, 1, 0.3, 1] }
     }
   };
 
   return (
-    <section 
-      className="section" 
-      aria-labelledby="featured-event-heading" 
-      style={{ 
-        overflow: 'hidden', 
-        backgroundColor: 'var(--color-surface-secondary)', 
+    <section
+      className="section"
+      aria-labelledby="featured-event-heading"
+      style={{
+        overflow: 'hidden',
+        backgroundColor: 'var(--color-surface-secondary)',
         position: 'relative',
         paddingTop: 'var(--space-12)',
         paddingBottom: 'var(--space-12)',
@@ -47,7 +48,7 @@ export const FeaturedEventSection: React.FC = () => {
         SCALE SHOCK: Massive "2026" in the background 
         It sits fixed or absolute in the background, providing texture and impact.
       */}
-      <div 
+      <div
         aria-hidden="true"
         style={{
           position: 'absolute',
@@ -77,7 +78,7 @@ export const FeaturedEventSection: React.FC = () => {
       </div>
 
       {/* Restrained gradient light field */}
-      <div 
+      <div
         style={{
           position: 'absolute',
           bottom: '0',
@@ -90,17 +91,17 @@ export const FeaturedEventSection: React.FC = () => {
         }}
       />
 
-      <div className="container" style={{ position: 'relative', zIndex: 1, width: '100%' }}>
+      <div className="container" style={{ position: 'relative', zIndex: 10, width: '100%' }}>
         <motion.div
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: '-20% 0px' }}
           variants={sectionVariants}
         >
-          <div style={{ 
-            display: 'flex', 
-            flexDirection: 'column', 
-            alignItems: 'center', 
+          <div style={{
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
             textAlign: 'center',
             maxWidth: '800px',
             margin: '0 auto'
@@ -116,9 +117,9 @@ export const FeaturedEventSection: React.FC = () => {
               id="featured-event-heading"
               variants={itemVariants}
               className="text-display"
-              style={{ 
-                fontSize: 'clamp(4rem, 10vw, 8rem)', 
-                lineHeight: '1', 
+              style={{
+                fontSize: 'clamp(4rem, 10vw, 8rem)',
+                lineHeight: '1',
                 marginBottom: 'var(--space-6)',
                 letterSpacing: '-0.03em',
                 textTransform: 'uppercase',
@@ -129,7 +130,7 @@ export const FeaturedEventSection: React.FC = () => {
             </motion.h2>
 
             {/* SECONDARY HIERARCHY */}
-            <motion.div 
+            <motion.div
               variants={itemVariants}
               style={{
                 display: 'flex',
@@ -156,7 +157,7 @@ export const FeaturedEventSection: React.FC = () => {
             </motion.div>
 
             {/* TERTIARY HIERARCHY */}
-            <motion.div 
+            <motion.div
               variants={itemVariants}
               style={{
                 display: 'flex',
@@ -219,7 +220,7 @@ export const FeaturedEventSection: React.FC = () => {
           </div>
         </motion.div>
       </div>
-      
+
       <style>{`
         .event-register-link:hover { border-bottom-color: var(--color-accent) !important; }
         .event-register-link:focus-visible { outline: var(--focus-ring-width) solid var(--color-accent); outline-offset: var(--focus-ring-offset); border-radius: var(--radius-sm); }

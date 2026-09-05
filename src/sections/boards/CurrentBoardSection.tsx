@@ -45,7 +45,7 @@ export const CurrentBoardSection: React.FC = () => {
         backgroundColor: 'var(--color-surface-primary)',
       }}
     >
-      <div className="container">
+      <div className="container" style={{ position: 'relative', zIndex: 10 }}>
         <style>{`
           .board-section-grid {
             display: grid;
@@ -70,6 +70,15 @@ export const CurrentBoardSection: React.FC = () => {
             gap: var(--space-5);
             padding: var(--space-4) 0;
             border-bottom: 1px solid var(--color-border-subtle);
+            transition: transform 300ms cubic-bezier(0.16, 1, 0.3, 1), opacity 300ms ease;
+            position: relative;
+            cursor: default;
+          }
+          .board-section-content:hover .board-member-entry:not(:hover) {
+            opacity: 0.3;
+          }
+          .board-member-entry:hover {
+            transform: translateX(8px);
           }
           .board-member-entry:first-child {
             border-top: 1px solid var(--color-border-subtle);
@@ -92,6 +101,10 @@ export const CurrentBoardSection: React.FC = () => {
             color: var(--color-text-tertiary);
             text-transform: uppercase;
             letter-spacing: var(--letter-spacing-wide);
+            transition: color 300ms ease;
+          }
+          .board-member-entry:hover .board-member-role {
+            color: var(--color-accent);
           }
           @media (max-width: 992px) {
             .board-section-title { grid-column: 1 / span 12; margin-bottom: var(--space-4); }

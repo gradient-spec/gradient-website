@@ -5,28 +5,20 @@ export const HeroSection: React.FC = () => {
   const prefersReducedMotion = useReducedMotion();
 
   const textVariants: Variants = {
-    hidden: { opacity: 0, y: prefersReducedMotion ? 0 : 40 },
+    hidden: { opacity: 0, y: prefersReducedMotion ? 0 : 30, filter: prefersReducedMotion ? 'blur(0px)' : 'blur(12px)' },
     visible: {
       opacity: 1,
       y: 0,
-      transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1], staggerChildren: 0.15 }
+      filter: 'blur(0px)',
+      transition: { duration: 1.2, ease: [0.16, 1, 0.3, 1], staggerChildren: 0.2 }
     }
   };
 
   const childVariants: Variants = {
-    hidden: { opacity: 0, y: prefersReducedMotion ? 0 : 40 },
-    visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] } }
+    hidden: { opacity: 0, y: prefersReducedMotion ? 0 : 30, filter: prefersReducedMotion ? 'blur(0px)' : 'blur(12px)' },
+    visible: { opacity: 1, y: 0, filter: 'blur(0px)', transition: { duration: 1.2, ease: [0.16, 1, 0.3, 1] } }
   };
 
-  const gVariants: Variants = {
-    hidden: { opacity: 0, scale: prefersReducedMotion ? 1 : 0.9, rotate: prefersReducedMotion ? 0 : -5 },
-    visible: {
-      opacity: 1,
-      scale: 1,
-      rotate: 0,
-      transition: { duration: 1.5, ease: [0.16, 1, 0.3, 1], delay: 0.2 }
-    }
-  };
 
   const scrollVariants: Variants = {
     hidden: { opacity: 0 },
@@ -56,68 +48,6 @@ export const HeroSection: React.FC = () => {
         position: 'relative',
         width: '100%'
       }}>
-
-        {/* LAYER 3: Light / G Geometry */}
-        <motion.div
-          initial="hidden"
-          animate="visible"
-          variants={gVariants}
-          style={{
-            position: 'absolute',
-            top: '50%',
-            right: '-10%',
-            transform: 'translate(0%, -50%)',
-            width: '120vw',
-            maxWidth: '1400px',
-            aspectRatio: '1',
-            zIndex: 0,
-            pointerEvents: 'none',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            mixBlendMode: 'screen'
-          }}
-        >
-          <svg
-            aria-hidden="true"
-            viewBox="0 0 400 400"
-            style={{ width: '100%', height: '100%', opacity: 0.85 }}
-          >
-            <defs>
-              <linearGradient id="hero-g-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                <stop offset="0%" stopColor="#00D9FF" stopOpacity="0.8" />
-                <stop offset="50%" stopColor="#2878FF" stopOpacity="0.9" />
-                <stop offset="100%" stopColor="#A855F7" stopOpacity="0.5" />
-              </linearGradient>
-
-              {/* Subtle glow filter */}
-              <filter id="hero-glow" x="-20%" y="-20%" width="140%" height="140%">
-                <feGaussianBlur stdDeviation="12" result="blur" />
-                <feComposite in="SourceGraphic" in2="blur" operator="over" />
-              </filter>
-            </defs>
-
-            {/* Structural intersecting lines — extending beyond the G */}
-            <line x1="200" y1="-100" x2="200" y2="500" stroke="rgba(242,241,236,0.05)" strokeWidth="0.5" />
-            <line x1="-100" y1="200" x2="500" y2="200" stroke="rgba(242,241,236,0.05)" strokeWidth="0.5" />
-
-            {/* Massive G-inspired arc */}
-            <path
-              d="M 200 40 A 160 160 0 1 0 360 200 L 200 200"
-              fill="none"
-              stroke="url(#hero-g-gradient)"
-              strokeWidth="12"
-              strokeLinecap="square"
-              filter="url(#hero-glow)"
-            />
-
-            {/* Accent Terminals */}
-            <circle cx="200" cy="200" r="8" fill="#2878FF" opacity="0.9" />
-
-            {/* Secondary architectural ring */}
-            <circle cx="200" cy="200" r="220" fill="none" stroke="rgba(242,241,236,0.03)" strokeWidth="1" strokeDasharray="2 24" />
-          </svg>
-        </motion.div>
 
         {/* Ambient gradient light field behind the text */}
         <div

@@ -73,63 +73,61 @@ export const ConnectSection: React.FC = () => {
             Connect
           </motion.h2>
 
-          {/* Direct row */}
-          <div className="editorial-row">
-            <div className="editorial-left">
-              <motion.div variants={adjustedItemVariants} className="text-label" style={{ color: 'var(--color-accent)', marginBottom: 'var(--space-3)' }}>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-12)' }}>
+            
+            {/* Direct block */}
+            <div>
+              <motion.div variants={adjustedItemVariants} className="text-label" style={{ color: 'var(--color-accent)', marginBottom: 'var(--space-4)' }}>
                 01 / DIRECT
               </motion.div>
-            </div>
-
-            <div className="editorial-right">
-              <motion.div variants={adjustedItemVariants} style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-2)' }}>
+              
+              <motion.div variants={adjustedItemVariants}>
                 <a
                   href="mailto:gradient@stpetershyd.com"
                   className="text-display email-link"
                   aria-label="Email gradient@stpetershyd.com"
-                  style={{ fontSize: 'clamp(2.5rem, 6vw, 4.5rem)', lineHeight: '1.1', wordBreak: 'break-word' }}
+                  style={{ fontSize: 'clamp(3rem, 7vw, 6rem)', lineHeight: '1', wordBreak: 'break-word', letterSpacing: '-0.02em' }}
                 >
                   gradient@stpetershyd.com
                 </a>
               </motion.div>
             </div>
-          </div>
 
-          {/* Social row */}
-          <div className="editorial-row social-row">
-            <div className="editorial-left">
-              <motion.div variants={adjustedItemVariants} className="text-label" style={{ color: 'var(--color-text-tertiary)', marginBottom: 'var(--space-3)' }}>
+            {/* Social block */}
+            <div>
+              <motion.div variants={adjustedItemVariants} className="text-label" style={{ color: 'var(--color-text-tertiary)', marginBottom: 'var(--space-4)' }}>
                 02 / SOCIAL
               </motion.div>
-            </div>
 
-            <div className="editorial-right social-right">
-              <motion.div variants={adjustedItemVariants}>
-                <a
-                  href="https://www.instagram.com/gradient_spec/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-heading social-link"
-                  aria-label="Visit official Instagram profile"
-                  style={{ fontSize: 'clamp(1.75rem, 4vw, 2.5rem)', lineHeight: '1.2' }}
-                >
-                  Instagram <span aria-hidden="true" className="cta-arrow">&rarr;</span>
-                </a>
-              </motion.div>
+              <div className="social-right">
+                <motion.div variants={adjustedItemVariants}>
+                  <a
+                    href="https://www.instagram.com/gradient_spec/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-heading social-link"
+                    aria-label="Visit official Instagram profile"
+                    style={{ fontSize: 'clamp(2rem, 4vw, 3.5rem)', lineHeight: '1.2' }}
+                  >
+                    Instagram <span aria-hidden="true" className="cta-arrow">&rarr;</span>
+                  </a>
+                </motion.div>
 
-              <motion.div variants={adjustedItemVariants}>
-                <a
-                  href="https://www.linkedin.com/company/spec-gradient-club"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-heading social-link"
-                  aria-label="Visit official LinkedIn company page"
-                  style={{ fontSize: 'clamp(1.75rem, 4vw, 2.5rem)', lineHeight: '1.2' }}
-                >
-                  LinkedIn <span aria-hidden="true" className="cta-arrow">&rarr;</span>
-                </a>
-              </motion.div>
+                <motion.div variants={adjustedItemVariants}>
+                  <a
+                    href="https://www.linkedin.com/company/spec-gradient-club"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-heading social-link"
+                    aria-label="Visit official LinkedIn company page"
+                    style={{ fontSize: 'clamp(2rem, 4vw, 3.5rem)', lineHeight: '1.2' }}
+                  >
+                    LinkedIn <span aria-hidden="true" className="cta-arrow">&rarr;</span>
+                  </a>
+                </motion.div>
+              </div>
             </div>
+            
           </div>
         </motion.div>
       </div>
@@ -146,26 +144,7 @@ export const ConnectSection: React.FC = () => {
           white-space: nowrap;
           border-width: 0;
         }
-        .editorial-row {
-          display: grid;
-          grid-template-columns: repeat(12, 1fr);
-          gap: var(--grid-gutter);
-          border-top: 1px solid var(--color-border-subtle);
-          padding-top: var(--space-8);
-          padding-bottom: var(--space-12);
-        }
-        
-        .social-row {
-          padding-bottom: 0;
-        }
 
-        .editorial-left {
-          grid-column: 1 / span 3;
-        }
-        
-        .editorial-right {
-          grid-column: 4 / span 9;
-        }
         
         .social-right {
           display: flex;
@@ -234,12 +213,8 @@ export const ConnectSection: React.FC = () => {
         }
         
         @media (max-width: 992px) {
-          .editorial-left {
-            grid-column: 1 / -1;
-            margin-bottom: var(--space-4);
-          }
-          .editorial-right {
-            grid-column: 1 / -1;
+          .email-link {
+            font-size: clamp(2rem, 8vw, 4rem) !important;
           }
         }
       `}</style>

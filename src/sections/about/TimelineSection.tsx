@@ -17,13 +17,14 @@ export const TimelineSection: React.FC = () => {
   };
 
   const itemVariants: Variants = {
-    hidden: { opacity: 0, y: prefersReducedMotion ? 0 : 15 }, // CANDIDATE: 15px stagger
+    hidden: { opacity: 0, y: prefersReducedMotion ? 0 : 20, filter: prefersReducedMotion ? 'blur(0px)' : 'blur(10px)' },
     visible: {
       opacity: 1,
       y: 0,
+      filter: 'blur(0px)',
       transition: {
-        duration: 0.7,
-        ease: 'easeOut',
+        duration: 1.0,
+        ease: [0.16, 1, 0.3, 1],
       },
     },
   };
@@ -103,7 +104,7 @@ export const TimelineSection: React.FC = () => {
           bottom: 0;
           left: 0;
           width: 1px;
-          background-color: var(--color-border-subtle);
+          background: linear-gradient(to bottom, transparent, var(--color-border-subtle) 15%, var(--color-border-subtle) 85%, transparent);
           z-index: 0;
         }
 
@@ -134,24 +135,34 @@ export const TimelineSection: React.FC = () => {
           padding-bottom: 0;
         }
 
-        /* Red Accent Node */
+        /* Accent Node */
         .timeline-content::before {
           content: '';
           position: absolute;
-          left: -4px; /* Centers the 7px dot on the 1px line */
-          top: 6px; /* Align visually with text */
+          left: -4px; /* Centers the 9px dot on the 1px line */
+          top: 8px; /* Align visually with text */
           width: 9px;
           height: 9px;
           border-radius: 50%;
           background-color: var(--color-surface-primary);
-          border: 2px solid var(--color-border-strong);
-          transition: border-color var(--duration-micro) ease, transform var(--duration-micro) ease;
+          border: 1.5px solid var(--color-border-strong);
+          transition: border-color 300ms ease, transform 300ms cubic-bezier(0.16, 1, 0.3, 1), background-color 300ms ease;
         }
 
         /* Hover Interaction */
         .timeline-item:hover .timeline-content::before {
           border-color: var(--color-accent);
-          transform: scale(1.2);
+          background-color: var(--color-surface-primary);
+          transform: scale(1.4);
+        }
+        
+        .timeline-item {
+          transition: opacity 300ms ease;
+        }
+        
+        /* Subtle dimming of other items when timeline is hovered */
+        .timeline-list:hover .timeline-item:not(:hover) {
+          opacity: 0.5;
         }
         
         @media (max-width: 992px) {

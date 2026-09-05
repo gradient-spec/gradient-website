@@ -16,11 +16,12 @@ export const WhatIsGradientSection: React.FC = () => {
   };
 
   const itemVariants: Variants = {
-    hidden: { opacity: 0, y: prefersReducedMotion ? 0 : 20 },
+    hidden: { opacity: 0, y: prefersReducedMotion ? 0 : 20, filter: prefersReducedMotion ? 'blur(0px)' : 'blur(10px)' },
     visible: {
       opacity: 1,
       y: 0,
-      transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] }
+      filter: 'blur(0px)',
+      transition: { duration: 1.0, ease: [0.16, 1, 0.3, 1] }
     }
   };
 
@@ -28,15 +29,15 @@ export const WhatIsGradientSection: React.FC = () => {
     <section
       className="section"
       aria-labelledby="what-is-gradient-heading"
-      style={{ 
-        overflow: 'hidden', 
+      style={{
+        overflow: 'hidden',
         paddingTop: 'var(--space-12)',
         paddingBottom: 'var(--space-12)',
         backgroundColor: 'var(--color-surface-primary)', // Seamless from Hero
         position: 'relative'
       }}
     >
-      <div className="container">
+      <div className="container" style={{ position: 'relative', zIndex: 10 }}>
         <motion.div
           className="grid"
           initial="hidden"
@@ -79,8 +80,8 @@ export const WhatIsGradientSection: React.FC = () => {
               <h2
                 id="what-is-gradient-heading"
                 className="text-heading"
-                style={{ 
-                  fontSize: 'clamp(2.5rem, 5vw, 4rem)', 
+                style={{
+                  fontSize: 'clamp(2.5rem, 5vw, 4rem)',
                   color: 'var(--color-text-primary)',
                   lineHeight: '1.1',
                   letterSpacing: '-0.02em'
@@ -97,10 +98,10 @@ export const WhatIsGradientSection: React.FC = () => {
               <span className="text-route-label chapter-number">
                 02 / VISION
               </span>
-              <p 
-                className="text-subheading" 
-                style={{ 
-                  fontSize: 'clamp(1.5rem, 3vw, 2rem)', 
+              <p
+                className="text-subheading"
+                style={{
+                  fontSize: 'clamp(1.5rem, 3vw, 2rem)',
                   color: 'var(--color-text-secondary)',
                   lineHeight: '1.4'
                 }}

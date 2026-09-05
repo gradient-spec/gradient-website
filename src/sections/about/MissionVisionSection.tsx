@@ -59,87 +59,51 @@ export const MissionVisionSection: React.FC = () => {
             }}
           />
           
-          {/* Mission Row */}
-          <div className="editorial-row" style={{ position: 'relative', zIndex: 1, paddingLeft: 'var(--space-6)' }}>
-            {/* Background Numbering Anchor */}
-            <div aria-hidden="true" className="text-display" style={{ position: 'absolute', top: 0, right: 0, fontSize: 'clamp(8rem, 20vw, 15rem)', lineHeight: 0.8, color: 'var(--color-border-subtle)', opacity: 0.3, zIndex: -1, userSelect: 'none' }}>
+          {/* Mission Block - Immediate & Left Aligned */}
+          <div style={{ position: 'relative', zIndex: 1, marginBottom: 'var(--space-20)', maxWidth: '600px', paddingLeft: 'var(--space-4)' }}>
+            <div aria-hidden="true" className="text-display" style={{ position: 'absolute', top: '-20%', left: '-5%', fontSize: 'clamp(8rem, 20vw, 14rem)', lineHeight: 0.8, color: 'var(--color-border-subtle)', opacity: 0.15, zIndex: -1, userSelect: 'none' }}>
               01
             </div>
             
-            <div className="editorial-left">
-              <motion.div variants={itemVariants} className="text-label" style={{ color: 'var(--color-accent)', marginBottom: 'var(--space-3)' }}>
-                MISSION
-              </motion.div>
-            </div>
-
-            <div className="editorial-right">
-              <motion.h2
-                id="mission-heading"
-                variants={itemVariants}
-                className="text-display"
-                style={{ fontSize: 'clamp(2.5rem, 5vw, 4rem)', lineHeight: '1.2' }}
-              >
-                Ideas, made real.
-              </motion.h2>
-            </div>
+            <motion.div variants={itemVariants} className="text-label" style={{ color: 'var(--color-accent)', marginBottom: 'var(--space-4)' }}>
+              MISSION
+            </motion.div>
+            
+            <motion.h2
+              id="mission-heading"
+              variants={itemVariants}
+              className="text-display"
+              style={{ fontSize: 'clamp(2.5rem, 5vw, 4rem)', lineHeight: '1.1' }}
+            >
+              Ideas, made real.
+            </motion.h2>
           </div>
 
-          {/* Vision Row */}
-          <div className="editorial-row vision-row" style={{ position: 'relative', zIndex: 1, paddingLeft: 'var(--space-6)' }}>
-            {/* Background Numbering Anchor */}
-            <div aria-hidden="true" className="text-display" style={{ position: 'absolute', top: 0, right: 0, fontSize: 'clamp(8rem, 20vw, 15rem)', lineHeight: 0.8, color: 'var(--color-border-subtle)', opacity: 0.3, zIndex: -1, userSelect: 'none' }}>
+          {/* Vision Block - Expansive & Right Aligned */}
+          <div style={{ position: 'relative', zIndex: 1, marginLeft: 'auto', maxWidth: '700px', textAlign: 'right', paddingRight: 'var(--space-4)' }}>
+            <div aria-hidden="true" className="text-display" style={{ position: 'absolute', top: '-20%', right: '-5%', fontSize: 'clamp(8rem, 20vw, 14rem)', lineHeight: 0.8, color: 'var(--color-border-subtle)', opacity: 0.15, zIndex: -1, userSelect: 'none' }}>
               02
             </div>
 
-            <div className="editorial-left">
-              <motion.div variants={itemVariants} className="text-label" style={{ color: 'var(--color-text-tertiary)', marginBottom: 'var(--space-3)' }}>
-                VISION
-              </motion.div>
-            </div>
-
-            <div className="editorial-right">
-              <motion.h2
-                variants={itemVariants}
-                className="text-display"
-                style={{ fontSize: 'clamp(2.5rem, 5vw, 4rem)', lineHeight: '1.2' }}
-              >
-                A platform that reaches beyond the campus.
-              </motion.h2>
-            </div>
+            <motion.div variants={itemVariants} className="text-label" style={{ color: 'var(--color-text-tertiary)', marginBottom: 'var(--space-4)' }}>
+              VISION
+            </motion.div>
+            
+            <motion.h2
+              variants={itemVariants}
+              className="text-display"
+              style={{ fontSize: 'clamp(2.5rem, 5vw, 4rem)', lineHeight: '1.1' }}
+            >
+              A platform that reaches beyond the campus.
+            </motion.h2>
           </div>
         </motion.div>
       </div>
 
       <style>{`
-        .editorial-row {
-          grid-column: 1 / -1;
-          display: grid;
-          grid-template-columns: repeat(12, 1fr);
-          gap: var(--grid-gutter);
-          border-top: 1px solid var(--color-border-subtle);
-          padding-top: var(--space-8);
-          padding-bottom: var(--space-8);
-        }
-        
-        .vision-row {
-          padding-bottom: 0;
-        }
-
-        .editorial-left {
-          grid-column: 1 / span 3;
-        }
-        
-        .editorial-right {
-          grid-column: 4 / span 9;
-        }
-        
-        @media (max-width: 992px) {
-          .editorial-left {
-            grid-column: 1 / -1;
-            margin-bottom: var(--space-4);
-          }
-          .editorial-right {
-            grid-column: 1 / -1;
+        @media (max-width: 768px) {
+          .hide-on-mobile {
+            display: none !important;
           }
         }
         @media (max-width: 768px) {
