@@ -13,15 +13,13 @@
 html,
 body,
 #root {
-  width: 100%;
-  min-height: 100%;
-  background: #0b0f14;
+  width: 100vw;
+  height: 100vh;
+  margin: 0;
+  padding: 0;
+  background: #000000;
   color: #ededed;
-}
-
-body {
-  font-family: "Alegreya Sans", sans-serif;
-  overflow-x: hidden;
+  overflow: hidden;
 }
 
 ::selection {

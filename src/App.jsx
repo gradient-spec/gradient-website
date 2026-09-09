@@ -1,54 +1,170 @@
+import { useState, useEffect, useRef } from "react";
 import "./App.css";
-import LightRays from "./components/ui/LightRays";
-import logo from "./assets/images/club_logo.png";
 
 export default function App() {
+  const [isPlaying, setIsPlaying] = useState(false);
+  const [timeLeft, setTimeLeft] = useState({
+    days: "03",
+    hours: "00",
+    minutes: "00",
+    seconds: "00",
+  });
+  const audioRef = useRef(null);
+
+  // Target: 12 Sept 2026, 2:30 PM IST (UTC+05:30)
+  useEffect(() => {
+    const targetDate = new Date("2026-09-12T14:30:00+05:30").getTime();
+
+    const updateCountdown = () => {
+      const now = new Date().getTime();
+      const diff = targetDate - now;
+
+      if (diff <= 0) {
+        setTimeLeft({ days: "00", hours: "00", minutes: "00", seconds: "00" });
+        return;
+      }
+
+      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+      setTimeLeft({
+        days: String(days).padStart(2, "0"),
+        hours: String(hours).padStart(2, "0"),
+        minutes: String(minutes).padStart(2, "0"),
+        seconds: String(seconds).padStart(2, "0"),
+      });
+    };
+
+    updateCountdown();
+    const interval = setInterval(updateCountdown, 1000);
+    return () => clearInterval(interval);
+  }, []);
+
+  const toggleAudio = (e) => {
+    if (e) e.stopPropagation();
+    if (!audioRef.current) return;
+
+    if (!isPlaying) {
+      audioRef.current
+        .play()
+        .then(() => setIsPlaying(true))
+        .catch((err) => console.warn("Audio play blocked:", err));
+    } else {
+      audioRef.current.pause();
+      setIsPlaying(false);
+    }
+  };
+
   return (
-    <div className="app">
-      <LightRays
-        raysOrigin="top-center"
-        raysColor="#7b8787"
-        raysSpeed={0.18}
-        lightSpread={0.85}
-        rayLength={2.5}
-        followMouse={true}
-        mouseInfluence={0.02}
-        noiseAmount={0.01}
-        distortion={0.01}
-        pulsating={false}
-        fadeDistance={1}
-        saturation={0.8}
+    <div className="landing-root">
+      <video
+        className="video-bg"
+        autoPlay
+        muted
+        loop
+        playsInline
+        src="/samurai_cinematic_gradient_logo.mp4?v=3"
       />
+      <div className="cinematic-overlay" />
 
-      <a href="/" className="logo-link">
-        <img
-          src={logo}
-          alt="Gradient Club"
-          className="logo"
-        />
-      </a>
+      {/* Background Audio (Naruto Flute Cover) */}
+      <audio ref={audioRef} src="/bgm.mp3" loop preload="auto" />
 
-      <div className="domain">
-        GRADIENTCLUB.IN
+      <div className="hero-block">
+        {/* LAUNCHING SOON vector SVG */}
+        <div className="title-wrapper">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 3316 1484"
+            className="title-vector"
+          >
+            <defs>
+              <linearGradient id="gradLaunching" x1="0" y1="0" x2="0" y2="100%">
+                <stop offset="0%" stopColor="#ffffff" />
+                <stop offset="48%" stopColor="#ebebf0" />
+                <stop offset="100%" stopColor="#b0b0bc" />
+              </linearGradient>
+              <linearGradient id="gradSoon" x1="0" y1="0" x2="0" y2="100%">
+                <stop offset="0%" stopColor="#bf2c40" />
+                <stop offset="50%" stopColor="#931e2c" />
+                <stop offset="100%" stopColor="#600f18" />
+              </linearGradient>
+              <filter
+                id="cinematicGlow"
+                x="-25%"
+                y="-25%"
+                width="150%"
+                height="150%"
+              >
+                <feDropShadow
+                  dx="0"
+                  dy="16"
+                  stdDeviation="22"
+                  floodColor="#000000"
+                  floodOpacity="0.95"
+                />
+                <feDropShadow
+                  dx="0"
+                  dy="5"
+                  stdDeviation="8"
+                  floodColor="#000000"
+                  floodOpacity="0.85"
+                />
+              </filter>
+            </defs>
+            <g filter="url(#cinematicGlow)">
+              <path
+                fill="url(#gradLaunching)"
+                d="M0 0H110V600H291V700H0Z M429 0H578L692 700H582L562 561V563H437L417 700H315ZM549 468 500 122H498L450 468Z M741 534V0H851V542Q851 578 865.5 594.0Q880 610 907 610Q934 610 948.5 594.0Q963 578 963 542V0H1069V534Q1069 619 1027.0 664.5Q985 710 905 710Q825 710 783.0 664.5Q741 619 741 534Z M1147 0H1285L1392 419H1394V0H1492V700H1379L1247 189H1245V700H1147Z M1567 538V162Q1567 80 1608.5 35.0Q1650 -10 1729 -10Q1808 -10 1849.5 35.0Q1891 80 1891 162V236H1787V155Q1787 90 1732 90Q1677 90 1677 155V546Q1677 610 1732 610Q1787 610 1787 546V439H1891V538Q1891 620 1849.5 665.0Q1808 710 1729 710Q1650 710 1608.5 665.0Q1567 620 1567 538Z M1957 0H2067V285H2185V0H2295V700H2185V385H2067V700H1957Z M2377 0H2487V700H2377Z M2569 0H2707L2814 419H2816V0H2914V700H2801L2669 189H2667V700H2569Z M2988 534V166Q2988 81 3030.0 35.5Q3072 -10 3152 -10Q3232 -10 3274.0 35.5Q3316 81 3316 166V226H3212V159Q3212 90 3155 90Q3098 90 3098 159V542Q3098 610 3155 610Q3212 610 3212 542V405H3157V305H3316V534Q3316 619 3274.0 664.5Q3232 710 3152 710Q3072 710 3030.0 664.5Q2988 619 2988 534Z"
+              />
+              <path
+                fill="url(#gradSoon)"
+                d="M0 1318V1278H104V1326Q104 1394 161 1394Q189 1394 203.5 1377.5Q218 1361 218 1324Q218 1280 198.0 1246.5Q178 1213 124 1166Q56 1106 29.0 1057.5Q2 1009 2 948Q2 865 44.0 819.5Q86 774 166 774Q245 774 285.5 819.5Q326 865 326 950V979H222V943Q222 907 208.0 890.5Q194 874 167 874Q112 874 112 941Q112 979 132.5 1012.0Q153 1045 207 1092Q276 1152 302.0 1201.0Q328 1250 328 1316Q328 1402 285.5 1448.0Q243 1494 162 1494Q82 1494 41.0 1448.5Q0 1403 0 1318Z M986.3333333333335 1318V950Q986.3333333333335 866 1029.3333333333335 820.0Q1072.3333333333335 774 1153.3333333333335 774Q1234.3333333333335 774 1277.3333333333335 820.0Q1320.3333333333335 866 1320.3333333333335 950V1318Q1320.3333333333335 1402 1277.3333333333335 1448.0Q1234.3333333333335 1494 1153.3333333333335 1494Q1072.3333333333335 1494 1029.3333333333335 1448.0Q986.3333333333335 1402 986.3333333333335 1318ZM1210.3333333333335 1325V943Q1210.3333333333335 874 1153.3333333333335 874Q1096.3333333333335 874 1096.3333333333335 943V1325Q1096.3333333333335 1394 1153.3333333333335 1394Q1210.3333333333335 1394 1210.3333333333335 1325Z M1978.6666666666667 1318V950Q1978.6666666666667 866 2021.666666666667 820.0Q2064.666666666667 774 2145.666666666667 774Q2226.666666666667 774 2269.666666666667 820.0Q2312.666666666667 866 2312.666666666667 950V1318Q2312.666666666667 1402 2269.666666666667 1448.0Q2226.666666666667 1494 2145.666666666667 1494Q2064.666666666667 1494 2021.666666666667 1448.0Q1978.6666666666667 1402 1978.6666666666667 1318ZM2202.666666666667 1325V943Q2202.666666666667 874 2145.666666666667 874Q2088.666666666667 874 2088.666666666667 943V1325Q2088.666666666667 1394 2145.666666666667 1394Q2202.666666666667 1394 2202.666666666667 1325Z M2971 784H3109L3216 1203H3218V784H3316V1484H3203L3071 973H3069V1484H2971Z"
+              />
+            </g>
+          </svg>
+        </div>
+
+        {/* Live Countdown Timer */}
+        <div className="timer-container">
+          <div className="timer-segment">
+            <span className="timer-number">{timeLeft.days}</span>
+            <span className="timer-label">DAYS</span>
+          </div>
+          <div className="timer-colon">:</div>
+          <div className="timer-segment">
+            <span className="timer-number">{timeLeft.hours}</span>
+            <span className="timer-label">HOURS</span>
+          </div>
+          <div className="timer-colon">:</div>
+          <div className="timer-segment">
+            <span className="timer-number">{timeLeft.minutes}</span>
+            <span className="timer-label">MINS</span>
+          </div>
+          <div className="timer-colon">:</div>
+          <div className="timer-segment">
+            <span className="timer-number">{timeLeft.seconds}</span>
+            <span className="timer-label">SECS</span>
+          </div>
+        </div>
+
+        {/* Launch Date Badge */}
+        <div className="date-badge">
+          <span>12 SEPT 2026 &bull; 02:30 PM IST</span>
+        </div>
       </div>
 
-      <main className="hero">
-    <h1>Launching Soon</h1>
-
-    <p className="subtitle">
-        Crafted with Passion, Built with Innovation.
-    </p>
-</main>
-
-<footer className="footer">
-    <span className="copyright">
-        © 2026 · GradientClub.in
-    </span>
-
-    <span className="crafted">
-        Crafted by Gradient Club
-    </span>
-</footer>
+      {/* Interactive Sound Control */}
+      <button
+        className={`audio-control-btn ${isPlaying ? "playing" : ""}`}
+        onClick={toggleAudio}
+        title="Toggle background music"
+      >
+        <span>{isPlaying ? "🔊" : "🔇"}</span>
+        <span>{isPlaying ? "SOUND: ON" : "SOUND: OFF"}</span>
+      </button>
     </div>
   );
 }

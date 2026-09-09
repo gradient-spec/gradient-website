@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Samurai &bull; Launching Soon</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    html, body {
+      width: 100vw;
+      height: 100vh;
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+      background: #000;
+    }
+    .video-bg {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      object-fit: cover;
+      object-position: center center;
+      display: block;
+      z-index: 1;
+    }
+
+    /* Subtle atmospheric vignette */
+    .cinematic-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: radial-gradient(circle at 75% 45%, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.35) 100%);
+      pointer-events: none;
+      z-index: 2;
+    }
+
+    /* Hero block placed squarely on dark mountain face, shifted comfortably left */
+    .hero-block {
+      position: fixed;
+      left: 60vw;
+      top: 45%;
+      transform: translateY(-50%);
+      width: clamp(230px, 25.5vw, 440px);
+      z-index: 10;
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
+      gap: 16px;
+      pointer-events: none;
+      user-select: none;
+      animation: fadeInCinematic 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+
+    .title-wrapper svg {
+      width: 100%;
+      height: auto;
+      display: block;
+      overflow: visible;
+    }
+
+    /* Countdown Timer styling */
+    .timer-container {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: rgba(12, 12, 18, 0.7);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 12px;
+      padding: 10px 14px 8px 14px;
+      box-shadow: 0 14px 35px rgba(0, 0, 0, 0.85),
+                  inset 0 1px 0 rgba(255, 255, 255, 0.12);
+    }
+
+    .timer-segment {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-width: clamp(36px, 4.2vw, 64px);
+    }
+
+    .timer-number {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(24px, 2.7vw, 42px);
+      line-height: 1;
+      color: #ffffff;
+      letter-spacing: 0.04em;
+      text-shadow: 0 2px 10px rgba(0, 0, 0, 0.8);
+    }
+
+    .timer-label {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      font-size: clamp(8px, 0.65vw, 10px);
+      font-weight: 700;
+      letter-spacing: 2px;
+      color: #d6384f;
+      margin-top: 3px;
+      text-transform: uppercase;
+    }
+
+    .timer-colon {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(20px, 2.2vw, 34px);
+      line-height: 1;
+      color: #bf2c40;
+      margin-bottom: 12px;
+      opacity: 0.85;
+      animation: colonPulse 1.5s ease-in-out infinite alternate;
+    }
+
+    .date-badge {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      font-size: clamp(8.5px, 0.7vw, 10.5px);
+      font-weight: 600;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      color: rgba(255, 255, 255, 0.55);
+      padding: 5px 12px;
+      border-radius: 6px;
+      background: rgba(0, 0, 0, 0.35);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      backdrop-filter: blur(8px);
+    }
+
+    .audio-control-btn {
+      position: fixed;
+      bottom: 28px;
+      right: 32px;
+      z-index: 50;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      color: rgba(255, 255, 255, 0.85);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      cursor: pointer;
+      background: rgba(14, 14, 20, 0.72);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      padding: 10px 18px;
+      border-radius: 30px;
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.15);
+      user-select: none;
+      outline: none;
+    }
+
+    .audio-control-btn:hover {
+      transform: translateY(-2px);
+      color: #ffffff;
+      border-color: rgba(230, 45, 65, 0.6);
+      box-shadow: 0 12px 30px rgba(230, 45, 65, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.25);
+    }
+
+    .audio-control-btn.playing {
+      background: rgba(180, 30, 45, 0.75);
+      border-color: rgba(255, 120, 140, 0.8);
+      box-shadow: 0 0 25px rgba(220, 40, 60, 0.6), 0 8px 24px rgba(0, 0, 0, 0.6);
+      color: #ffffff;
+    }
+
+    @keyframes colonPulse {
+      0% { opacity: 0.35; transform: scale(0.95); }
+      100% { opacity: 1; transform: scale(1.05); }
+    }
+
+    @keyframes fadeInCinematic {
+      0% {
+        opacity: 0;
+        transform: translateY(-47%) scale(0.97);
+        filter: blur(8px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(-50%) scale(1);
+        filter: blur(0px);
+      }
+    }
+  </style>
+</head>
+<body>
+  <video id="v" class="video-bg" autoplay muted loop playsinline src="public/samurai_cinematic_gradient_logo.mp4?v=3"></video>
+  <div class="cinematic-overlay"></div>
+
+  <div class="hero-block">
+    <!-- LAUNCHING SOON vector SVG -->
+    <div class="title-wrapper">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 3316 1484" class="title-vector">
+        <defs>
+          <linearGradient id="gradLaunching" x1="0" y1="0" x2="0" y2="100%">
+            <stop offset="0%" stop-color="#ffffff"/>
+            <stop offset="48%" stop-color="#ebebf0"/>
+            <stop offset="100%" stop-color="#b0b0bc"/>
+          </linearGradient>
+          <linearGradient id="gradSoon" x1="0" y1="0" x2="0" y2="100%">
+            <stop offset="0%" stop-color="#bf2c40"/>
+            <stop offset="50%" stop-color="#931e2c"/>
+            <stop offset="100%" stop-color="#600f18"/>
+          </linearGradient>
+          <filter id="cinematicGlow" x="-25%" y="-25%" width="150%" height="150%">
+            <feDropShadow dx="0" dy="16" stdDeviation="22" flood-color="#000000" flood-opacity="0.95"/>
+            <feDropShadow dx="0" dy="5" stdDeviation="8" flood-color="#000000" flood-opacity="0.85"/>
+          </filter>
+        </defs>
+        <g filter="url(#cinematicGlow)">
+          <path fill="url(#gradLaunching)" d="M0 0H110V600H291V700H0Z M429 0H578L692 700H582L562 561V563H437L417 700H315ZM549 468 500 122H498L450 468Z M741 534V0H851V542Q851 578 865.5 594.0Q880 610 907 610Q934 610 948.5 594.0Q963 578 963 542V0H1069V534Q1069 619 1027.0 664.5Q985 710 905 710Q825 710 783.0 664.5Q741 619 741 534Z M1147 0H1285L1392 419H1394V0H1492V700H1379L1247 189H1245V700H1147Z M1567 538V162Q1567 80 1608.5 35.0Q1650 -10 1729 -10Q1808 -10 1849.5 35.0Q1891 80 1891 162V236H1787V155Q1787 90 1732 90Q1677 90 1677 155V546Q1677 610 1732 610Q1787 610 1787 546V439H1891V538Q1891 620 1849.5 665.0Q1808 710 1729 710Q1650 710 1608.5 665.0Q1567 620 1567 538Z M1957 0H2067V285H2185V0H2295V700H2185V385H2067V700H1957Z M2377 0H2487V700H2377Z M2569 0H2707L2814 419H2816V0H2914V700H2801L2669 189H2667V700H2569Z M2988 534V166Q2988 81 3030.0 35.5Q3072 -10 3152 -10Q3232 -10 3274.0 35.5Q3316 81 3316 166V226H3212V159Q3212 90 3155 90Q3098 90 3098 159V542Q3098 610 3155 610Q3212 610 3212 542V405H3157V305H3316V534Q3316 619 3274.0 664.5Q3232 710 3152 710Q3072 710 3030.0 664.5Q2988 619 2988 534Z" />
+          <path fill="url(#gradSoon)" d="M0 1318V1278H104V1326Q104 1394 161 1394Q189 1394 203.5 1377.5Q218 1361 218 1324Q218 1280 198.0 1246.5Q178 1213 124 1166Q56 1106 29.0 1057.5Q2 1009 2 948Q2 865 44.0 819.5Q86 774 166 774Q245 774 285.5 819.5Q326 865 326 950V979H222V943Q222 907 208.0 890.5Q194 874 167 874Q112 874 112 941Q112 979 132.5 1012.0Q153 1045 207 1092Q276 1152 302.0 1201.0Q328 1250 328 1316Q328 1402 285.5 1448.0Q243 1494 162 1494Q82 1494 41.0 1448.5Q0 1403 0 1318Z M986.3333333333335 1318V950Q986.3333333333335 866 1029.3333333333335 820.0Q1072.3333333333335 774 1153.3333333333335 774Q1234.3333333333335 774 1277.3333333333335 820.0Q1320.3333333333335 866 1320.3333333333335 950V1318Q1320.3333333333335 1402 1277.3333333333335 1448.0Q1234.3333333333335 1494 1153.3333333333335 1494Q1072.3333333333335 1494 1029.3333333333335 1448.0Q986.3333333333335 1402 986.3333333333335 1318ZM1210.3333333333335 1325V943Q1210.3333333333335 874 1153.3333333333335 874Q1096.3333333333335 874 1096.3333333333335 943V1325Q1096.3333333333335 1394 1153.3333333333335 1394Q1210.3333333333335 1394 1210.3333333333335 1325Z M1978.6666666666667 1318V950Q1978.6666666666667 866 2021.666666666667 820.0Q2064.666666666667 774 2145.666666666667 774Q2226.666666666667 774 2269.666666666667 820.0Q2312.666666666667 866 2312.666666666667 950V1318Q2312.666666666667 1402 2269.666666666667 1448.0Q2226.666666666667 1494 2145.666666666667 1494Q2064.666666666667 1494 2021.666666666667 1448.0Q1978.6666666666667 1402 1978.6666666666667 1318ZM2202.666666666667 1325V943Q2202.666666666667 874 2145.666666666667 874Q2088.666666666667 874 2088.666666666667 943V1325Q2088.666666666667 1394 2145.666666666667 1394Q2202.666666666667 1394 2202.666666666667 1325Z M2971 784H3109L3216 1203H3218V784H3316V1484H3203L3071 973H3069V1484H2971Z" />
+        </g>
+      </svg>
+    </div>
+
+    <!-- Countdown Timer Component -->
+    <div class="timer-container">
+      <div class="timer-segment">
+        <span class="timer-number" id="days">03</span>
+        <span class="timer-label">DAYS</span>
+      </div>
+      <div class="timer-colon">:</div>
+      <div class="timer-segment">
+        <span class="timer-number" id="hours">02</span>
+        <span class="timer-label">HOURS</span>
+      </div>
+      <div class="timer-colon">:</div>
+      <div class="timer-segment">
+        <span class="timer-number" id="minutes">43</span>
+        <span class="timer-label">MINS</span>
+      </div>
+      <div class="timer-colon">:</div>
+      <div class="timer-segment">
+        <span class="timer-number" id="seconds">15</span>
+        <span class="timer-label">SECS</span>
+      </div>
+    </div>
+
+    <!-- Launch date tag -->
+    <div class="date-badge">
+      <span>12 SEPT 2026 &bull; 02:30 PM IST</span>
+    </div>
+  </div>
+
+  <!-- Background Music (Naruto Flute Theme Cover) -->
+  <audio id="bgm" src="public/bgm.mp3" loop preload="auto"></audio>
+
+  <button class="audio-control-btn" id="audioBtn" onclick="toggleAudio(event)" title="Toggle music">
+    <span id="audioIcon">🔇</span>
+    <span id="audioText">SOUND: OFF</span>
+  </button>
+
+  <script>
+    const v = document.getElementById('v');
+    const bgm = document.getElementById('bgm');
+    const audioBtn = document.getElementById('audioBtn');
+    const audioIcon = document.getElementById('audioIcon');
+    const audioText = document.getElementById('audioText');
+
+    let isAudioPlaying = false;
+
+    function toggleAudio(e) {
+      if (e) e.stopPropagation();
+      if (!isAudioPlaying) {
+        bgm.play().then(() => {
+          isAudioPlaying = true;
+          audioBtn.classList.add('playing');
+          audioIcon.textContent = '🔊';
+          audioText.textContent = 'SOUND: ON';
+        }).catch(err => {
+          console.warn('Playback error:', err);
+        });
+      } else {
+        bgm.pause();
+        isAudioPlaying = false;
+        audioBtn.classList.remove('playing');
+        audioIcon.textContent = '🔇';
+        audioText.textContent = 'SOUND: OFF';
+      }
+    }
+
+    v.play().catch(() => {});
+
+    // Target: 12 Sept 2026, 2:30 PM IST (UTC+05:30)
+    const targetDate = new Date("2026-09-12T14:30:00+05:30").getTime();
+
+    function updateCountdown() {
+      const now = new Date().getTime();
+      const diff = targetDate - now;
+
+      if (diff <= 0) {
+        document.getElementById("days").textContent = "00";
+        document.getElementById("hours").textContent = "00";
+        document.getElementById("minutes").textContent = "00";
+        document.getElementById("seconds").textContent = "00";
+        return;
+      }
+
+      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+      document.getElementById("days").textContent = String(days).padStart(2, '0');
+      document.getElementById("hours").textContent = String(hours).padStart(2, '0');
+      document.getElementById("minutes").textContent = String(minutes).padStart(2, '0');
+      document.getElementById("seconds").textContent = String(seconds).padStart(2, '0');
+    }
+
+    updateCountdown();
+    setInterval(updateCountdown, 1000);
+  </script>
+</body>
+</html>
